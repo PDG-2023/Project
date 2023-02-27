@@ -126,4 +126,6 @@ See here [TODO] for the global code styleguide or theses backend[TODO], frontend
 
 How to write documentation (.md)
 
+all readme must be linked in a way or another (like a web page)
+
 [TODO]
