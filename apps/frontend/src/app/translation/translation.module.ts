@@ -5,6 +5,7 @@ import { TranslationLoader } from "./translation.loader";
 import { TranslationLanguage } from "./translation.types";
 
 @NgModule({
+	exports: [TranslateModule],
 	imports: [
 		TranslateModule.forRoot({
 			defaultLanguage: "en" satisfies TranslationLanguage,
