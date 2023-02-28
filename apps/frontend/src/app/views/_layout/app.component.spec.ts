@@ -1,20 +1,27 @@
-import { TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { RouterTestingModule } from "@angular/router/testing";
 
 import { AppComponent } from "./app.component";
+import { FooterComponent } from "./footer/footer.component";
+import { HeaderComponent } from "./header/header.component";
+import { MaterialsModule } from "../../components/materials.module";
 
 describe("AppComponent", () => {
+	let component: AppComponent;
+	let fixture: ComponentFixture<AppComponent>;
+
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [AppComponent],
-			imports: [RouterTestingModule]
+			declarations: [AppComponent, HeaderComponent, FooterComponent],
+			imports: [MaterialsModule, RouterTestingModule]
 		}).compileComponents();
+
+		fixture = TestBed.createComponent(AppComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
 	});
 
-	it("should render title", () => {
-		const fixture = TestBed.createComponent(AppComponent);
-		fixture.detectChanges();
-		const compiled = fixture.nativeElement as HTMLElement;
-		expect(compiled.querySelector("h1")?.textContent).toContain("Welcome frontend");
+	it("should create", () => {
+		expect(component).toBeTruthy();
 	});
 });
