@@ -223,6 +223,12 @@
 			"rules": {}
 		},
 		{
+			"files": ["jest.config.ts"],
+			"rules": {
+				"import/no-default-export": "off"
+			}
+		},
+		{
 			"files": ["*.view.ts"],
 			"rules": {
 				"@angular-eslint/use-component-selector": "off"
