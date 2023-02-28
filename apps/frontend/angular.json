@@ -10,6 +10,12 @@
 						"development": {
 							"buildOptimizer": false,
 							"extractLicenses": false,
+							"fileReplacements": [
+								{
+									"replace": "./src/app/router/app-router.module.ts",
+									"with": "./src/app/router/app-router.module.dev.ts"
+								}
+							],
 							"namedChunks": true,
 							"optimization": false,
 							"sourceMap": true,
@@ -42,12 +48,6 @@
 						"scripts": [],
 						"styles": ["src/styles.scss"],
 						"tsConfig": "tsconfig.app.json"
-					}
-				},
-				"extract-i18n": {
-					"builder": "@angular-devkit/build-angular:extract-i18n",
-					"options": {
-						"browserTarget": "frontend:build"
 					}
 				},
 				"serve": {

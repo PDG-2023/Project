@@ -1,0 +1,14 @@
+#root {
+	min-height: 100vh;
+}
+
+app-header {
+	top: 0;
+	position: sticky;
+	z-index: 1000;
+}
+
+app-header,
+app-footer {
+	background-color: yellow;
+}
