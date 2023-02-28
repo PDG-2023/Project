@@ -105,7 +105,7 @@ All CI tests must succeed.
 
 ### Approval and merging
 
-To merge a PR, all conservations must be resolved and approved by at least one other person.
+To merge a PR, all conversations must be resolved and approved by at least one other person.
 
 > A PR can be verbally approved (live review), so a PR can be auto-approved with the given message `approved verbaly by <user.name>`
 
