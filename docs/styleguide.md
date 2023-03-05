@@ -73,9 +73,10 @@ class User {
 Bad:
 
 ```typescript
-// Java
+// Typescript
 class User {
-  login(username: string, password: string): boolean { /*...*/
+  login(username: string, password: string): boolean {
+    /*...*/
   }
 }    
 ```
@@ -83,9 +84,10 @@ class User {
 Good:
 
 ```typescript
-// Java
+// Typescript
 class User {
-  public login(username: string, password: string): boolean { /*...*/
+  public login(username: string, password: string): boolean {
+    /*...*/
   }
 }    
 ```
@@ -242,6 +244,13 @@ In case of ambiguity, examples (`@example`) provide chunks of code showing how t
 Even if there's no max width on these files,
 use some return line when sentences are too long.  
 *Markdown* will not create empty spaces, so avoid *one-liner* sentences.
+
+#### Images
+
+Images for *Markdown* files are stored respecting the following path `docs/images/<file>/<image>`.
+
+- **file**: is the *Markdown* file
+- **image**: the image to stored (can use subdirectories)
 
 #### Links
 
