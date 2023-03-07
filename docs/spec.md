@@ -1,15 +1,13 @@
 # Specification
 
-> V 0.0-alpha, 06.03.2023
+> V 1.0, 07.03.2023
 
-## Context
+## Context & description
 
 StoreMe is a simple inventory management system.
 
 It aims to crush competition by eliminating all the complex
 and time-consuming features of others inventory management software.
-
-## Description
 
 ## Existing solutions
 
@@ -36,12 +34,13 @@ Like ServiceNow, it offers extensive inventory management capabilities.
 It is widely used in small to medium companies that do not necessarily have the budget to use platforms such as ServiceNow.
 
 ## Objectives
-- 3 different key concepts
-  - Locations, hierarchical representation of where an item is physically
-  - Category, what group does the item belongs to
-  - Models, what the item is
+The main objective for StoreMe is to keep things as simple as they may be. 
+The main downside of existing solutions are their complexity around a simple task: "Were is my item and how many do I have".
 
-[TODO]: pipeau
+For that, we will use 3 different key concepts:
+- Locations, hierarchical representation of where an item is physically
+- Category, what group does the item belongs to
+- Models, what the item is
 
 ## Requirements
 
