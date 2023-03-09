@@ -1,0 +1,65 @@
+---
+
+- name: My first play
+  hosts: virtualmachines
+  become: yes
+  tasks:
+
+  # Apache reverse proxy setup
+  - name: Update packages
+    apt:
+      upgrade: yes
+      update_cache: yes
+
+  - name: Install apache
+    ansible.builtin.apt:
+      name: apache2
+      state: present
+
+  - name: Disable default virtualhost
+    file: path=/etc/apache2/sites-enabled/000-default.conf state=absent
+
+  - name: Install apache auth modules
+    ansible.builtin.apache2_module: name={{ item }} state=present
+    with_items:
+      - proxy
+      - proxy_http
+      - ssl
+  
+  - name: Copy file with owner and permission, using symbolic representation
+    ansible.builtin.copy:
+      src: ./apache2/http.conf
+      dest: /etc/apache2/conf-available/storeme-proxy.conf
+      owner: root
+      group: root
+      mode: u=rw,g=r,o=r
+
+  - name: Enable config
+    shell: a2enconf storeme-proxy.conf
+
+  # generate self signed certificate
+  - name: Create private key (X25519) with password protection
+    community.crypto.openssl_privatekey:
+      path: /etc/ssl/private/storeme.key
+
+  - name: Create simple self-signed certificate
+    community.crypto.x509_certificate:
+      path:  /etc/ssl/certs/storeme.pem
+      privatekey_path: /etc/ssl/private/storeme.key
+      provider: selfsigned
+
+  # restart apache
+  - name: apache2 restart
+    ansible.builtin.service: name=apache2 state=restarted
+
+  # docker install
+  - name: Install docker related packages
+    ansible.builtin.apt: name={{ item }} state=present
+    with_items:
+      - docker
+      - docker-compose
+  
+  - name: start docker
+    ansible.builtin.service:
+      name: docker
+      state: started
