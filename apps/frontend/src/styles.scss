@@ -1,0 +1,12 @@
+@import "./styles/material";
+@import "./styles/tw";
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+	margin: 0;
+}
