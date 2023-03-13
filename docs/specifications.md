@@ -187,3 +187,12 @@ These requirements slightly change.
 |---------------|---------------------------------------------------|
 | Accessibility | A new user can easily start a *Store-me* instance |
 | Usability     | A new instance can use an existing DB             |
+
+
+## Appendix
+
+Mock-ups: https://www.figma.com/file/eCgJoB0XPuwl0jPHQlCcuM/Store.me?node-id=35%3A8399&t=EDGN4GneOP1IJZDb-1
+
+> **Note:**  
+> The mock-ups contains only the mobile views. We use a *mobile first* strategy.  
+> The desktop views are therefore almost the same, but wider.
