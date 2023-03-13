@@ -2,29 +2,30 @@
 
 ## Context
 
-StoreMe is a web-based application that aims to provide a simple yet extensive inventory management system. 
+StoreMe is a web-based application that aims to provide a simple yet extensive inventory management system.
 
-Managing food at home, IT things for enthusiasts or parts in a small 
-workshop can quickly become a dull task. 
-Excel is great, but maintaining a workbook in the long run requires patience and advanced knowledge 
-if advanced features are used. 
+Managing food at home, IT things for enthusiasts or parts in a small
+workshop can quickly become a dull task.
+Excel is great, but maintaining a workbook in the long run requires patience and advanced knowledge
+if advanced features are used.
 
-The goal of StoreMe is to provide an easy way for any person to abstract the maintaining of the tool 
+The goal of StoreMe is to provide an easy way for any person to abstract the maintaining of the tool
 and instead focus on the usage of it
-
 
 ## Existing solutions
 
-There are already some inventory management solution solutions. They are, most of the time, part of an 
+There are already some inventory management solution solutions. They are, most of the time, part of an
 ITSM (IT services management) solution.
 
 ### Snipe-IT
+
 - [https://snipeitapp.com](https://snipeitapp.com)
 
 *Snipe-IT* is an open source web-based inventory management system.
 It can be self-hosted but also offers cloud plans.
 
 ### ServiceNow
+
 - [https://www.servicenow.com](https://www.servicenow.com)
 
 *ServiceNow* is a web-based complex service management software. Its inventory management capabilities are a small part
@@ -32,50 +33,86 @@ of the features it offers.
 It's a cloud based software widely used in large companies.
 
 ### GLPI
+
 - [https://glpi-project.org](https://glpi-project.org)
 
 *GLPI* is an open-source service management software.
 Like ServiceNow, it offers extensive inventory management capabilities.
-It is widely used in small to medium companies that do not necessarily have the budget to use platforms such as ServiceNow.
+It is widely used in small to medium companies that do not necessarily have the budget to use platforms such as
+ServiceNow.
 
 ## Objectives
 
-### User
-TODO: Write stuff
+### Landing page & user sign-up
 
-### Inventory
-TODO: Write stuff
+When landing on the home page, you'll feel like arriving at your destination airport.
+`StoreMe&nbsp;©` will present you with a description of the application as well as all the options
 
-### Category
-A category is the first key concept of an inventory management system. Categories can serve multiple purposes: Categorize items by their use, by their compatibility, by their range(s).
-TODO: Write more stuff
+- Use our cloud instance
+- Self-host an instance
 
-### Item
+The user experience will be the same. First, a lambda person needs to sign-up.
+Then, with their brand-new account, they can log in to the platform.
 
-An item is the second an principal key concept in inventory management.
-TODO: Write more stuff
+### Create and join inventories
 
-### Location
+Then, with their brand-new account, they can create a single inventory.
+The user become the owner of its own inventory.
 
-A location is the last key item in inventory management. It allows to know where the item is actually physically located. 
-Locations can be nested, allowing to represent storage in a flexible way.
-TODO: Write more stuff
+An owner may add up to 4 other people to their inventories.
+He can even delete his inventory, losing all related data.
 
-### Movement
-TODO: Write stuff
+#### Paid plans [*WISH*]
 
-### Accessibility
+Paid plans are available to allow the creation of more than one inventory
+per account and remove the 5 people per inventory limit.
 
-Having an inventory is great, but it needs to be easily browsable. StoreMe will provide ways
-for users to find their items through textual input.
-TODO: Write more stuff
+### Locate an item
 
+More than just storing an item, it is important to know where it is.
+Having 5 *inflatable pools* is good, but not really useful if they must be looked everywhere.
+
+`StoreMe&nbsp;©` allows the user to define the location(s) of an item.
+So when viewing a location, we can list the items on it.
+
+The reverse is true; All locations are listed for an item.
+
+An item can also be categorised with multiple categories, for example, our 5 *inflatable pools* could be categorised
+under the following hierarchies:
+
+- `Summer` > `Outside` > `Commodities`
+- `Water features` > `Huge-size` > `Pools`
+- `Inflatable things`
+- `Pools`
+
+All the data on items can be searched trough textual inputs and tree browsing.
+
+### Items changelog/history
+
+It is important to know when an item was added or removed, especially for industries.
+
+`StoreMe&nbsp;©` keeps trace of these changes, so we can determine when an object was bought or sell or if it was lost.
+
+### Geographical representation of a location [*WISH*]
+
+A location can be as small as a drawer or as big as a warehouse.
+
+Although `StoreMe&nbsp;©` allows to define a *parent/children* relation between the locations,
+a map of the descending relation helps the user to find his items.
+
+With this, `StoreMe&nbsp;©` could also provide the nearest locations of the user via GPS data.
+
+### Item metadata [*WISH*]
+
+Metadata are key-values entries that can be added to an item model. Custom logic can be implemented (not by the user)
+depending
+on the metadata key and value (e.g. notification on a specific date).
 
 ## Requirements
 
 ### Functional requirements
 
-The functional requirements describe the main needs for StoreMe. 
+The functional requirements describe the main needs for StoreMe.
 They may not reflect exactly the final implementation(s).
 
 #### User
@@ -113,7 +150,7 @@ They may not reflect exactly the final implementation(s).
 
 - A user can list movements
 - A user can create a movement, given an item and a location
-  - Its creation determine the quantity and the relation between items and locations
+    - Its creation determine the quantity and the relation between items and locations
 
 #### Accessibility
 
@@ -130,6 +167,7 @@ They may not reflect exactly the final implementation(s).
 --- 
 
 We offer two ways to use the application:
+
 - By a cloud solutions, already hosted
 - Self-hosted, for people that want to manage their own instance
 
