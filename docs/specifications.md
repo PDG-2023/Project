@@ -104,9 +104,9 @@ With this, `StoreMe&nbsp;©` could also provide the nearest locations of the use
 
 ### Item metadata [*WISH*]
 
-Metadata are key-values entries that can be added to an item model. Custom logic can be implemented (not by the user)
-depending
-on the metadata key and value (e.g. notification on a specific date).
+Metadata are key-values entries that can be added to an item model.
+Custom logic can be implemented (not by the user)
+depending on the metadata key and value (e.g. notification on a specific date).
 
 ## Requirements
 
