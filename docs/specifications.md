@@ -87,6 +87,15 @@ under the following hierarchies:
 
 All the data on items can be searched trough textual inputs and tree browsing.
 
+### Find item by 2D Code
+
+When adding or retrieving an item, it can be painful to search for all possible items.  
+Almost any product has a bar code,
+so a user can link identifiers as bar codes or QR codes to an item.
+
+Nowadays, everybody has a smartphone with a camera.
+With permission, `StoreMe&nbsp;©` can access it and scan a code.
+
 ### Items changelog/history
 
 It is important to know when an item was added or removed, especially for industries.
