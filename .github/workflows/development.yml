@@ -1,23 +1,25 @@
-name: "Master"
+name: "Development"
 
 on:
   push:
+    branches:
+      - development
 
 jobs:
   test:
-    uses: ./.github/workflows/test.yml
+    uses: ./.github/workflows/jobs/test.yml
     secrets: inherit
   
   publish:
     needs: test
-    uses: ./.github/workflows/publish.yml
+    uses: ./.github/workflows/jobs/publish.yml
     secrets: inherit
     with:
       DOCKER_TAG: latest
 
   deploy:
     needs: publish
-    uses: ./.github/workflows/deploy.yml
+    uses: ./.github/workflows/jobs/deploy.yml
     secrets: inherit
     with:
       DEPLOY_ENV: dev

@@ -11,12 +11,12 @@ services:
       - app
   
   front-sm:
-    image: nigelmann/storeme-webapp
+    image: nigelmann/storeme-webapp:latest
     networks:
       - network-access
   
   back-sm:
-    image: nigelmann/storeme-api
+    image: nigelmann/storeme-api:latest
     environment:
       DB_PORT: "5432"
       DB_HOST: "bd-sm"

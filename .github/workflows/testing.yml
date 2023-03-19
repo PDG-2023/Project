@@ -1,0 +1,13 @@
+name: "Testing"
+
+on:
+  push:
+    branches:
+      - "!master"
+      - "!development"
+      - "!init/ci-cd-testing"
+
+jobs:
+  test:
+    uses: ./.github/workflows/jobs/test.yml
+    secrets: inherit

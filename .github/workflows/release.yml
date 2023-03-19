@@ -1,0 +1,66 @@
+name: "Release"
+
+on:
+  push:
+
+jobs:
+  test:
+    uses: ./.github/workflows/jobs/test.yml
+    secrets: inherit
+
+  prepare-release:
+    needs: test
+    runs-on: ubuntu-latest
+    outputs:
+      release_tag: ${{ steps.tag_version.outputs.new_tag }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          dry_run: true
+      
+      - name: Update production docker-compose file
+        run: |
+          cd infra/docker/
+          sed -i "s/$(grep -e storeme-webapp docker-compose.prod.yaml)/    image: nigelmann/storeme-webapp:$TAG/" ./docker-compose.prod.yaml
+          sed -i "s/$(grep -e storeme-api docker-compose.prod.yaml)/    image: nigelmann/storeme-api:$TAG/" ./docker-compose.prod.yaml
+        env:
+          TAG: ${{ steps.tag_version.outputs.new_tag }}
+
+      - name: Commit changes
+        uses: test-room-7/action-update-file@v1
+        with:
+            file-path: infra/docker/docker-compose.prod.yaml
+            commit-msg: Bump container versions
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          dry_run: true
+
+      - name: Create a GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
+  
+  publish:
+    needs: prepare-release
+    uses: ./.github/workflows/jobs/publish.yml
+    secrets: inherit
+    with:
+      DOCKER_TAG: ${{ needs.prepare-release.release_tag }}
+
+  deploy:
+    needs: publish
+    uses: ./.github/workflows/jobs/deploy.yml
+    secrets: inherit
+    with:
+      DEPLOY_ENV: prod
