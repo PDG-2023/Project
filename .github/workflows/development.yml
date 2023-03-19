@@ -7,19 +7,19 @@ on:
 
 jobs:
   test:
-    uses: ./.github/workflows/jobs/test.yml
+    uses: ./.github/workflows/test.yml
     secrets: inherit
   
   publish:
     needs: test
-    uses: ./.github/workflows/jobs/publish.yml
+    uses: ./.github/workflows/publish.yml
     secrets: inherit
     with:
       DOCKER_TAG: latest
 
   deploy:
     needs: publish
-    uses: ./.github/workflows/jobs/deploy.yml
+    uses: ./.github/workflows/deploy.yml
     secrets: inherit
     with:
       DEPLOY_ENV: dev
