@@ -3,6 +3,9 @@ name: "Release"
 on:
   push:
 
+permission:
+  contents: write
+
 jobs:
   test:
     uses: ./.github/workflows/test.yml
@@ -33,9 +36,9 @@ jobs:
       - name: Commit changes
         uses: test-room-7/action-update-file@v1
         with:
-            file-path: infra/docker/docker-compose.prod.yaml
-            commit-msg: Bump container versions
-            github-token: ${{ secrets.GITHUB_TOKEN }}
+          file-path: infra/docker/docker-compose.prod.yaml
+          commit-msg: Bump container versions
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Bump version and push tag
         id: tag_version
