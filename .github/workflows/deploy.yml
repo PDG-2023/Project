@@ -27,6 +27,7 @@ jobs:
         uses: arillso/action.playbook@0.0.5
         with:
           playbook: infra/an/deploy.yaml
+          module_path: infra/an/
           inventory: infra/an/inventory.yaml
           galaxy_file: infra/an/requirements.yaml
-          extra_vars: deploy_env=prod
+          extra_vars: deploy_env=dev
