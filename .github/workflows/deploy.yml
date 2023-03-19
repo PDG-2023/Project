@@ -19,4 +19,6 @@ jobs:
           galaxy_file: infra/an/requirements.yaml
           extra_vars: deploy_env=dev
           private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          user: ${{ secrets.SSH_USER }}
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'false'
+          ANSIBLE_DEPRECATION_WARNINGS: 'false'
