@@ -3,7 +3,7 @@ name: "Release"
 on:
   push:
 
-permission:
+permissions:
   contents: write
 
 jobs:
