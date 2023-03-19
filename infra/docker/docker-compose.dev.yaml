@@ -1,0 +1,10 @@
+version: "3.7"
+
+services:
+  front-sm:
+    ports:
+      - "9080:8080"
+
+  back-sm:
+    ports:
+      - "9090:8080"

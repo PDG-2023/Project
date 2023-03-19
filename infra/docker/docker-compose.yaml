@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  bd-sm:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: db
+      POSTGRES_DB: db
+      POSTGRES_USER: db
+    networks:
+      - app
+  
+  front-sm:
+    image: nigelmann/storeme-webapp
+    networks:
+      - network-access
+  
+  back-sm:
+    image: nigelmann/storeme-api
+    environment:
+      DB_PORT: "5432"
+      DB_HOST: "bd-sm"
+    networks:
+      - app
+      - network-access
+
+networks:
+  app:
+    internal: true
+  network-access:
