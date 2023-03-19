@@ -1,13 +1,13 @@
 ---
 
-- name: My first play
+- name: Web server installation
   hosts: virtualmachines
-  become: yes
+  become: true
   tasks:
 
   # Apache reverse proxy setup
   - name: Update packages
-    apt:
+    ansible.builtin.apt:
       upgrade: yes
       update_cache: yes
 
@@ -21,7 +21,7 @@
 
   - name: Install apache auth modules
     ansible.builtin.apache2_module: name={{ item }} state=present
-    with_items:
+    loop:
       - proxy
       - proxy_http
       - ssl
@@ -55,7 +55,7 @@
   # docker install
   - name: Install docker related packages
     ansible.builtin.apt: name={{ item }} state=present
-    with_items:
+    loop:
       - docker
       - docker-compose
   

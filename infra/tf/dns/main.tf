@@ -16,3 +16,12 @@ resource "cloudflare_record" "production" {
   type    = "A"
   ttl     = 1
 }
+
+resource "cloudflare_record" "dev" {
+  zone_id = var.cf_zone_id
+  name    = "dev"
+  value   = var.server_ip_addr
+  proxied = true
+  type    = "A"
+  ttl     = 1
+}

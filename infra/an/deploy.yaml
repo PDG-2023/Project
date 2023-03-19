@@ -1,0 +1,28 @@
+---
+
+- name: Application deployment
+  hosts: virtualmachines
+  become: true
+  tasks:
+
+  - name: Copy docker-compose files
+    ansible.builtin.copy:
+      src: ../docker/{{item}}.yaml
+      dest: /var/storeme/
+      owner: root
+      group: root
+      mode: u=rw,g=r,o=r
+    loop:
+      - docker-compose
+      - docker-compose.{{ deploy_env }}
+  
+  - name: Start {{ deploy_env }}
+    community.docker.docker_compose:
+      project_name: storeme-{{ deploy_env }}
+      project_src: /var/storeme/
+      build: true
+      files:
+        - docker-compose.{{ deploy_env }}.yaml
+        - docker-compose.yaml
+      state: present
+      restarted: true
