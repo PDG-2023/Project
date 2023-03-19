@@ -13,7 +13,7 @@ jobs:
       - name: Create SSH key
         run: |
           mkdir -p ~/.ssh/
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/aws-key-pair
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r'  > ~/.ssh/aws-key-pair
           sudo chmod 600 ~/.ssh/aws-key-pair
           ssh-keyscan $(grep ansible_host infra/an/inventory.yaml | awk '{split($0,a,": "); print a[2]}' | tr -d '"') > ~/.ssh/known_hosts
         shell: bash
