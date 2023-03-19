@@ -25,8 +25,8 @@ jobs:
       - name: Update production docker-compose file
         run: |
           cd infra/docker/
-          sed -i "s/$(grep -e storeme-webapp docker-compose.prod.yaml)/    image: nigelmann/storeme-webapp:$TAG/" ./docker-compose.prod.yaml
-          sed -i "s/$(grep -e storeme-api docker-compose.prod.yaml)/    image: nigelmann/storeme-api:$TAG/" ./docker-compose.prod.yaml
+          sed -i "s/$(grep -e webapp docker-compose.prod.yaml | sed -e 's/[]\/$*.^[]/\\&/g')/    image: nigelmann\/storeme-webapp:$TAG/" ./docker-compose.prod.yaml
+          sed -i "s/$(grep -e api docker-compose.prod.yaml | sed -e 's/[]\/$*.^[]/\\&/g')/    image: nigelmann\/storeme-api:$TAG/" ./docker-compose.prod.yaml
         env:
           TAG: ${{ steps.pre_tag_version.outputs.new_tag }}
 

@@ -7,6 +7,6 @@ services:
       - "8080:8080"
 
   back-sm:
-    image: nigelmann/storeme-webapp
+    image: nigelmann/storeme-api
     ports:
       - "8090:8080"
