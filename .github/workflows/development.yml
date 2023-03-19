@@ -1,0 +1,11 @@
+name: "Development"
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    uses: ./test.yml
+    secrets: inherit

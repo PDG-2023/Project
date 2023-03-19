@@ -1,0 +1,19 @@
+name: "Master"
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  
+
+  test:
+    uses: ./test.yml
+    secrets: inherit
+  
+  publish:
+    needs: test
+    uses: ./publish.yml
+    secrets: inherit
+    with:
+      DOCKER_TAG: latest

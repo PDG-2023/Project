@@ -1,0 +1,63 @@
+
+name: "Test"
+
+on:
+  workflow_call:
+
+jobs:
+  test-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+
+      - name: Setup
+        run: npm ci
+        working-directory: './apps/frontend'
+
+      - name: Test
+        run: npm run test
+        working-directory: './apps/frontend'
+
+      - name: Lint-code
+        run: npm run lint
+        working-directory: './apps/frontend'
+
+  test-backend:
+    runs-on: ubuntu-latest
+    steps:
+      # Setting up the Java environment
+      - uses: actions/checkout@v3
+
+      # Only for local testing
+      - name: Install curl (for nektos/act local CI testing)
+        run: apt-get update && apt-get install build-essential curl pkg-config openssl -y
+        if: ${{ env.ACT }}
+      - name: Download Maven
+        run: |
+          curl -sL https://www-eu.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip -o maven.zip
+          apt-get update
+          apt-get -y install unzip
+          unzip -d /usr/share maven.zip
+          rm maven.zip
+          ln -s /usr/share/apache-maven-3.6.3/bin/mvn /usr/bin/mvn
+          echo "M2_HOME=/usr/share/apache-maven-3.6.3" | tee -a /etc/environment
+        if: ${{ env.ACT }}
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          # jdk version
+          java-version: '19'
+          # Note, the adopt here is because I need to use this, you can change to other distributions according to your situation
+          distribution: 'adopt'
+          cache: 'maven'
+
+      - name: Build with Maven
+        # maven build
+        run: mvn -B clean test --file pom.xml
+        working-directory: './apps/backend'
