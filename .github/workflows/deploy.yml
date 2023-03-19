@@ -9,19 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # prepare ssh stuff
-      - name: Create SSH key
-        run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_PRIVATE_KEY" | tr -d '\r'  > ~/.ssh/aws-key-pair
-          sudo chmod 600 ~/.ssh/aws-key-pair
-          ssh-keyscan $(grep ansible_host infra/an/inventory.yaml | awk '{split($0,a,": "); print a[2]}' | tr -d '"') > ~/.ssh/known_hosts
-        shell: bash
-        env:
-          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
-          ANSIBLE_HOST_KEY_CHECKING: 'false'
-          ANSIBLE_DEPRECATION_WARNINGS: 'false'
-
       # run ansible playbook
       - name: Play Ansible Playbook
         uses: arillso/action.playbook@0.0.5
@@ -31,3 +18,4 @@ jobs:
           inventory: infra/an/inventory.yaml
           galaxy_file: infra/an/requirements.yaml
           extra_vars: deploy_env=dev
+          private_key: ${{ secrets.SSH_PRIVATE_KEY }}
