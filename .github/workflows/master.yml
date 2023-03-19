@@ -4,16 +4,15 @@ on:
   push:
     branches:
       - "*"
-jobs:
-  
 
+jobs:
   test:
-    uses: ./test.yml
+    uses: ./.github/workflows/test.yml
     secrets: inherit
   
   publish:
     needs: test
-    uses: ./publish.yml
+    uses: ./.github/workflows/publish.yml
     secrets: inherit
     with:
       DOCKER_TAG: latest
