@@ -2,6 +2,10 @@ name: "Deploy"
 
 on:
   workflow_call:
+    inputs:
+      DEPLOY_ENV:
+        required: true
+        type: string
 
 jobs:
   deploy:
@@ -17,7 +21,7 @@ jobs:
           module_path: infra/an/
           inventory: infra/an/inventory.yaml
           galaxy_file: infra/an/requirements.yaml
-          extra_vars: deploy_env=dev
+          extra_vars: deploy_env=${{ inputs.DEPLOY_ENV }}
           private_key: ${{ secrets.SSH_PRIVATE_KEY }}
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'false'
