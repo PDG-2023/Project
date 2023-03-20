@@ -14,10 +14,10 @@ jobs:
     # needs: test
     runs-on: ubuntu-latest
     outputs:
-      release_tag: ${{ steps.final.outputs.tag }}
+      release_tag: ${{ steps.pre_tag_version.outputs.new_tag }}
     steps:
       - uses: actions/checkout@v2
-      - name: Bump version and push tag
+      - name: Get next tag
         id: pre_tag_version
         uses: mathieudutour/github-tag-action@v6.1
         with:
@@ -38,10 +38,21 @@ jobs:
         uses: test-room-7/action-update-file@v1
         with:
           file-path: infra/docker/docker-compose.prod.yaml
-          commit-msg: Bump container versions
+          commit-msg: "[RELEASE] Bump container versions"
           branch : init/ci-cd-testing
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+  publish:
+    needs: prepare_release
+    uses: ./.github/workflows/publish.yml
+    secrets: inherit
+    with:
+      DOCKER_TAG: ${{ needs.prepare_release.outputs.release_tag }}
+
+  release:
+    needs: publish
+    runs-on: ubuntu-latest
+    steps:
       - name: Bump version and push tag
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.1
@@ -56,18 +67,6 @@ jobs:
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
-      
-      - id: final
-        run: |
-          echo ${{ steps.tag_version.outputs.new_tag }}
-          echo "tag=${{ steps.tag_version.outputs.new_tag }}" >> "$GITHUB_OUTPUT"
-  
-  publish:
-    needs: prepare_release
-    uses: ./.github/workflows/publish.yml
-    secrets: inherit
-    with:
-      DOCKER_TAG: ${{ needs.prepare_release.outputs.release_tag }}
 
   deploy:
     needs: publish
