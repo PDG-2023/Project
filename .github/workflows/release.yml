@@ -37,6 +37,7 @@ jobs:
         with:
           file-path: infra/docker/docker-compose.prod.yaml
           commit-msg: Bump container versions
+          branch : git-actions/versioning
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Bump version and push tag
