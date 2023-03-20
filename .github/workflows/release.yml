@@ -3,9 +3,6 @@ name: "Release"
 on:
   push:
 
-permissions:
-  contents: write
-
 jobs:
   test:
     uses: ./.github/workflows/test.yml
