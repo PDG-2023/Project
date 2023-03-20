@@ -67,7 +67,7 @@ jobs:
     uses: ./.github/workflows/publish.yml
     secrets: inherit
     with:
-      DOCKER_TAG: ${{ needs.prepare_release.release_tag }}
+      DOCKER_TAG: ${{ needs.prepare_release.outputs.release_tag }}
 
   deploy:
     needs: publish
