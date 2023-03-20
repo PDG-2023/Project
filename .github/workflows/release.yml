@@ -6,12 +6,12 @@ on:
       - "init/ci-cd-testing"
 
 jobs:
-  # test:
-  #   uses: ./.github/workflows/test.yml
-  #   secrets: inherit
+  test:
+    uses: ./.github/workflows/test.yml
+    secrets: inherit
 
   prepare_release:
-    # needs: test
+    needs: test
     runs-on: ubuntu-latest
     outputs:
       release_tag: ${{ steps.pre_tag_version.outputs.new_tag }}
