@@ -24,6 +24,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           append_to_pre_release_tag: ''
           release_branches: '.*'
+          tag_prefix: ''
           dry_run: true
       
       - name: Update production docker-compose file
@@ -48,6 +49,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           append_to_pre_release_tag: ''
+          tag_prefix: ''
           release_branches: '.*'
 
       - name: Create a GitHub release
