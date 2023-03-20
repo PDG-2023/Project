@@ -6,11 +6,11 @@ on:
       - "init/ci-cd-testing"
 
 jobs:
-  test:
-    uses: ./.github/workflows/test.yml
-    secrets: inherit
+  # test:
+  #   uses: ./.github/workflows/test.yml
+  #   secrets: inherit
 
-  prepare-release:
+  prepare_release:
     needs: test
     runs-on: ubuntu-latest
     outputs:
@@ -56,16 +56,13 @@ jobs:
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
-
-      - name: output tag
-        run: echo "release_tag=${{ steps.tag_version.outputs.new_tag }}" >> $GITHUB_OUTPUT
   
   publish:
-    needs: prepare-release
+    needs: prepare_release
     uses: ./.github/workflows/publish.yml
     secrets: inherit
     with:
-      DOCKER_TAG: ${{ needs.prepare-release.release_tag }}
+      DOCKER_TAG: ${{ needs.prepare_release.release_tag }}
 
   deploy:
     needs: publish
