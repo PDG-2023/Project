@@ -2,11 +2,11 @@ version: "3.7"
 
 services:
   front-sm:
-    image: nigelmann/storeme-webapp:v0.0.3
+    image: nigelmann/storeme-webapp:v0.0.4
     ports:
       - "8080:8080"
 
   back-sm:
-    image: nigelmann/storeme-api:v0.0.3
+    image: nigelmann/storeme-api:v0.0.4
     ports:
       - "8090:8080"
