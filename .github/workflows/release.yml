@@ -11,7 +11,7 @@ jobs:
   #   secrets: inherit
 
   prepare_release:
-    needs: test
+    # needs: test
     runs-on: ubuntu-latest
     outputs:
       release_tag: ${{ steps.tag_version.outputs.new_tag }}
