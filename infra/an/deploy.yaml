@@ -21,6 +21,7 @@
       project_name: storeme-{{ deploy_env }}
       project_src: /var/storeme/
       build: true
+      pull: true
       files:
         - docker-compose.{{ deploy_env }}.yaml
         - docker-compose.yaml
