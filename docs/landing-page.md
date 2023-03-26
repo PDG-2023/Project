@@ -10,3 +10,7 @@ Finally, `StoreMe&nbsp;©` allows you to track each individual item in your inve
 Making your workflow as simple as possible is the #1 priority, therefore we allow scanning of barcodes as well as 2D codes (such as QR codes).
 
 With its simple and intuitive design, `StoreMe&nbsp;©` makes it easy to manage your inventory and stay on top of your stock levels. Say goodbye to the hassle of manual inventory management and streamline your operations with `StoreMe&nbsp;©`. Sign up today and take control of your inventory!
+
+Yours Truly,
+
+The StoreMe team
