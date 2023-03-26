@@ -1,4 +1,6 @@
 # IDEs and editors
 .idea/
+.vscode/
+act.secrets
 .vscode
 .metals

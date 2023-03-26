@@ -1,0 +1,28 @@
+name: "Deploy"
+
+on:
+  workflow_call:
+    inputs:
+      DEPLOY_ENV:
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      # run ansible playbook
+      - name: Play Ansible Playbook
+        uses: arillso/action.playbook@0.0.5
+        with:
+          playbook: infra/an/deploy.yaml
+          module_path: infra/an/
+          inventory: infra/an/inventory.yaml
+          galaxy_file: infra/an/requirements.yaml
+          extra_vars: deploy_env=${{ inputs.DEPLOY_ENV }}
+          private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'false'
+          ANSIBLE_DEPRECATION_WARNINGS: 'false'

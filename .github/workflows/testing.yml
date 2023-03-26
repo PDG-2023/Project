@@ -1,0 +1,12 @@
+name: "Testing"
+
+on:
+  push:
+    branches-ignore:
+      - 'master'
+      - 'developement'
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+    secrets: inherit

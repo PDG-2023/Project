@@ -1,0 +1,76 @@
+name: "Release"
+
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+    secrets: inherit
+
+  prepare_release:
+    needs: test
+    runs-on: ubuntu-latest
+    outputs:
+      release_tag: ${{ steps.pre_tag_version.outputs.new_tag }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get next tag
+        id: pre_tag_version
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          append_to_pre_release_tag: ''
+          release_branches: '.*'
+          dry_run: true
+      
+      - name: Update production docker-compose file
+        run: |
+          cd infra/docker/
+          sed -i "s/$(grep -e webapp docker-compose.prod.yaml | sed -e 's/[]\/$*.^[]/\\&/g')/    image: nigelmann\/storeme-webapp:$TAG/" ./docker-compose.prod.yaml
+          sed -i "s/$(grep -e api docker-compose.prod.yaml | sed -e 's/[]\/$*.^[]/\\&/g')/    image: nigelmann\/storeme-api:$TAG/" ./docker-compose.prod.yaml
+        env:
+          TAG: ${{ steps.pre_tag_version.outputs.new_tag }}
+
+      - name: Commit and push docker-compose.prod changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: ./infra/docker/docker-compose.prod.yaml
+          default_author: github_actions
+          message: "[RELEASE] Bump container versions"
+
+  publish:
+    needs: prepare_release
+    uses: ./.github/workflows/publish.yml
+    secrets: inherit
+    with:
+      DOCKER_TAG: ${{ needs.prepare_release.outputs.release_tag }}
+
+  release:
+    needs: publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          custom_tag: needs.prepare_release.outputs.release_tag
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          append_to_pre_release_tag: ''
+          release_branches: '.*'
+
+      - name: Create a GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
+
+  deploy:
+    needs: publish
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
+    with:
+      DEPLOY_ENV: prod
