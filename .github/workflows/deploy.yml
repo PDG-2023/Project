@@ -12,8 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        env:
-          BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
         with:
           ref: ${{ github.head_ref || github.ref_name }} 
 
