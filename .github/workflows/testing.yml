@@ -5,7 +5,6 @@ on:
     branches:
       - "!master"
       - "!development"
-      - "!init/ci-cd-testing"
 
 jobs:
   test:
