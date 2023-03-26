@@ -15,7 +15,7 @@ jobs:
         env:
           BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
         with:
-          ref: $BRANCH_NAME
+          ref: ${{ github.head_ref || github.ref_name }} 
 
       # run ansible playbook
       - name: Play Ansible Playbook
