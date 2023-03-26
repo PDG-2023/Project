@@ -25,6 +25,7 @@ jobs:
           append_to_pre_release_tag: ''
           release_branches: '.*'
           dry_run: true
+          custom_release_rules: '[FEATURE]:minor:Features,[BUGFIX]:patch:BugFixes,[FIX]:patch:BugFixes,[BREAKING]:major:Breaking'
       
       - name: Update production docker-compose file
         run: |
