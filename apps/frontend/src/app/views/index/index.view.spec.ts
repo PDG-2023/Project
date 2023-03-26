@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { IndexView } from "./index.view";
+import { ApiModule } from "../../../api";
 
 describe("IndexView", () => {
 	let component: IndexView;
@@ -8,7 +9,8 @@ describe("IndexView", () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [IndexView]
+			declarations: [IndexView],
+			imports: [ApiModule]
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(IndexView);
