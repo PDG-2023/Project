@@ -26,3 +26,9 @@ jobs:
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'false'
           ANSIBLE_DEPRECATION_WARNINGS: 'false'
+      - name: Notify on slack
+        uses: bryannice/gitactions-slack-notification@2.0.0
+        env:
+          SLACK_INCOMING_WEBHOOK: ${{ secrets.SLACK_INCOMING_WEBHOOK }}
+          SLACK_MESSAGE: 'New version was just deployed in ${{ inputs.DEPLOY_ENV }}'
+          SLACK_TITLE: 'Just deployed'

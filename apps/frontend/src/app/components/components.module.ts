@@ -1,3 +1,4 @@
+import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 
@@ -6,7 +7,7 @@ import { TranslationModule } from "../translation";
 
 @NgModule({
 	declarations: [],
-	exports: [MaterialsModule, TranslationModule],
-	imports: [MaterialsModule, RouterModule, TranslationModule]
+	exports: [CommonModule, MaterialsModule, TranslationModule],
+	imports: [CommonModule, MaterialsModule, RouterModule, TranslationModule]
 })
 export class ComponentsModule {}

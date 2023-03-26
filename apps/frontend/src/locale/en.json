@@ -1,6 +1,7 @@
 {
 	"from-server": {
-		"response": "Well, it is not implemented yet. 😶",
+		"load": "Reload",
+		"response": "Here is the response: ",
 		"text": "Hello from backend:"
 	}
 }
