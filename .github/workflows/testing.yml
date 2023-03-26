@@ -2,10 +2,9 @@ name: "Testing"
 
 on:
   push:
-    branches:
-      - '*'
-      - "!master"
-      - "!development"
+    branches-ignore:
+      - 'master'
+      - 'developement'
 
 jobs:
   test:
