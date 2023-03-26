@@ -37,6 +37,7 @@ jobs:
       - name: Commit and push docker-compose.prod changes
         uses: EndBug/add-and-commit@v9
         with:
+          push: origin master --force
           add: ./infra/docker/docker-compose.prod.yaml
           default_author: github_actions
           message: "[RELEASE] Bump container versions"
