@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class UserController {
     @GetMapping("/")
     public ResponseEntity slash() {
-        ExampleResponse r = new ExampleResponse(1, LocalDateTime.now());
+        ExampleResponse r = new ExampleResponse(2, LocalDateTime.now());
         return ResponseEntity.ok(r);
     }
 
