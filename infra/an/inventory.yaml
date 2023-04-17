@@ -3,5 +3,5 @@
 virtualmachines:
   hosts:
     main:
-      ansible_host: "13.41.5.77"
+      ansible_host: "18.171.28.213"
       ansible_user: ubuntu
