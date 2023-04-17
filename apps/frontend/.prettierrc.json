@@ -1,5 +1,6 @@
 {
 	"arrowParens": "avoid",
+	"endOfLine": "auto",
 	"htmlWhitespaceSensitivity": "css",
 	"overrides": [
 		{
@@ -20,6 +21,5 @@
 	"singleQuote": false,
 	"tabWidth": 4,
 	"trailingComma": "none",
-	"useTabs": true,
-  	"endOfLine": "auto"
+	"useTabs": true
 }
