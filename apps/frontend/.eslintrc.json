@@ -57,6 +57,23 @@
 			}
 		},
 		{
+			"files": [".eslintrc.json", ".prettierrc.json"],
+			"rules": {
+				/* OK for `rc` files */
+				"jsonc/no-comments": "off"
+			}
+		},
+		{
+			"extends": ["plugin:jsdoc/recommended"],
+			"files": ["*.ts", "*.js"],
+			"plugins": ["jsdoc"],
+			"rules": {
+				/* Hyphen is considerd as a bullet point in compodoc */
+				"jsdoc/require-hyphen-before-param-description": ["error", "never"],
+				"jsdoc/require-throws": "warn"
+			}
+		},
+		{
 			"extends": [
 				"plugin:@typescript-eslint/recommended",
 				"plugin:@typescript-eslint/recommended-requiring-type-checking",
@@ -200,7 +217,9 @@
 				"@typescript-eslint/prefer-return-this-type": "error",
 				"@typescript-eslint/prefer-ts-expect-error": "error",
 				"@typescript-eslint/sort-type-constituents": "error",
-				"@typescript-eslint/type-annotation-spacing": "error"
+				"@typescript-eslint/type-annotation-spacing": "error",
+				"jsdoc/require-param-type": "off",
+				"jsdoc/require-returns-type": "off"
 			}
 		},
 		{
@@ -262,14 +281,43 @@
 				],
 				"spaced-comment": "off"
 			}
+		},
+		{
+			"extends": ["plugin:markdownlint/recommended"],
+			"files": ["*.md"],
+			"parser": "eslint-plugin-markdownlint/parser",
+			"rules": {
+				"markdownlint/md013": [
+					"error",
+					{
+						"line_length": 100
+					}
+				],
+				"markdownlint/md024": "off",
+				"markdownlint/md033": [
+					"error",
+					{
+						"allowed_elements": ["a", "img"]
+					}
+				],
+				"no-trailing-spaces": "off",
+				"prettier/prettier": "off"
+			}
+		},
+		{
+			"files": ["ANGULAR.md", "README.md"],
+			"rules": {
+				"unicorn/filename-case": "off"
+			}
 		}
 	],
 	"plugins": [
 		"eslint-plugin-import",
 		"sort-destructure-keys",
 		"typescript-sort-keys",
+		"prettier",
 		"unicorn",
-		"prettier"
+		"unused-imports"
 	],
 	"root": true,
 	"rules": {
@@ -415,6 +463,14 @@
 		"unicorn/prefer-includes": "error",
 		"unicorn/prefer-object-from-entries": "error",
 		"unicorn/prefer-optional-catch-binding": "error",
-		"unicorn/throw-new-error": "error"
+		"unicorn/throw-new-error": "error",
+		"unused-imports/no-unused-imports": "error",
+		"unused-imports/no-unused-vars": [
+			"warn",
+			{
+				"args": "after-used",
+				"argsIgnorePattern": "^_"
+			}
+		]
 	}
 }
