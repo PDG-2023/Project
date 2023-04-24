@@ -14,3 +14,33 @@ paths:
       responses:
         400:
           description: Bad request
+components:
+  schemas:
+    ModelDTO:
+      properties:
+        id:
+          type: integer
+          required: false
+    LocationDTO:
+      properties:
+        id:
+          type: integer
+    ItemDTO:
+      properties:
+        id:
+          type: integer
+        modelId:
+          type: integer
+        movementsId:
+          type: array
+          items:
+            type: integer
+    MovementDTO:
+      properties:
+        id:
+          type: integer
+        locationId:
+          type: integer
+
+
+
