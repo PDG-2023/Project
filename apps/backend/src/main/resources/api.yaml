@@ -20,10 +20,19 @@ components:
       properties:
         id:
           type: integer
-          required: false
+        name:
+          type: string
+        description:
+          type: string
     LocationDTO:
       properties:
         id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        parentLocationId:
           type: integer
     ItemDTO:
       properties:
@@ -41,6 +50,18 @@ components:
           type: integer
         locationId:
           type: integer
+        itemId:
+          type: integer
+        movementType:
+          type: string
+    ItemMetaDataDTO:
+      properties:
+        itemId:
+          type: string
+        name:
+          type: string
+        content:
+          type: string
 
 
 
