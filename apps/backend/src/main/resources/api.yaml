@@ -17,6 +17,9 @@ paths:
 components:
   schemas:
     ModelDTO:
+      required:
+        - description
+        - name
       properties:
         id:
           type: integer
@@ -25,6 +28,10 @@ components:
         description:
           type: string
     LocationDTO:
+      required:
+        - description
+        - name
+        - parentLocationId
       properties:
         id:
           type: integer
@@ -34,7 +41,11 @@ components:
           type: string
         parentLocationId:
           type: integer
+          nullable: true
     ItemDTO:
+      required:
+        - modelId
+        - movementsId
       properties:
         id:
           type: integer
@@ -45,6 +56,10 @@ components:
           items:
             type: integer
     MovementDTO:
+      required:
+        - locationId
+        - itemId
+        - movementType
       properties:
         id:
           type: integer
@@ -54,7 +69,41 @@ components:
           type: integer
         movementType:
           type: string
+    UserDTO:
+      required:
+        - email
+        - firstName
+        - lastName
+        - username
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+    InventoryDTO:
+      required:
+        - ownerId
+        - participants
+      properties:
+        id:
+          type: integer
+        ownerId:
+          type: integer
+        participants:
+          type: array
+          items:
+            type: integer
     ItemMetaDataDTO:
+      required:
+        - itemId
+        - name
+        - content
       properties:
         itemId:
           type: string
@@ -62,6 +111,10 @@ components:
           type: string
         content:
           type: string
-
+  securitySchemes:
+    JWTAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 
 
