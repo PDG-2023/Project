@@ -16,13 +16,17 @@ paths:
           description: Bad request
 components:
   schemas:
-    ModelDTO:
+    ItemModelDTO:
       required:
         - description
         - name
       properties:
         id:
           type: integer
+        updated:
+          type: string
+        created:
+          type: string
         name:
           type: string
         description:
@@ -35,6 +39,10 @@ components:
       properties:
         id:
           type: integer
+        updated:
+          type: string
+        created:
+          type: string
         name:
           type: string
         description:
@@ -45,16 +53,15 @@ components:
     ItemDTO:
       required:
         - modelId
-        - movementsId
       properties:
         id:
           type: integer
+        updated:
+          type: string
+        created:
+          type: string
         modelId:
           type: integer
-        movementsId:
-          type: array
-          items:
-            type: integer
     MovementDTO:
       required:
         - locationId
@@ -63,6 +70,8 @@ components:
       properties:
         id:
           type: integer
+        created:
+          type: string
         locationId:
           type: integer
         itemId:
@@ -78,6 +87,10 @@ components:
       properties:
         id:
           type: integer
+        updated:
+          type: string
+        created:
+          type: string
         username:
           type: string
         email:
@@ -88,28 +101,15 @@ components:
           type: string
     InventoryDTO:
       required:
-        - ownerId
-        - participants
+        - name
       properties:
         id:
           type: integer
-        ownerId:
-          type: integer
-        participants:
-          type: array
-          items:
-            type: integer
-    ItemMetaDataDTO:
-      required:
-        - itemId
-        - name
-        - content
-      properties:
-        itemId:
+        updated:
+          type: string
+        created:
           type: string
         name:
-          type: string
-        content:
           type: string
   securitySchemes:
     JWTAuth:
