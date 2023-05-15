@@ -27,7 +27,7 @@ paths:
     get:
       tags:
         - User
-      description: Get users based on filter content
+      description: Get users, supports the swagger-undocumented filter
       operationId: getUsers
       responses:
         200:
@@ -170,7 +170,7 @@ paths:
     get:
       tags:
         - Location
-      description: Get locations based on filter content
+      description: Get locations, supports the swagger-undocumented filter
       operationId: getLocations
       responses:
         200:
@@ -313,7 +313,7 @@ paths:
     get:
       tags:
         - Item
-      description: Get items based on filter content
+      description: Get items, supports the swagger-undocumented filter
       operationId: getItems
       responses:
         200:
@@ -456,7 +456,7 @@ paths:
     get:
       tags:
         - Inventory
-      description: Get inventories based on filter content
+      description: Get inventories, supports the swagger-undocumented filter
       operationId: getInventories
       responses:
         200:
@@ -599,7 +599,7 @@ paths:
     get:
       tags:
         - Movement
-      description: Get movements based on filter content
+      description: Get movements, supports the swagger-undocumented filter
       operationId: getMovements
       responses:
         200:
@@ -712,7 +712,7 @@ paths:
     get:
       tags:
         - ItemModel
-      description: Get item models based on filter content
+      description: Get item models, supports the swagger-undocumented filter
       operationId: getItemModels
       responses:
         200:
