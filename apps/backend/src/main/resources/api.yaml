@@ -50,6 +50,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+#      security:
+#        - JWTAuth: [ ]
   /users/{id}:
     parameters:
       - in: path
@@ -861,6 +863,7 @@ components:
           items:
             type: string
     ItemModelDTO:
+      x-implements: [ 'ch.heig.pdg.backend.dto.IDataTransferObject<ch.heig.pdg.backend.entities.Item>' ]
       required:
         - description
         - name
@@ -876,6 +879,7 @@ components:
         description:
           type: string
     LocationDTO:
+      x-implements: [ 'ch.heig.pdg.backend.dto.IDataTransferObject<ch.heig.pdg.backend.entities.Location>' ]
       required:
         - description
         - name
@@ -895,6 +899,7 @@ components:
           type: integer
           nullable: true
     ItemDTO:
+      x-implements: [ 'ch.heig.pdg.backend.dto.IDataTransferObject<ch.heig.pdg.backend.entities.Item>' ]
       required:
         - modelId
       properties:
@@ -907,6 +912,7 @@ components:
         modelId:
           type: integer
     MovementDTO:
+      x-implements: [ 'ch.heig.pdg.backend.dto.IDataTransferObject<ch.heig.pdg.backend.entities.Movement>' ]
       required:
         - locationId
         - itemId
@@ -923,6 +929,7 @@ components:
         movementType:
           type: string
     UserDTO:
+      x-implements: [ 'ch.heig.pdg.backend.dto.IDataTransferObject<ch.heig.pdg.backend.entities.User>' ]
       required:
         - email
         - firstName
@@ -944,6 +951,7 @@ components:
         lastName:
           type: string
     InventoryDTO:
+      x-implements: [ 'ch.heig.pdg.backend.dto.IDataTransferObject<ch.heig.pdg.backend.entities.Inventory>' ]
       required:
         - name
       properties:

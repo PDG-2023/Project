@@ -108,8 +108,8 @@
                         <configuration>
                             <inputSpec>${basedir}/src/main/resources/api.yaml</inputSpec>
                             <generatorName>spring</generatorName>
-                            <apiPackage>ch.heig.pdg.api</apiPackage>
-                            <modelPackage>ch.heig.pdg.business.dto</modelPackage>
+                            <apiPackage>ch.heig.pdg.backend.api</apiPackage>
+                            <modelPackage>ch.heig.pdg.backend.dto</modelPackage>
                             <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
                             <configOptions>
                                 <performBeanValidation>true</performBeanValidation>
