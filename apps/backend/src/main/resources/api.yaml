@@ -21,8 +21,68 @@ tags:
     description: Relates to users
   - name: Inventory
     description: Relates to inventories
+  - name: JWT
+    description: Relates to JWT
 
 paths:
+  /authentication/getToken:
+    post:
+      tags:
+        - JWT
+      summary: Get token
+      description: Get a JWT token for a username and password.
+      operationId: getToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CredentialsDTO'
+      responses:
+        '200':
+          description: Operation successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JWTDTO'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        409:
+          $ref: '#/components/responses/409'
+        500:
+          $ref: '#/components/responses/500'
+  /authentication/validateToken:
+    post:
+      tags:
+        - JWT
+      summary: Validate token
+      description: Verify that a token can be used.
+      operationId: validateToken
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: If the JWT is valid.
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        409:
+          $ref: '#/components/responses/409'
+        500:
+          $ref: '#/components/responses/500'
   /users:
     get:
       tags:
@@ -962,6 +1022,21 @@ components:
         created:
           type: string
         name:
+          type: string
+    JWTDTO:
+      type: object
+      properties:
+        token:
+          type: string
+    CredentialsDTO:
+      required:
+        - password
+        - username
+      type: object
+      properties:
+        username:
+          type: string
+        password:
           type: string
   securitySchemes:
     JWTAuth:
