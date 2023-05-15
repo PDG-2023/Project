@@ -21,14 +21,14 @@ tags:
     description: Relates to users
   - name: Inventory
     description: Relates to inventories
-  - name: JWT
+  - name: Jwt
     description: Relates to JWT
 
 paths:
   /authentication/getToken:
     post:
       tags:
-        - JWT
+        - Jwt
       summary: Get token
       description: Get a JWT token for a username and password.
       operationId: getToken
@@ -59,7 +59,7 @@ paths:
   /authentication/validateToken:
     post:
       tags:
-        - JWT
+        - Jwt
       summary: Validate token
       description: Verify that a token can be used.
       operationId: validateToken
@@ -83,6 +83,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
   /users:
     get:
       tags:
@@ -110,8 +112,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
-#      security:
-#        - JWTAuth: [ ]
+      security:
+        - JWTAuth: [ ]
   /users/{id}:
     parameters:
       - in: path
@@ -144,6 +146,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
     post:
       tags:
         - User
@@ -204,6 +208,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
     delete:
       tags:
         - User
@@ -228,6 +234,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
   /locations:
     get:
       tags:
@@ -255,6 +263,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
   /locations/{id}:
     parameters:
       - in: path
@@ -287,6 +297,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
     post:
       tags:
         - Location
@@ -317,6 +329,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
     put:
       tags:
         - Location
@@ -347,6 +361,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
     delete:
       tags:
         - Location
@@ -371,6 +387,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
   /items:
     get:
       tags:
@@ -398,6 +416,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
   /items/{id}:
     parameters:
       - in: path
@@ -430,6 +450,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
     post:
       tags:
         - Item
@@ -460,6 +482,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
     put:
       tags:
         - Item
@@ -490,6 +514,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
     delete:
       tags:
         - Item
@@ -514,6 +540,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
   /inventories:
     get:
       tags:
@@ -541,6 +569,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
   /inventories/{id}:
     parameters:
       - in: path
@@ -573,6 +603,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
     post:
       tags:
         - Inventory
@@ -603,6 +635,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
     put:
       tags:
         - Inventory
@@ -633,6 +667,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
     delete:
       tags:
         - Inventory
@@ -657,6 +693,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
   /movements:
     get:
       tags:
@@ -684,6 +722,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
   /movements/{id}:
     parameters:
       - in: path
@@ -716,6 +756,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
     post:
       tags:
         - Movement
@@ -746,6 +788,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
     delete:
       tags:
         - Movement
@@ -770,6 +814,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
   /item-models:
     get:
       tags:
@@ -797,6 +843,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
   /item-models/{id}:
     parameters:
       - in: path
@@ -829,6 +877,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
     post:
       tags:
         - ItemModel
@@ -859,6 +909,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
     put:
       tags:
         - ItemModel
@@ -889,6 +941,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
     delete:
       tags:
         - ItemModel
@@ -913,6 +967,8 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
 components:
   schemas:
     JSONErrorMessage:
