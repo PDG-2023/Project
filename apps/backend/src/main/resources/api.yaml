@@ -14,3 +14,107 @@ paths:
       responses:
         400:
           description: Bad request
+components:
+  schemas:
+    ItemModelDTO:
+      required:
+        - description
+        - name
+      properties:
+        id:
+          type: integer
+        updated:
+          type: string
+        created:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+    LocationDTO:
+      required:
+        - description
+        - name
+        - parentLocationId
+      properties:
+        id:
+          type: integer
+        updated:
+          type: string
+        created:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        parentLocationId:
+          type: integer
+          nullable: true
+    ItemDTO:
+      required:
+        - modelId
+      properties:
+        id:
+          type: integer
+        updated:
+          type: string
+        created:
+          type: string
+        modelId:
+          type: integer
+    MovementDTO:
+      required:
+        - locationId
+        - itemId
+        - movementType
+      properties:
+        id:
+          type: integer
+        created:
+          type: string
+        locationId:
+          type: integer
+        itemId:
+          type: integer
+        movementType:
+          type: string
+    UserDTO:
+      required:
+        - email
+        - firstName
+        - lastName
+        - username
+      properties:
+        id:
+          type: integer
+        updated:
+          type: string
+        created:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+    InventoryDTO:
+      required:
+        - name
+      properties:
+        id:
+          type: integer
+        updated:
+          type: string
+        created:
+          type: string
+        name:
+          type: string
+  securitySchemes:
+    JWTAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+

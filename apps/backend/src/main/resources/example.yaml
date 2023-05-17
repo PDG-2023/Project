@@ -1,0 +1,377 @@
+openapi: "3.0.0"
+
+info:
+  title: "catalog service API"
+  version: "1"
+
+servers:
+  - url: http://localhost:8091
+    description: catalogue api
+
+tags:
+  - name: Categories
+    description: Relates to categories
+  - name: Lots
+    description: Relates to lots
+
+paths:
+  /lot:
+    get:
+      tags:
+        - Lots
+      description: List all lots
+      operationId: listLots
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The page to get
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: The numbers of lots to return
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NestedLotDataTransferObject'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        409:
+          $ref: '#/components/responses/409'
+        500:
+          $ref: '#/components/responses/500'
+
+    post:
+      tags:
+        - Lots
+      description: Add a lot
+      operationId: addLot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LotDataTransferObject'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NestedLotDataTransferObject'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        409:
+          $ref: '#/components/responses/409'
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
+  /lots:
+    get:
+      tags:
+        - Lots
+      description: Get lots by Ids
+      operationId: getLotsByIds
+      parameters:
+        - in: query
+          name: ids
+          schema:
+            type: array
+            items:
+              type: integer
+          description: The ids to get
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NestedLotDataTransferObject'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        409:
+          $ref: '#/components/responses/409'
+        500:
+          $ref: '#/components/responses/500'
+
+  /lot/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the user to get
+    get:
+      tags:
+        - Lots
+      description: Get a lot
+      operationId: showLot
+      responses:
+        200:
+          description: OK
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/NestedLotDataTransferObject'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        409:
+          $ref: '#/components/responses/409'
+        500:
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+        - Lots
+      description: Delete a given lot
+      operationId: deleteLot
+      responses:
+        204:
+          description: OK
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        409:
+          $ref: '#/components/responses/409'
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
+
+  /category:
+    get:
+      tags:
+        - Categories
+      description: List all categories
+      operationId: listCategories
+      parameters:
+        - in: query
+          name: childrenOf
+          schema:
+            type: integer
+          description: the parent
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryDataTransferObject'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        409:
+          $ref: '#/components/responses/409'
+        500:
+          $ref: '#/components/responses/500'
+
+  /category/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the user to get
+    get:
+      tags:
+        - Categories
+      description: Get a category
+      operationId: showCategory
+      responses:
+        200:
+          description: OK
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/NestedCategoryDataTransferObject'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        409:
+          $ref: '#/components/responses/409'
+        500:
+          $ref: '#/components/responses/500'
+components:
+  schemas:
+    JSONErrorNone:
+      type: object
+    JSONErrorMessage:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+    NestedLotDataTransferObject:
+      type: object
+      x-implements: [ 'ch.heig.snd.libs.dto.INestedDataTransferObject<ch.heig.snd.catalogservice.business.model.Lot>' ]
+      required:
+        - id
+        - name
+        - imageUrl
+        - description
+        - userId
+        - category
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        imageUrl:
+          type: string
+        description:
+          type: string
+        userId:
+          type: integer
+        category:
+          $ref: '#/components/schemas/CategoryDataTransferObject'
+      title: NestedLotDataTransferObject
+
+    LotDataTransferObject:
+      type: object
+      x-implements: [ 'ch.heig.snd.libs.dto.IDataTransferObject<ch.heig.snd.catalogservice.business.model.Lot>' ]
+      required:
+        - name
+        - imageUrl
+        - description
+        - userId
+        - categoryId
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        imageUrl:
+          type: string
+        description:
+          type: string
+        userId:
+          type: integer
+        categoryId:
+          type: integer
+      title: LotDataTransferObject
+
+    NestedCategoryDataTransferObject:
+      type: object
+      x-implements: [ 'ch.heig.snd.libs.dto.INestedDataTransferObject<ch.heig.snd.catalogservice.business.model.Category>' ]
+      required:
+        - id
+        - name
+        - parentTag
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        parentTag:
+          $ref: '#/components/schemas/NestedCategoryDataTransferObject'
+      title: NestedCategoryDataTransferObject
+
+    CategoryDataTransferObject:
+      type: object
+      x-implements: [ 'ch.heig.snd.libs.dto.IDataTransferObject<ch.heig.snd.catalogservice.business.model.Category>' ]
+      required:
+        - name
+        - parentTagId
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        parentTagId:
+          type: integer
+      title: CategoryDataTransferObject
+  responses:
+    400:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/JSONErrorMessage'
+    401:
+      description: No authorization was provided or token is invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/JSONErrorMessage'
+    403:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/JSONErrorNone'
+    404:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/JSONErrorNone'
+    409:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/JSONErrorMessage'
+    500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/JSONErrorMessage'
+  securitySchemes:
+    JWTAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
