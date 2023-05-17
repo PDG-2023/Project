@@ -74,6 +74,27 @@
 			}
 		},
 		{
+			"excludedFiles": ["*.spec.js", "*.spec.ts"],
+			"files": ["*.ts", "*.js"],
+			"rules": {
+				"no-restricted-imports": [
+					"error",
+					{
+						"patterns": [
+							{
+								"group": ["*.spec"],
+								"message": "Test files must not be imported in other files (at least not app code)."
+							},
+							{
+								"group": ["**/../test"],
+								"message": "Test helpers code should not be imported in app code."
+							}
+						]
+					}
+				]
+			}
+		},
+		{
 			"extends": [
 				"plugin:@typescript-eslint/recommended",
 				"plugin:@typescript-eslint/recommended-requiring-type-checking",
@@ -176,8 +197,8 @@
 								["private-instance-get", "private-instance-set"],
 								"constructor",
 								"public-abstract-method",
-								"protected-abstract-method",
 								"public-instance-method",
+								"protected-abstract-method",
 								"protected-instance-method",
 								"private-instance-method"
 							]
