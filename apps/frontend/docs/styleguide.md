@@ -1,22 +1,26 @@
 # Frontend Styleguide
 
 <!-- TOC -->
-
-- [Frontend Styleguide](#frontend-styleguide)
-  - [Eslint/Prettier](#eslintprettier)
-    - [IDEs integration](#ides-integration)
-      - [JetBrains (Webstorm)](#jetbrains-webstorm)
-      - [Visual studio code](#visual-studio-code)
-  - [Stylelint](#stylelint)
-    - [IDEs integration](#ides-integration-1)
-      - [JetBrains (Webstorm)](#jetbrains-webstorm-1)
-
+* [Frontend Styleguide](#frontend-styleguide)
+  * [IDE integrations](#ide-integrations)
+    * [Eslint/Prettier](#eslintprettier)
+      * [IDEs integration](#ides-integration)
+        * [JetBrains (Webstorm)](#jetbrains-webstorm)
+        * [Visual studio code](#visual-studio-code)
+    * [Stylelint](#stylelint)
+      * [IDEs integration](#ides-integration-1)
+        * [JetBrains (Webstorm)](#jetbrains-webstorm-1)
+    * [Note on integrations](#note-on-integrations)
+  * [HTML](#html)
+    * [classes](#classes)
 <!-- TOC -->
 
 > This file describe the styleguide applied to this application.  
-> To know read global styleguide, go [here](../../docs/styleguide.md).
+> To read global styleguide, go [here](../../docs/styleguide.md).
 
-## Eslint/Prettier
+## IDE integrations
+
+### Eslint/Prettier
 
 _Eslint_ with _Prettier_ is configured to format all code (and more) of this application.
 
@@ -31,11 +35,11 @@ npm run lint:code:fix
 > To understand others npm commands.  
 > See [here](../README.md#commands).
 
-### IDEs integration
+#### IDEs integration
 
 Eslint can be easily run _on save_ on IDEs.
 
-#### JetBrains (Webstorm)
+##### JetBrains (Webstorm)
 
 These IDEs can automatically detect Eslint.
 In case they do not, it is possible to set it manually:
@@ -44,11 +48,11 @@ In case they do not, it is possible to set it manually:
 
 > It is not necessary to enable _Prettier_ individually, _Eslint_ already integrates it.
 
-#### Visual studio code
+##### Visual studio code
 
 [TODO]
 
-## Stylelint
+### Stylelint
 
 Like _Eslint_, _Stylelint_ is also used for this application
 
@@ -63,11 +67,11 @@ npm run lint:style:fix
 > To understand others npm commands.  
 > See [here](../README.md#commands).
 
-### IDEs integration
+#### IDEs integration
 
 Stylelint can be integrated in IDEs.
 
-#### JetBrains (Webstorm)
+##### JetBrains (Webstorm)
 
 To integrate within _Webstorm_:
 
@@ -82,7 +86,17 @@ With the given options:
 
 ![webstorm.on-save](./images/styleguide/stylelint-on-save.webstorm.png)
 
-## Note on integrations
+### Note on integrations
 
 The manual manipulations of the previous sections should not be necessary
 if the IDE is opened directly in the application folder.
+
+## HTML
+
+Anything that goes to HTML files.
+
+### classes
+
+Use as much as possible the base classes defined in `styles.scss`.
+
+The classes should be ordered.

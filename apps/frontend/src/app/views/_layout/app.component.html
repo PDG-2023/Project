@@ -7,5 +7,5 @@
 		</mat-sidenav-content>
 	</mat-sidenav-container>
 
-	<app-footer></app-footer>
+	<app-footer *ngIf="isUserConnected | async"></app-footer>
 </div>

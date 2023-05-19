@@ -1,17 +1,133 @@
-// This is highly inspired by tailwind
+// This is highly inspired by tailwind (https://tailwindcss.com/)
 
-.flex {
-	display: flex;
+// "Normal" spacing
+$spacing: (
+	"0": 0,
+	"1\\/2": 0.125rem,
+	"1": 0.25rem,
+	"2": 0.5rem,
+	"4": 1rem,
+	"8": 2rem
+);
+
+@mixin base {
+	// Flex related
+	.flex {
+		display: flex;
+	}
+
+	.flex-1 {
+		flex: 1;
+	}
+
+	.flex-col {
+		flex-direction: column;
+	}
+
+	.flex-row {
+		flex-direction: row;
+	}
+
+	.flex-wrap {
+		flex-wrap: wrap;
+	}
+
+	.align-i-start {
+		align-items: flex-start;
+	}
+
+	.align-i-center {
+		align-items: center;
+	}
+
+	.align-i-end {
+		align-items: flex-end;
+	}
+
+	.justify-c-start {
+		justify-content: flex-start;
+	}
+
+	.justify-c-center {
+		justify-content: center;
+	}
+
+	.justify-c-end {
+		justify-content: flex-end;
+	}
+
+	// font related
+	.font-bold {
+		font-weight: bold;
+	}
+
+	.font-italic {
+		font-style: italic;
+	}
+
+	// spacing rules
+	@each $size, $value in $spacing {
+		// example: https://tailwindcss.com/docs/gap
+		.gap-#{$size} {
+			gap: $value;
+		}
+		.gap-x-#{$size} {
+			row-gap: $value;
+		}
+		.gap-y-#{$size} {
+			column-gap: $value;
+		}
+
+		// example: https://tailwindcss.com/docs/margin
+		.m-#{$size} {
+			margin: $value;
+		}
+		.mx-#{$size} {
+			margin-left: $value;
+			margin-right: $value;
+		}
+		.my-#{$size} {
+			margin-bottom: $value;
+			margin-top: $value;
+		}
+		.mt-#{$size} {
+			margin-top: $value;
+		}
+		.mr-#{$size} {
+			margin-right: $value;
+		}
+		.mb-#{$size} {
+			margin-bottom: $value;
+		}
+		.ml-#{$size} {
+			margin-left: $value;
+		}
+
+		// example: https://tailwindcss.com/docs/padding
+		.p-#{$size} {
+			padding: $value;
+		}
+		.px-#{$size} {
+			padding-left: $value;
+			padding-right: $value;
+		}
+		.py-#{$size} {
+			padding-bottom: $value;
+			padding-top: $value;
+		}
+		.pt-#{$size} {
+			padding-top: $value;
+		}
+		.pr-#{$size} {
+			padding-right: $value;
+		}
+		.pb-#{$size} {
+			padding-bottom: $value;
+		}
+		.pl-#{$size} {
+			padding-left: $value;
+		}
+	}
 }
 
-.flex-1 {
-	flex: 1;
-}
-
-.flex-col {
-	flex-direction: column;
-}
-
-.flex-row {
-	flex-direction: row;
-}
+@include base;

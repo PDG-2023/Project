@@ -4,7 +4,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { AppComponent } from "./app.component";
 import { FooterComponent } from "./footer/footer.component";
 import { HeaderComponent } from "./header/header.component";
-import { MaterialsModule } from "../../components/materials.module";
+import { MaterialsModule } from "../../materials/materials.module";
 
 describe("AppComponent", () => {
 	let component: AppComponent;
