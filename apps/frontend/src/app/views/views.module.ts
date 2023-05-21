@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { AppComponent } from "./_layout/app.component";
 import { FooterComponent } from "./_layout/footer/footer.component";
 import { HeaderComponent } from "./_layout/header/header.component";
+import { SidebarComponent } from "./_layout/sidebar/sidebar.component";
 import { IndexView } from "./index/index.view";
 import { ItemModelView } from "./item-models/item-model/item-model.view";
 import { ItemModelsView } from "./item-models/item-models.view";
@@ -24,7 +25,8 @@ import { AppRouterModule } from "../router";
 		LocationsView,
 		LocationView,
 		NotFoundView,
-		ProfileView
+		ProfileView,
+		SidebarComponent
 	],
 	imports: [AppRouterModule, ComponentsModule]
 })

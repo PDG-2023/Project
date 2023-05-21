@@ -1,12 +1,10 @@
-import { Directive, OnDestroy, OnInit } from "@angular/core";
+import { Directive, OnDestroy } from "@angular/core";
 import { Subscription, TeardownLogic } from "rxjs";
 
 // Base for Components (can add more default stuff)
 @Directive() // Empty directive for angular
-export abstract class SubscribableComponent implements OnDestroy, OnInit {
+export abstract class SubscribableComponent implements OnDestroy {
 	protected subscriptions: Subscription = new Subscription();
-
-	public abstract ngOnInit(): Promise<void> | void;
 
 	public ngOnDestroy(): void {
 		this.subscriptions.unsubscribe();

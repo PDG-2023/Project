@@ -1,3 +1,7 @@
+@use "../../../styles/utils";
+
+$content-height: calc(100vh - var(--toolbar-height));
+
 #root {
 	min-height: 100vh;
 }
@@ -6,10 +10,48 @@ app-header {
 	top: 0;
 
 	position: sticky;
+
+	transition: transform 200ms cubic-bezier(0, 0, 0.2, 1) 50ms;
+	transition-property: all;
 	z-index: 1000;
 }
 
-app-header,
+mat-sidenav {
+	height: $content-height;
+	width: utils.$sidebar-width;
+
+	top: var(--toolbar-height);
+
+	position: fixed;
+}
+
 app-footer {
-	background-color: yellow;
+	height: var(--footer-height);
+	width: 100vw;
+
+	bottom: 0;
+
+	max-height: var(--footer-height);
+	position: fixed;
+}
+
+:host {
+	&.scrolled-down {
+		:not(.sidenav-opened) app-header {
+			transform: translateY(-100%);
+		}
+	}
+}
+
+@include utils.screen-breakpoint("sm") {
+	mat-sidenav-content,
+	#content {
+		height: $content-height;
+	}
+}
+
+@include utils.screen-breakpoint("sm", true) {
+	#content.logged {
+		padding-bottom: var(--footer-height);
+	}
 }

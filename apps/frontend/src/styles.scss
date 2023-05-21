@@ -1,5 +1,6 @@
+@use "./styles/tw";
+@use "./styles/utils";
 @import "./styles/material";
-@import "./styles/tw";
 
 html,
 body {
@@ -9,4 +10,21 @@ body {
 body {
 	font-family: Roboto, "Helvetica Neue", sans-serif;
 	margin: 0;
+}
+
+@include utils.css-vars;
+
+app-root {
+	// inside `app-root` to take priority over material classes
+	@include tw.base;
+
+	@each $breakpoint, $_ in utils.$breakpoints {
+		@include utils.screen-breakpoint($breakpoint) {
+			@include tw.base($breakpoint);
+		}
+
+		@include utils.screen-breakpoint($breakpoint, true) {
+			@include tw.base("#{$breakpoint}-max");
+		}
+	}
 }

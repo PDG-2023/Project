@@ -1,133 +1,152 @@
 // This is highly inspired by tailwind (https://tailwindcss.com/)
 
-// "Normal" spacing
-$spacing: (
-	"0": 0,
-	"1\\/2": 0.125rem,
-	"1": 0.25rem,
-	"2": 0.5rem,
-	"4": 1rem,
-	"8": 2rem
-);
+@use "./utils";
 
-@mixin base {
-	// Flex related
-	.flex {
+@mixin base($prefix: "") {
+	$prefix: if($prefix == "", "", "#{$prefix}\\:");
+
+	// display related
+	.#{$prefix}block {
+		display: block;
+	}
+	.#{$prefix}hidden {
+		display: none;
+	}
+
+	// position related
+	.#{$prefix}fixed {
+		position: fixed;
+	}
+	.#{$prefix}relative {
+		position: relative;
+	}
+	.#{$prefix}sticky {
+		position: sticky;
+	}
+
+	// overflow related
+	.#{$prefix}overflow-auto {
+		overflow: auto;
+	}
+	.#{$prefix}overflow-hidden {
+		overflow: hidden;
+	}
+
+	// flex related
+	.#{$prefix}flex {
 		display: flex;
 	}
 
-	.flex-1 {
+	.#{$prefix}flex-1 {
 		flex: 1;
 	}
 
-	.flex-col {
+	.#{$prefix}flex-col {
 		flex-direction: column;
 	}
 
-	.flex-row {
+	.#{$prefix}flex-row {
 		flex-direction: row;
 	}
 
-	.flex-wrap {
+	.#{$prefix}flex-wrap {
 		flex-wrap: wrap;
 	}
 
-	.align-i-start {
+	.#{$prefix}align-i-start {
 		align-items: flex-start;
 	}
 
-	.align-i-center {
+	.#{$prefix}align-i-center {
 		align-items: center;
 	}
 
-	.align-i-end {
+	.#{$prefix}align-i-end {
 		align-items: flex-end;
 	}
 
-	.justify-c-start {
+	.#{$prefix}justify-c-start {
 		justify-content: flex-start;
 	}
 
-	.justify-c-center {
+	.#{$prefix}justify-c-center {
 		justify-content: center;
 	}
 
-	.justify-c-end {
+	.#{$prefix}justify-c-end {
 		justify-content: flex-end;
 	}
 
 	// font related
-	.font-bold {
+	.#{$prefix}font-bold {
 		font-weight: bold;
 	}
 
-	.font-italic {
+	.#{$prefix}font-italic {
 		font-style: italic;
 	}
 
 	// spacing rules
-	@each $size, $value in $spacing {
+	@each $size, $value in utils.$spacing {
 		// example: https://tailwindcss.com/docs/gap
-		.gap-#{$size} {
+		.#{$prefix}gap-#{$size} {
 			gap: $value;
 		}
-		.gap-x-#{$size} {
+		.#{$prefix}gap-x-#{$size} {
 			row-gap: $value;
 		}
-		.gap-y-#{$size} {
+		.#{$prefix}gap-y-#{$size} {
 			column-gap: $value;
 		}
 
 		// example: https://tailwindcss.com/docs/margin
-		.m-#{$size} {
+		.#{$prefix}m-#{$size} {
 			margin: $value;
 		}
-		.mx-#{$size} {
+		.#{$prefix}mx-#{$size} {
 			margin-left: $value;
 			margin-right: $value;
 		}
-		.my-#{$size} {
+		.#{$prefix}my-#{$size} {
 			margin-bottom: $value;
 			margin-top: $value;
 		}
-		.mt-#{$size} {
+		.#{$prefix}mt-#{$size} {
 			margin-top: $value;
 		}
-		.mr-#{$size} {
+		.#{$prefix}mr-#{$size} {
 			margin-right: $value;
 		}
-		.mb-#{$size} {
+		.#{$prefix}mb-#{$size} {
 			margin-bottom: $value;
 		}
-		.ml-#{$size} {
+		.#{$prefix}ml-#{$size} {
 			margin-left: $value;
 		}
 
 		// example: https://tailwindcss.com/docs/padding
-		.p-#{$size} {
+		.#{$prefix}p-#{$size} {
 			padding: $value;
 		}
-		.px-#{$size} {
+		.#{$prefix}px-#{$size} {
 			padding-left: $value;
 			padding-right: $value;
 		}
-		.py-#{$size} {
+		.#{$prefix}py-#{$size} {
 			padding-bottom: $value;
 			padding-top: $value;
 		}
-		.pt-#{$size} {
+		.#{$prefix}pt-#{$size} {
 			padding-top: $value;
 		}
-		.pr-#{$size} {
+		.#{$prefix}pr-#{$size} {
 			padding-right: $value;
 		}
-		.pb-#{$size} {
+		.#{$prefix}pb-#{$size} {
 			padding-bottom: $value;
 		}
-		.pl-#{$size} {
+		.#{$prefix}pl-#{$size} {
 			padding-left: $value;
 		}
 	}
 }
-
-@include base;
