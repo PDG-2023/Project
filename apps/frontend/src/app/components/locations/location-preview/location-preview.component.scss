@@ -1,0 +1,25 @@
+.img_uncollapsed {
+	width: 100%;
+	max-width: 50px;
+	height: auto;
+}
+
+.flex-header-card {
+	display: flex;
+	justify-content: space-between;
+}
+
+.left-items-header {
+	display: flex;
+	justify-content: flex-start;
+}
+
+.right-item-header {
+	margin-left: auto;
+}
+
+.flex-actions{
+	display: flex;
+	justify-content: flex-end;
+}
+

@@ -1,1 +1,36 @@
 <p>location-preview works!</p>
+<mat-accordion>
+	<mat-expansion-panel hideToggle (closed)="expanded = false" (opened)="expanded = true">
+		<mat-expansion-panel-header>
+			<mat-panel-title *ngIf="!expanded"> img </mat-panel-title>
+			<img class="img_uncollapsed"
+				*ngIf="!expanded"
+				alt="photo of the location"
+				src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+			/>
+		</mat-expansion-panel-header>
+		<mat-card class="example-card">
+			<mat-card-header class="flex-header-card">
+				<div class="left-items-header">
+					<div class="example-header-image" mat-card-avatar></div>
+					<div>
+						<mat-card-title>{{name}}</mat-card-title>
+					</div>
+				</div>
+				<app-menu-icon-selector class="right-item-header" (buttonDeleteClick)="onDelete()" (buttOnEditClick)="onEdit()"></app-menu-icon-selector>
+			</mat-card-header>
+			<img
+				alt="Photo of a Shiba Inu"
+				mat-card-image
+				src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+			/>
+			<mat-card-content>
+				<h4>{{subtitle}}</h4>
+				<p>{{description}}</p>
+			</mat-card-content>
+			<mat-card-actions class="flex-actions">
+				<button (click)="onShow()" mat-button>Show</button>
+			</mat-card-actions>
+		</mat-card>
+	</mat-expansion-panel>
+</mat-accordion>
