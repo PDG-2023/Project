@@ -17,4 +17,8 @@ public class Category extends AbstractEntity{
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", nullable = false)
     private Category parent;
+
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id", nullable = false)
+    private Inventory inventory;
 }

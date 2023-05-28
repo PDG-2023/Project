@@ -85,7 +85,14 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - JWTAuth: [ ]
-  /categories:
+  /inventory/{inventoryId}/categories:
+    parameters:
+      - in: path
+        name: inventoryId
+        schema:
+          type: integer
+        required: true
+        description: Numeric of the current inventory
     get:
       tags:
         - Category
@@ -385,7 +392,14 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - JWTAuth: [ ]
-  /locations:
+  /inventory/{inventoryId}/locations:
+    parameters:
+      - in: path
+        name: inventoryId
+        schema:
+          type: integer
+        required: true
+        description: Numeric of the current inventory
     get:
       tags:
         - Location
@@ -965,7 +979,14 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - JWTAuth: [ ]
-  /item-models:
+  /inventory/{inventoryId}/item-models:
+    parameters:
+      - in: path
+        name: inventoryId
+        schema:
+          type: integer
+        required: true
+        description: Numeric of the current inventory
     get:
       tags:
         - ItemModel
