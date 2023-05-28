@@ -32,7 +32,9 @@ public class InventoryService extends AbstractService {
     }
 
     public InventoryDTO getInventory(Integer id) {
-        return (InventoryDTO) this.inventoryMapper.getDTO(this.getEntityIfExists(id, this.inventoryRepository));
+        return (InventoryDTO) this.inventoryMapper.getDTO(
+                this.getEntityIfExists(id, this.inventoryRepository)
+        );
     }
 
     public InventoryDTO updateInventory(Integer id, InventoryDTO inventoryDTO) {

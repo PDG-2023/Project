@@ -19,20 +19,16 @@ public class CategoryService extends AbstractService {
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
 
-    public CategoryDTO getCategory(Integer id) {
-        Optional<Category> category = this.categoryRepository.findById(id);
-
-        if (category.isEmpty()) {
-            throw new NotFoundException("Category does not exist");
-        }
-
-        return (CategoryDTO) this.categoryMapper.getDTO(category.get());
-    }
-
     public CategoryService(CategoryRepository categoryRepository, InventoryRepository inventoryRepository, CategoryMapper categoryMapper) {
         super(inventoryRepository);
         this.categoryRepository = categoryRepository;
         this.categoryMapper = categoryMapper;
+    }
+
+    public CategoryDTO getCategory(Integer id) {
+        return (CategoryDTO) this.categoryMapper.getDTO(
+                this.getEntityIfExists(id, this.categoryRepository)
+        );
     }
 
     public List<CategoryDTO> getCategories(Integer inventoryId, HugoSearchFilter<Category> filter) {

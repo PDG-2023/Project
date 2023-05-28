@@ -12,14 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class CategoryController implements ch.heig.pdg.backend.api.CategoryApi {
+public class CategoryController extends AbstractController implements ch.heig.pdg.backend.api.CategoryApi {
 
     private final CategoryService categoryService;
-    private final HttpServletRequest httpServletRequest;
 
     public CategoryController(CategoryService categoryService, HttpServletRequest httpServletRequest) {
+        super(httpServletRequest);
         this.categoryService = categoryService;
-        this.httpServletRequest = httpServletRequest;
     }
 
     @Override

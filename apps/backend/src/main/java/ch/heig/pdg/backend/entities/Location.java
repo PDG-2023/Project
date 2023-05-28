@@ -19,7 +19,6 @@ public class Location extends AbstractEntity {
     private String description;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
     private Location parent;
 
     @ManyToOne
