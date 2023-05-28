@@ -5,7 +5,6 @@ import ch.heig.pdg.backend.exception.exceptions.NotFoundException;
 import ch.heig.pdg.backend.repositories.InventoryRepository;
 import org.springframework.data.repository.CrudRepository;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 abstract public class AbstractService {

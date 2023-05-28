@@ -3,9 +3,7 @@ package ch.heig.pdg.backend.services;
 import ch.heig.pdg.backend.dto.InventoryDTO;
 import ch.heig.pdg.backend.dto.mapping.InventoryMapper;
 import ch.heig.pdg.backend.entities.Inventory;
-import ch.heig.pdg.backend.exception.exceptions.NotFoundException;
 import ch.heig.pdg.backend.repositories.InventoryRepository;
-import ch.heig.pdg.backend.repositories.UserRepository;
 import ch.heig.pdg.backend.utils.HugoSearchFilter;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +13,10 @@ import java.util.stream.Collectors;
 @Service
 public class InventoryService extends AbstractService {
     private final InventoryMapper inventoryMapper;
-    private final UserRepository userRepository;
 
-    protected InventoryService(InventoryRepository inventoryRepository, InventoryMapper inventoryMapper, UserRepository userRepository) {
+    protected InventoryService(InventoryRepository inventoryRepository, InventoryMapper inventoryMapper) {
         super(inventoryRepository);
         this.inventoryMapper = inventoryMapper;
-        this.userRepository = userRepository;
     }
 
     public List<InventoryDTO> getInventories(HugoSearchFilter<Inventory> filter) {
@@ -49,9 +45,6 @@ public class InventoryService extends AbstractService {
 
     public InventoryDTO addInventory(InventoryDTO inventoryDTO) {
         Inventory inventory = this.inventoryMapper.createFromDTO(inventoryDTO);
-
-        // FIXME: Change this to current userID
-        inventory.setOwner(this.userRepository.findById(1).orElseThrow(NotFoundException::new));
 
         return (InventoryDTO) this.inventoryMapper.getDTO(
                 this.inventoryRepository.save(inventory)

@@ -29,13 +29,6 @@ public class LocationService extends AbstractService {
         Location location = this.locationMapper.createFromDTO(locationDTO);
         location.setInventory(inventory);
 
-        if (locationDTO.getParentLocationId().isPresent()) {
-            location.setParent(this.getEntityIfExists(
-                    locationDTO.getParentLocationId().get(),
-                    this.locationRepository
-            ));
-        }
-
         return (LocationDTO) this.locationMapper.getDTO(
                 this.locationRepository.save(location)
         );
@@ -63,18 +56,12 @@ public class LocationService extends AbstractService {
     }
 
     public LocationDTO updateLocation(Integer id, LocationDTO locationDTO) {
-        Location location = this.getEntityIfExists(id, this.locationRepository);
-
-        if (locationDTO.getParentLocationId().isPresent()) {
-            location.setParent(this.getEntityIfExists(
-                    locationDTO.getParentLocationId().get(),
-                    this.locationRepository
-            ));
-        }
-
         return (LocationDTO) this.locationMapper.getDTO(
                 this.locationRepository.save(
-                        this.locationMapper.updateFromDTO(location, locationDTO)
+                        this.locationMapper.updateFromDTO(
+                                this.getEntityIfExists(id, this.locationRepository),
+                                locationDTO
+                        )
                 )
         );
     }

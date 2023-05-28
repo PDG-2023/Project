@@ -7,7 +7,7 @@ import ch.heig.pdg.backend.utils.DateFormatUtil;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ItemModelMapper implements IDataTransferObjectManager<ItemModel> {
+public class ItemModelMapper extends AbstractDataMapper implements IDataTransferObjectManager<ItemModel> {
     @Override
     public IDataTransferObject<ItemModel> getDTO(ItemModel itemModel) {
         ItemModelDTO dto = new ItemModelDTO();
@@ -20,11 +20,7 @@ public class ItemModelMapper implements IDataTransferObjectManager<ItemModel> {
 
     @Override
     public ItemModel createFromDTO(IDataTransferObject<ItemModel> dto) {
-        ItemModelDTO itemModelDTO = (ItemModelDTO) dto;
-        ItemModel itemModel = new ItemModel();
-        itemModel.setName(itemModelDTO.getName());
-        itemModel.setDescription(itemModelDTO.getDescription());
-        return itemModel;
+        return this.updateFromDTO(new ItemModel(), dto);
     }
 
     @Override
@@ -32,6 +28,7 @@ public class ItemModelMapper implements IDataTransferObjectManager<ItemModel> {
         ItemModelDTO itemModelDTO = (ItemModelDTO) dto;
         itemModel.setName(itemModelDTO.getName());
         itemModel.setDescription(itemModelDTO.getDescription());
+        // FIXME: need list of categories here
         return itemModel;
     }
 }

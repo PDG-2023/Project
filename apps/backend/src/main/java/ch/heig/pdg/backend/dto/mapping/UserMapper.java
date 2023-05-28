@@ -5,7 +5,7 @@ import ch.heig.pdg.backend.entities.User;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserMapper implements IDataTransferObjectManager<User> {
+public class UserMapper extends AbstractDataMapper implements IDataTransferObjectManager<User> {
     @Override
     public IDataTransferObject<User> getDTO(User object) {
         return null;

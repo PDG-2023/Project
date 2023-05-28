@@ -28,8 +28,6 @@ public class ItemModelService extends AbstractService {
 
         ItemModel itemModel = this.itemModelMapper.createFromDTO(itemModelDTO);
         itemModel.setInventory(inventory);
-        // FIXME: register categories (need to add it to api yaml
-//        itemModel.setCategories();
 
         return (ItemModelDTO) this.itemModelMapper.getDTO(
                 this.itemModelRepository.save(itemModel)
@@ -60,8 +58,6 @@ public class ItemModelService extends AbstractService {
 
     public ItemModelDTO updateItemModel(Integer id, ItemModelDTO itemModelDTO) {
         ItemModel itemModel = this.getEntityIfExists(id, this.itemModelRepository);
-        // FIXME: register categories (need to add it to api yaml
-//        itemModel.setCategories();
 
         return (ItemModelDTO) this.itemModelMapper.getDTO(
                 this.itemModelRepository.save(

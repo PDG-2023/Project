@@ -4,7 +4,6 @@ import ch.heig.pdg.backend.dto.ItemDTO;
 import ch.heig.pdg.backend.dto.mapping.ItemMapper;
 import ch.heig.pdg.backend.entities.Item;
 import ch.heig.pdg.backend.repositories.InventoryRepository;
-import ch.heig.pdg.backend.repositories.ItemModelRepository;
 import ch.heig.pdg.backend.repositories.ItemRepository;
 import ch.heig.pdg.backend.utils.HugoSearchFilter;
 import org.springframework.stereotype.Service;
@@ -15,20 +14,16 @@ import java.util.stream.Collectors;
 @Service
 public class ItemService extends AbstractService {
     private final ItemRepository itemRepository;
-    private final ItemModelRepository itemModelRepository;
     private final ItemMapper itemMapper;
-    protected ItemService(InventoryRepository inventoryRepository, ItemRepository itemRepository, ItemModelRepository itemModelRepository, ItemMapper itemMapper) {
+
+    protected ItemService(InventoryRepository inventoryRepository, ItemRepository itemRepository, ItemMapper itemMapper) {
         super(inventoryRepository);
         this.itemRepository = itemRepository;
-        this.itemModelRepository = itemModelRepository;
         this.itemMapper = itemMapper;
     }
 
     public ItemDTO addItem(ItemDTO itemDTO) {
         Item item = this.itemMapper.createFromDTO(itemDTO);
-        item.setModel(this.getEntityIfExists(itemDTO.getModelId(), this.itemModelRepository));
-        // FIXME: Is the location computed ?
-//        item.setLocation(this.getEntityIfExists(itemDTO.get));
 
         return (ItemDTO) this.itemMapper.getDTO(
                 this.itemRepository.save(item)
@@ -57,7 +52,6 @@ public class ItemService extends AbstractService {
 
     public ItemDTO updateItem(Integer id, ItemDTO itemDTO) {
         Item item = this.getEntityIfExists(id, this.itemRepository);
-        item.setModel(this.getEntityIfExists(itemDTO.getModelId(), this.itemModelRepository));
 
         return (ItemDTO) this.itemMapper.getDTO(
                 this.itemRepository.save(
