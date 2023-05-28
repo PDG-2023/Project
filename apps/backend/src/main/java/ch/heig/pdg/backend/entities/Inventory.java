@@ -14,7 +14,7 @@ public class Inventory extends AbstractEntity {
     private String name;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(nullable = false)
     private User owner;
 
     @ManyToMany

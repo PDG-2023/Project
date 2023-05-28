@@ -2,7 +2,9 @@ package ch.heig.pdg.backend.dto.mapping;
 
 import ch.heig.pdg.backend.dto.IDataTransferObject;
 import ch.heig.pdg.backend.entities.Movement;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MovementMapper implements IDataTransferObjectManager<Movement> {
     @Override
     public IDataTransferObject<Movement> getDTO(Movement object) {

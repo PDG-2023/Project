@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 @Repository
-public interface MovementRepository extends CrudRepository<Movement, Integer>, PagingAndSortingRepository<Movement, Integer> {
+public interface MovementRepository extends CrudRepository<Movement, Integer>, PagingAndSortingRepository<Movement, Integer>, CriteriaRepository<Movement> {
 }

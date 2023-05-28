@@ -9,9 +9,8 @@ import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Data
+@MappedSuperclass
 abstract public class AbstractEntity {
     @Id
     @Setter(AccessLevel.NONE)

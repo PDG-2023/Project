@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 @Repository
-public interface ItemModelRepository extends CrudRepository<ItemModel, Integer>, PagingAndSortingRepository<ItemModel, Integer> {
+public interface ItemModelRepository extends CrudRepository<ItemModel, Integer>, PagingAndSortingRepository<ItemModel, Integer>, CriteriaRepository<ItemModel> {
 }
