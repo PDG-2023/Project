@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 public class UserController extends AbstractController implements ch.heig.pdg.backend.api.UserApi {
     private final UserService userService;
+
     public UserController(HttpServletRequest httpServletRequest, UserService userService) {
         super(httpServletRequest);
         this.userService = userService;
@@ -47,7 +48,7 @@ public class UserController extends AbstractController implements ch.heig.pdg.ba
 
     @Override
     public ResponseEntity<List<UserDTO>> getUsers() {
-        HugoSearchFilter<User> filter = HugoSearchFilter.build(this.httpServletRequest);
+        HugoSearchFilter<User> filter = HugoSearchFilter.build(this.httpServletRequest, User.class);
 
         return new ResponseEntity<>(
                 this.userService.getUsers(filter),

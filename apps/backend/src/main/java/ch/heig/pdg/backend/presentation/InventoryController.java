@@ -40,7 +40,7 @@ public class InventoryController implements ch.heig.pdg.backend.api.InventoryApi
 
     @Override
     public ResponseEntity<List<InventoryDTO>> getInventories() {
-        HugoSearchFilter<Inventory> filter = HugoSearchFilter.build(this.httpServletRequest);
+        HugoSearchFilter<Inventory> filter = HugoSearchFilter.build(this.httpServletRequest, Inventory.class);
         return new ResponseEntity<>(
                 this.inventoryService.getInventories(filter),
                 HttpStatus.OK
