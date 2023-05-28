@@ -3,6 +3,7 @@ package ch.heig.pdg.backend.dto.mapping;
 import ch.heig.pdg.backend.dto.IDataTransferObject;
 import ch.heig.pdg.backend.dto.MovementDTO;
 import ch.heig.pdg.backend.entities.Movement;
+import ch.heig.pdg.backend.utils.DateFormatUtil;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,7 +12,7 @@ public class MovementMapper implements IDataTransferObjectManager<Movement> {
     public IDataTransferObject<Movement> getDTO(Movement movement) {
         MovementDTO dto = new MovementDTO();
         dto.setId(movement.getId());
-        dto.setCreated(movement.getCreatedAt().toString());
+        dto.setCreated(DateFormatUtil.dateToString(movement.getCreatedAt()));
         return dto;
     }
 

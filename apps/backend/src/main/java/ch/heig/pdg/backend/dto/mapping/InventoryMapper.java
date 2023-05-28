@@ -3,6 +3,7 @@ package ch.heig.pdg.backend.dto.mapping;
 import ch.heig.pdg.backend.dto.IDataTransferObject;
 import ch.heig.pdg.backend.dto.InventoryDTO;
 import ch.heig.pdg.backend.entities.Inventory;
+import ch.heig.pdg.backend.utils.DateFormatUtil;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,8 +13,8 @@ public class InventoryMapper implements IDataTransferObjectManager<Inventory> {
         InventoryDTO dto = new InventoryDTO();
         dto.setId(inventory.getId());
         dto.setName(inventory.getName());
-        dto.setCreated(inventory.getCreatedAt().toString());
-        dto.setUpdated(inventory.getUpdatedAt().toString());
+        dto.setCreated(DateFormatUtil.dateToString(inventory.getCreatedAt()));
+        dto.setUpdated(DateFormatUtil.dateToString(inventory.getUpdatedAt()));
         return dto;
     }
 

@@ -3,6 +3,7 @@ package ch.heig.pdg.backend.dto.mapping;
 import ch.heig.pdg.backend.dto.IDataTransferObject;
 import ch.heig.pdg.backend.dto.ItemModelDTO;
 import ch.heig.pdg.backend.entities.ItemModel;
+import ch.heig.pdg.backend.utils.DateFormatUtil;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,8 +13,8 @@ public class ItemModelMapper implements IDataTransferObjectManager<ItemModel> {
         ItemModelDTO dto = new ItemModelDTO();
         dto.setId(itemModel.getId());
         dto.setName(itemModel.getName());
-        dto.setCreated(itemModel.getCreatedAt().toString());
-        dto.setUpdated(itemModel.getUpdatedAt().toString());
+        dto.setCreated(DateFormatUtil.dateToString(itemModel.getCreatedAt()));
+        dto.setUpdated(DateFormatUtil.dateToString(itemModel.getUpdatedAt()));
         return dto;
     }
 

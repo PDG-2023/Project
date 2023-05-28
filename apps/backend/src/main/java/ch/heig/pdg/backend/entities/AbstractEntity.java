@@ -16,17 +16,19 @@ import java.util.Date;
 abstract public class AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
     @Column(nullable = false)
+    @Setter(AccessLevel.NONE)
     protected Integer id;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @Setter(AccessLevel.NONE)
     protected LocalDateTime createdAt;
 
     @UpdateTimestamp
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @Setter(AccessLevel.NONE)
     protected LocalDateTime updatedAt;
 }
