@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-abstract public class AbstractService {
+public abstract class AbstractService {
     protected final InventoryRepository inventoryRepository;
 
     protected AbstractService(InventoryRepository inventoryRepository) {

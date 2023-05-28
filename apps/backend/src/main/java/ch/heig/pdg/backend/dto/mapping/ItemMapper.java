@@ -4,7 +4,6 @@ import ch.heig.pdg.backend.dto.IDataTransferObject;
 import ch.heig.pdg.backend.dto.ItemDTO;
 import ch.heig.pdg.backend.entities.Item;
 import ch.heig.pdg.backend.entities.ItemModel;
-import ch.heig.pdg.backend.repositories.ItemModelRepository;
 import ch.heig.pdg.backend.utils.DateFormatUtil;
 import org.springframework.stereotype.Service;
 

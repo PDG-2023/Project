@@ -1,8 +1,6 @@
 package ch.heig.pdg.backend.presentation;
 
-import ch.heig.pdg.backend.api.UserApi;
 import ch.heig.pdg.backend.dto.UserDTO;
-import ch.heig.pdg.backend.entities.Location;
 import ch.heig.pdg.backend.entities.User;
 import ch.heig.pdg.backend.services.UserService;
 import ch.heig.pdg.backend.utils.HugoSearchFilter;

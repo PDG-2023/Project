@@ -2,12 +2,9 @@ package ch.heig.pdg.backend.dto.mapping;
 
 import ch.heig.pdg.backend.dto.IDataTransferObject;
 import ch.heig.pdg.backend.dto.MovementDTO;
-import ch.heig.pdg.backend.entities.Category;
 import ch.heig.pdg.backend.entities.Item;
 import ch.heig.pdg.backend.entities.Location;
 import ch.heig.pdg.backend.entities.Movement;
-import ch.heig.pdg.backend.repositories.ItemRepository;
-import ch.heig.pdg.backend.repositories.LocationRepository;
 import ch.heig.pdg.backend.utils.DateFormatUtil;
 import org.springframework.stereotype.Service;
 
