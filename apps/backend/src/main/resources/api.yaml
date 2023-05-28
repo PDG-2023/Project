@@ -85,6 +85,155 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - JWTAuth: [ ]
+  /categories:
+    get:
+      tags:
+        - Category
+      description: Get categories
+      operationId: getCategories
+      responses:
+        200:
+          description: OK
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryDTO'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        409:
+          $ref: '#/components/responses/409'
+        500:
+          $ref: '#/components/responses/500'
+    post:
+      tags:
+        - Category
+      description: Create category
+      operationId: createCategory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryDTO'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDTO'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        409:
+          $ref: '#/components/responses/409'
+        500:
+          $ref: '#/components/responses/500'
+  /categories/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+        description: Numeric id of the resource to get
+    get:
+      tags:
+        - Category
+      description: Get category
+      operationId: getCategory
+      responses:
+        200:
+          description: OK
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/CategoryDTO'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        409:
+          $ref: '#/components/responses/409'
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
+    put:
+      tags:
+        - Category
+      description: Update category
+      operationId: updateCategory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryDTO'
+      responses:
+        200:
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDTO'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        409:
+          $ref: '#/components/responses/409'
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
+    delete:
+      tags:
+        - Category
+      description: Delete category
+      operationId: deleteCategory
+      responses:
+        200:
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDTO'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        409:
+          $ref: '#/components/responses/409'
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
   /users:
     get:
       tags:
@@ -100,40 +249,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/UserDTO'
-        400:
-          $ref: '#/components/responses/400'
-        401:
-          $ref: '#/components/responses/401'
-        403:
-          $ref: '#/components/responses/403'
-        404:
-          $ref: '#/components/responses/404'
-        409:
-          $ref: '#/components/responses/409'
-        500:
-          $ref: '#/components/responses/500'
-      security:
-        - JWTAuth: [ ]
-  /users/{id}:
-    parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        required: true
-        description: Numeric id of the resource to get
-    get:
-      tags:
-        - User
-      description: Get user
-      operationId: getUser
-      responses:
-        200:
-          description: OK
-          content:
-            'application/json':
-              schema:
-                $ref: '#/components/schemas/UserDTO'
         400:
           $ref: '#/components/responses/400'
         401:
@@ -178,6 +293,40 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+  /users/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+        description: Numeric id of the resource to get
+    get:
+      tags:
+        - User
+      description: Get user
+      operationId: getUser
+      responses:
+        200:
+          description: OK
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        409:
+          $ref: '#/components/responses/409'
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
     put:
       tags:
         - User
@@ -265,6 +414,38 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - JWTAuth: [ ]
+    post:
+      tags:
+        - Location
+      description: Create location
+      operationId: createLocation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationDTO'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationDTO'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        409:
+          $ref: '#/components/responses/409'
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
   /locations/{id}:
     parameters:
       - in: path
@@ -283,38 +464,6 @@ paths:
           description: OK
           content:
             'application/json':
-              schema:
-                $ref: '#/components/schemas/LocationDTO'
-        400:
-          $ref: '#/components/responses/400'
-        401:
-          $ref: '#/components/responses/401'
-        403:
-          $ref: '#/components/responses/403'
-        404:
-          $ref: '#/components/responses/404'
-        409:
-          $ref: '#/components/responses/409'
-        500:
-          $ref: '#/components/responses/500'
-      security:
-        - JWTAuth: [ ]
-    post:
-      tags:
-        - Location
-      description: Create location
-      operationId: createLocation
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LocationDTO'
-      responses:
-        201:
-          description: Created
-          content:
-            application/json:
               schema:
                 $ref: '#/components/schemas/LocationDTO'
         400:
@@ -418,6 +567,38 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - JWTAuth: [ ]
+    post:
+      tags:
+        - Item
+      description: Create item
+      operationId: createItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemDTO'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemDTO'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        409:
+          $ref: '#/components/responses/409'
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
   /items/{id}:
     parameters:
       - in: path
@@ -436,38 +617,6 @@ paths:
           description: OK
           content:
             'application/json':
-              schema:
-                $ref: '#/components/schemas/ItemDTO'
-        400:
-          $ref: '#/components/responses/400'
-        401:
-          $ref: '#/components/responses/401'
-        403:
-          $ref: '#/components/responses/403'
-        404:
-          $ref: '#/components/responses/404'
-        409:
-          $ref: '#/components/responses/409'
-        500:
-          $ref: '#/components/responses/500'
-      security:
-        - JWTAuth: [ ]
-    post:
-      tags:
-        - Item
-      description: Create item
-      operationId: createItem
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ItemDTO'
-      responses:
-        201:
-          description: Created
-          content:
-            application/json:
               schema:
                 $ref: '#/components/schemas/ItemDTO'
         400:
@@ -571,6 +720,38 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - JWTAuth: [ ]
+    post:
+      tags:
+        - Inventory
+      description: Create inventory
+      operationId: createInventory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InventoryDTO'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryDTO'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        409:
+          $ref: '#/components/responses/409'
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
   /inventories/{id}:
     parameters:
       - in: path
@@ -589,38 +770,6 @@ paths:
           description: OK
           content:
             'application/json':
-              schema:
-                $ref: '#/components/schemas/InventoryDTO'
-        400:
-          $ref: '#/components/responses/400'
-        401:
-          $ref: '#/components/responses/401'
-        403:
-          $ref: '#/components/responses/403'
-        404:
-          $ref: '#/components/responses/404'
-        409:
-          $ref: '#/components/responses/409'
-        500:
-          $ref: '#/components/responses/500'
-      security:
-        - JWTAuth: [ ]
-    post:
-      tags:
-        - Inventory
-      description: Create inventory
-      operationId: createInventory
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/InventoryDTO'
-      responses:
-        201:
-          description: Created
-          content:
-            application/json:
               schema:
                 $ref: '#/components/schemas/InventoryDTO'
         400:
@@ -724,6 +873,38 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - JWTAuth: [ ]
+    post:
+      tags:
+        - Movement
+      description: Create movement
+      operationId: createMovement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovementDTO'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovementDTO'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        409:
+          $ref: '#/components/responses/409'
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
   /movements/{id}:
     parameters:
       - in: path
@@ -742,38 +923,6 @@ paths:
           description: OK
           content:
             'application/json':
-              schema:
-                $ref: '#/components/schemas/MovementDTO'
-        400:
-          $ref: '#/components/responses/400'
-        401:
-          $ref: '#/components/responses/401'
-        403:
-          $ref: '#/components/responses/403'
-        404:
-          $ref: '#/components/responses/404'
-        409:
-          $ref: '#/components/responses/409'
-        500:
-          $ref: '#/components/responses/500'
-      security:
-        - JWTAuth: [ ]
-    post:
-      tags:
-        - Movement
-      description: Create movement
-      operationId: createMovement
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/MovementDTO'
-      responses:
-        201:
-          description: Created
-          content:
-            application/json:
               schema:
                 $ref: '#/components/schemas/MovementDTO'
         400:
@@ -845,6 +994,38 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - JWTAuth: [ ]
+    post:
+      tags:
+        - ItemModel
+      description: Create item model
+      operationId: createItemModel
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemModelDTO'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemModelDTO'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          $ref: '#/components/responses/404'
+        409:
+          $ref: '#/components/responses/409'
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - JWTAuth: [ ]
   /item-models/{id}:
     parameters:
       - in: path
@@ -863,38 +1044,6 @@ paths:
           description: OK
           content:
             'application/json':
-              schema:
-                $ref: '#/components/schemas/ItemModelDTO'
-        400:
-          $ref: '#/components/responses/400'
-        401:
-          $ref: '#/components/responses/401'
-        403:
-          $ref: '#/components/responses/403'
-        404:
-          $ref: '#/components/responses/404'
-        409:
-          $ref: '#/components/responses/409'
-        500:
-          $ref: '#/components/responses/500'
-      security:
-        - JWTAuth: [ ]
-    post:
-      tags:
-        - ItemModel
-      description: Create item model
-      operationId: createItemModel
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ItemModelDTO'
-      responses:
-        201:
-          description: Created
-          content:
-            application/json:
               schema:
                 $ref: '#/components/schemas/ItemModelDTO'
         400:
@@ -978,6 +1127,23 @@ components:
           type: array
           items:
             type: string
+    CategoryDTO:
+      x-implements: [ 'ch.heig.pdg.backend.dto.IDataTransferObject<ch.heig.pdg.backend.entities.Category>' ]
+      required:
+        - description
+        - name
+      properties:
+        id:
+          type: integer
+        updated:
+          type: string
+        created:
+          type: string
+        name:
+          type: string
+        parentCategoryId:
+          type: integer
+          nullable: true
     ItemModelDTO:
       x-implements: [ 'ch.heig.pdg.backend.dto.IDataTransferObject<ch.heig.pdg.backend.entities.Item>' ]
       required:
