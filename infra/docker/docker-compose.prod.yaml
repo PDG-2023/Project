@@ -15,5 +15,5 @@ services:
     volumes:
         - prod-db-data:/var/lib/postgresql
 
-volume:
+volumes:
   prod-db-data:
