@@ -1,4 +1,25 @@
 package ch.heig.pdg.backend.entities;
 
-public class Movement {
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Entity
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class Movement extends AbstractEntity {
+
+    public enum Type {
+        IN, OUT
+    }
+
+    @OneToOne
+    private Item item;
+
+    @OneToOne
+    private Location location;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 9)
+    private Type type;
 }

@@ -10,14 +10,11 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Location extends AbstractEntity {
+public class Category extends AbstractEntity{
     @Column(nullable = false)
     private String name;
 
-    @Column(columnDefinition = "TEXT", length = 65535, nullable = false)
-    private String description;
-
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", nullable = false)
-    private Location parent;
+    private Category parent;
 }
