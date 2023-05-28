@@ -2,7 +2,9 @@ package ch.heig.pdg.backend.dto.mapping;
 
 import ch.heig.pdg.backend.dto.IDataTransferObject;
 import ch.heig.pdg.backend.entities.Item;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ItemMapper implements IDataTransferObjectManager<Item> {
     @Override
     public IDataTransferObject<Item> getDTO(Item object) {
