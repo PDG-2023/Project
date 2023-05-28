@@ -1,11 +1,14 @@
 import { NgModule } from "@angular/core";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 
+import { TranslateControlErrorPipe } from "./pipes/translation-control-error.pipe";
 import { TranslationLoader } from "./translation.loader";
+import { TranslationService } from "./translation.service";
 import { TranslationLanguage } from "./translation.types";
 
 @NgModule({
-	exports: [TranslateModule],
+	declarations: [TranslateControlErrorPipe],
+	exports: [TranslateControlErrorPipe, TranslateModule],
 	imports: [
 		TranslateModule.forRoot({
 			defaultLanguage: "en" satisfies TranslationLanguage,
@@ -15,6 +18,7 @@ import { TranslationLanguage } from "./translation.types";
 				useValue: new TranslationLoader()
 			}
 		})
-	]
+	],
+	providers: [TranslationService]
 })
 export class TranslationModule {}

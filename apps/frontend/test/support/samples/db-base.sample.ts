@@ -132,6 +132,16 @@ export const DbBaseSample: DbSample = {
 			created: date1,
 			updated: date1,
 
+			email: "admin@local.host",
+			firstName: "Admin",
+			lastName: "Istrator"
+		},
+		{
+			id: 2,
+
+			created: date1,
+			updated: date1,
+
 			email: "elise@store.me",
 			firstName: "Elise",
 			lastName: "Store"

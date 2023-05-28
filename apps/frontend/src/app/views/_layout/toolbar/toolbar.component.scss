@@ -1,0 +1,9 @@
+@use "../../../../styles/utils";
+
+#user-fullname {
+	display: block;
+	max-width: utils.$sidebar-width * 2 / 3;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}

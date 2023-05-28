@@ -5,10 +5,19 @@
 html,
 body {
 	height: 100%;
+
+	// In case an element is no longer visible
+	background-color: #fafafa;
 }
 
 body {
 	font-family: Roboto, "Helvetica Neue", sans-serif;
+	margin: 0;
+}
+
+h4,
+h5,
+h6 {
 	margin: 0;
 }
 
@@ -17,14 +26,23 @@ body {
 app-root {
 	// inside `app-root` to take priority over material classes
 	@include tw.base;
+	@include tw.base("hover", "hover");
 
 	@each $breakpoint, $_ in utils.$breakpoints {
 		@include utils.screen-breakpoint($breakpoint) {
 			@include tw.base($breakpoint);
+			@include tw.base("#{$breakpoint}\\/hover", "hover");
 		}
 
 		@include utils.screen-breakpoint($breakpoint, true) {
 			@include tw.base("#{$breakpoint}-max");
 		}
 	}
+}
+
+// By default, all routed component take all the remaining place
+router-outlet + * {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
 }

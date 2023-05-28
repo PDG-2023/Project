@@ -2,7 +2,7 @@ import { Component, HostBinding, HostListener, OnInit, ViewChild } from "@angula
 import { MatSidenav } from "@angular/material/sidenav";
 import { map } from "rxjs";
 
-import { AuthApiService } from "../../../api/auth-api";
+import { AuthService } from "../../auth/auth.service";
 import { SubscribableComponent } from "../../components/_lib/subscribable.component";
 
 @Component({
@@ -35,7 +35,7 @@ export class AppComponent extends SubscribableComponent implements OnInit {
 		return !this.isScrollingDown;
 	}
 
-	public constructor(private readonly authService: AuthApiService) {
+	public constructor(private readonly authService: AuthService) {
 		super();
 	}
 

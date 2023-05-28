@@ -1,1 +1,88 @@
-<h2>Login and signup view</h2>
+<div class="align-i-center flex flex-1 justify-c-center">
+	<mat-card class="flex flex-col gap-4">
+		<mat-card-header>
+			<mat-card-title class="text-3xl">{{
+				(isRegistering ? "views.login.account-create" : "views.login.login") | translate
+			}}</mat-card-title>
+		</mat-card-header>
+
+		<mat-card-content *ngIf="user" class="flex flex-col gap-4 align-i-center">
+			<mat-spinner diameter="75"></mat-spinner>
+
+			<p><mat-hint translate>views.login.redirect</mat-hint></p>
+		</mat-card-content>
+
+		<mat-card-content *ngIf="!user" class="flex flex-col gap-8">
+			<form class="flex flex-col gap-2" [formGroup]="form" (ngSubmit)="handleSubmit()">
+				<mat-form-field>
+					<mat-label translate>entities.user.email</mat-label>
+					<input matInput name="email" type="text" [formControl]="form.controls.email" />
+					<mat-error translate>views.login._errors.email</mat-error>
+				</mat-form-field>
+
+				<mat-form-field>
+					<mat-label translate>entities.user.password</mat-label>
+					<input
+						matInput
+						name="password"
+						type="password"
+						[formControl]="form.controls.password"
+					/>
+					<mat-error>{{
+						form.controls.password.errors | translateControlError
+					}}</mat-error>
+				</mat-form-field>
+
+				<ng-container *ngIf="isRegistering">
+					<mat-form-field>
+						<mat-label translate>entities.user.firstname</mat-label>
+						<input
+							matInput
+							name="firstname"
+							type="text"
+							[formControl]="form.controls.firstName"
+						/>
+						<mat-error translate>errors.validation.required</mat-error>
+					</mat-form-field>
+
+					<mat-form-field>
+						<mat-label translate>entities.user.lastname</mat-label>
+						<input
+							matInput
+							name="lastname"
+							type="text"
+							[formControl]="form.controls.lastName"
+						/>
+						<mat-error translate>errors.validation.required</mat-error>
+					</mat-form-field>
+				</ng-container>
+
+				<button color="primary" mat-raised-button type="submit" [disabled]="loading">
+					{{ (isRegistering ? "actions.register" : "actions.login") | translate }}
+				</button>
+				<mat-progress-bar *ngIf="loading" mode="query"></mat-progress-bar>
+
+				<mat-error *ngIf="error" class="flex flex-row gap-2">
+					<mat-icon inline>error_outline</mat-icon>
+					<span>{{ errorMessage(error) | async }}</span>
+				</mat-error>
+			</form>
+		</mat-card-content>
+
+		<mat-card-actions *ngIf="!user" class="flex flex-col gap-1/2">
+			<ng-container *ngIf="isRegistering">
+				<span translate>views.login.account-already</span>
+				<a queryParamsHandling="preserve" translate [routerLink]="paths.login"
+					>actions.login</a
+				>
+			</ng-container>
+
+			<ng-container *ngIf="!isRegistering">
+				<span translate>views.login.account-none</span>
+				<a queryParamsHandling="preserve" translate [routerLink]="paths.register"
+					>views.login._actions.create-account</a
+				>
+			</ng-container>
+		</mat-card-actions>
+	</mat-card>
+</div>

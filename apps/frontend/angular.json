@@ -48,7 +48,7 @@
 					},
 					"defaultConfiguration": "production",
 					"options": {
-						"assets": ["src/favicon.ico", "src/assets"],
+						"assets": ["src/favicon.png", "src/assets"],
 						"index": "src/index.html",
 						"inlineStyleLanguage": "scss",
 						"main": "src/main.ts",

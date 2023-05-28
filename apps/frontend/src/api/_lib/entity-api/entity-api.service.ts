@@ -50,8 +50,8 @@ export abstract class EntityApiService<T extends EntityDto, ToCreate, ToUpdate> 
 	 * @param body Object to update an entity
 	 * @returns the updated entity
 	 */
-	public update(id: number, body: ToUpdate): Promise<T> {
-		return this.client.patch(`${this.getEntrypoint()}/${id}`, body);
+	public replace(id: number, body: ToUpdate): Promise<T> {
+		return this.client.put(`${this.getEntrypoint()}/${id}`, body);
 	}
 
 	/**
