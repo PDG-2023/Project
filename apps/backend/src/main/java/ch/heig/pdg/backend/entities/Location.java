@@ -6,6 +6,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.checkerframework.common.aliasing.qual.MaybeAliased;
 
 @Entity
 @Data
@@ -20,4 +21,8 @@ public class Location extends AbstractEntity {
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", nullable = false)
     private Location parent;
+
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id", nullable = false)
+    private Inventory inventory;
 }

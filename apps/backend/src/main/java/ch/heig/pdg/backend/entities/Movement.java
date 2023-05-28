@@ -13,7 +13,8 @@ public class Movement extends AbstractEntity {
         IN, OUT
     }
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id", nullable = false)
     private Item item;
 
     @OneToOne

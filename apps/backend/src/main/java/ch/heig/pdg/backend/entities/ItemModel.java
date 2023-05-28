@@ -22,4 +22,8 @@ public class ItemModel extends AbstractEntity {
             joinColumns = @JoinColumn(name = "item_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> categories;
+
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id", nullable = false)
+    private Inventory inventory;
 }
