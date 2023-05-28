@@ -12,14 +12,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CategoryMapper extends AbstractDataMapper implements IDataTransferObjectManager<Category> {
-    private final CategoryRepository categoryRepository;
-
-    @PersistenceContext
-    private EntityManager entityManager;
-
-    public CategoryMapper(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
 
     @Override
     public IDataTransferObject<Category> getDTO(Category category) {

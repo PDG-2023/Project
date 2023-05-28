@@ -3,17 +3,14 @@ package ch.heig.pdg.backend.dto.mapping;
 import ch.heig.pdg.backend.dto.IDataTransferObject;
 import ch.heig.pdg.backend.dto.InventoryDTO;
 import ch.heig.pdg.backend.entities.Inventory;
+import ch.heig.pdg.backend.entities.Item;
+import ch.heig.pdg.backend.entities.User;
 import ch.heig.pdg.backend.repositories.UserRepository;
 import ch.heig.pdg.backend.utils.DateFormatUtil;
 import org.springframework.stereotype.Service;
 
 @Service
 public class InventoryMapper extends AbstractDataMapper implements IDataTransferObjectManager<Inventory> {
-    private final UserRepository userRepository;
-
-    public InventoryMapper(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Override
     public IDataTransferObject<Inventory> getDTO(Inventory inventory) {
@@ -28,7 +25,7 @@ public class InventoryMapper extends AbstractDataMapper implements IDataTransfer
     @Override
     public Inventory createFromDTO(IDataTransferObject<Inventory> dto) {
         Inventory inventory = new Inventory();
-        inventory.setOwner(this.getEntityIfExists(1, this.userRepository));
+        inventory.setOwner(this.entityManager.getReference(User.class, 1));
         return this.updateFromDTO(inventory, dto);
     }
 
