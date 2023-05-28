@@ -23,10 +23,11 @@ public class MovementService extends AbstractService {
     }
 
     public MovementDTO addMovement(MovementDTO movementDTO) {
-        Movement movement = this.movementMapper.createFromDTO(movementDTO);
 
         return (MovementDTO) this.movementMapper.getDTO(
-                this.movementRepository.save(movement)
+                this.movementRepository.save(
+                        this.movementMapper.createFromDTO(movementDTO)
+                )
         );
     }
 

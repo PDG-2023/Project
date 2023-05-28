@@ -23,10 +23,10 @@ public class ItemService extends AbstractService {
     }
 
     public ItemDTO addItem(ItemDTO itemDTO) {
-        Item item = this.itemMapper.createFromDTO(itemDTO);
-
         return (ItemDTO) this.itemMapper.getDTO(
-                this.itemRepository.save(item)
+                this.itemRepository.save(
+                        this.itemMapper.createFromDTO(itemDTO)
+                )
         );
     }
 
