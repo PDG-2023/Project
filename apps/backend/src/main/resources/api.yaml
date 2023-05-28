@@ -1166,7 +1166,7 @@ components:
           type: integer
           nullable: true
     ItemModelDTO:
-      x-implements: [ 'ch.heig.pdg.backend.dto.IDataTransferObject<ch.heig.pdg.backend.entities.Item>' ]
+      x-implements: [ 'ch.heig.pdg.backend.dto.IDataTransferObject<ch.heig.pdg.backend.entities.ItemModel>' ]
       required:
         - description
         - name

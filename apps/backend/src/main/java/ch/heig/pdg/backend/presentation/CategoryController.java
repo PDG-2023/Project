@@ -12,14 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class CategoryController implements ch.heig.pdg.backend.api.CategoryApi {
+public class CategoryController extends AbstractController implements ch.heig.pdg.backend.api.CategoryApi {
 
     private final CategoryService categoryService;
-    private final HttpServletRequest httpServletRequest;
 
     public CategoryController(CategoryService categoryService, HttpServletRequest httpServletRequest) {
+        super(httpServletRequest);
         this.categoryService = categoryService;
-        this.httpServletRequest = httpServletRequest;
     }
 
     @Override
@@ -28,6 +27,38 @@ public class CategoryController implements ch.heig.pdg.backend.api.CategoryApi {
 
         return new ResponseEntity<>(
                 this.categoryService.getCategories(inventoryId, filter),
+                HttpStatus.OK
+        );
+    }
+
+    @Override
+    public ResponseEntity<CategoryDTO> createCategory(Integer inventoryId, CategoryDTO categoryDTO) {
+        return new ResponseEntity<>(
+                this.categoryService.addCategory(inventoryId, categoryDTO),
+                HttpStatus.CREATED
+        );
+    }
+
+    @Override
+    public ResponseEntity<CategoryDTO> deleteCategory(Integer id) {
+        return new ResponseEntity<>(
+                this.categoryService.removeCategory(id),
+                HttpStatus.OK
+        );
+    }
+
+    @Override
+    public ResponseEntity<CategoryDTO> getCategory(Integer id) {
+        return new ResponseEntity<>(
+                this.categoryService.getCategory(id),
+                HttpStatus.OK
+        );
+    }
+
+    @Override
+    public ResponseEntity<CategoryDTO> updateCategory(Integer id, CategoryDTO categoryDTO) {
+        return new ResponseEntity<>(
+                this.categoryService.updateCategory(id, categoryDTO),
                 HttpStatus.OK
         );
     }

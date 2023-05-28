@@ -1,23 +1,49 @@
 package ch.heig.pdg.backend.dto.mapping;
 
 import ch.heig.pdg.backend.dto.IDataTransferObject;
+import ch.heig.pdg.backend.dto.MovementDTO;
 import ch.heig.pdg.backend.entities.Movement;
+import ch.heig.pdg.backend.repositories.ItemRepository;
+import ch.heig.pdg.backend.repositories.LocationRepository;
+import ch.heig.pdg.backend.utils.DateFormatUtil;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MovementMapper implements IDataTransferObjectManager<Movement> {
+public class MovementMapper extends AbstractDataMapper implements IDataTransferObjectManager<Movement> {
+    private final LocationRepository locationRepository;
+    private final ItemRepository itemRepository;
+
+    public MovementMapper(LocationRepository locationRepository, ItemRepository itemRepository) {
+        this.locationRepository = locationRepository;
+        this.itemRepository = itemRepository;
+    }
+
     @Override
-    public IDataTransferObject<Movement> getDTO(Movement object) {
-        return null;
+    public IDataTransferObject<Movement> getDTO(Movement movement) {
+        MovementDTO dto = new MovementDTO();
+        dto.setId(movement.getId());
+        dto.setCreated(DateFormatUtil.dateToString(movement.getCreatedAt()));
+        dto.setLocationId(movement.getLocation().getId());
+        return dto;
     }
 
     @Override
     public Movement createFromDTO(IDataTransferObject<Movement> dto) {
-        return null;
+        return this.updateFromDTO(new Movement(), dto);
     }
 
     @Override
-    public Movement updateFromDTO(Movement object, IDataTransferObject<Movement> dto) {
-        return null;
+    public Movement updateFromDTO(Movement movement, IDataTransferObject<Movement> dto) {
+        MovementDTO movementDTO = (MovementDTO) dto;
+        movement.setType(Movement.Type.valueOf(movementDTO.getMovementType()));
+        movement.setLocation(this.getEntityIfExists(
+                movementDTO.getLocationId(),
+                this.locationRepository
+        ));
+        movement.setItem(this.getEntityIfExists(
+                movementDTO.getItemId(),
+                this.itemRepository
+        ));
+        return movement;
     }
 }
