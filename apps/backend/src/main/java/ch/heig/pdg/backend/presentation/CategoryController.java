@@ -31,4 +31,36 @@ public class CategoryController implements ch.heig.pdg.backend.api.CategoryApi {
                 HttpStatus.OK
         );
     }
+
+    @Override
+    public ResponseEntity<CategoryDTO> createCategory(Integer inventoryId, CategoryDTO categoryDTO) {
+        return new ResponseEntity<>(
+                this.categoryService.addCategory(inventoryId, categoryDTO),
+                HttpStatus.CREATED
+        );
+    }
+
+    @Override
+    public ResponseEntity<CategoryDTO> deleteCategory(Integer id) {
+        return new ResponseEntity<>(
+                this.categoryService.removeCategory(id),
+                HttpStatus.OK
+        );
+    }
+
+    @Override
+    public ResponseEntity<CategoryDTO> getCategory(Integer id) {
+        return new ResponseEntity<>(
+                this.categoryService.getCategory(id),
+                HttpStatus.OK
+        );
+    }
+
+    @Override
+    public ResponseEntity<CategoryDTO> updateCategory(Integer id, CategoryDTO categoryDTO) {
+        return new ResponseEntity<>(
+                this.categoryService.updateCategory(id, categoryDTO),
+                HttpStatus.OK
+        );
+    }
 }

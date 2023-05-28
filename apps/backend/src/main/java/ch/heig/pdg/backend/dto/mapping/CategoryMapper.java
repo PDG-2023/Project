@@ -17,11 +17,16 @@ public class CategoryMapper implements IDataTransferObjectManager<Category> {
 
     @Override
     public Category createFromDTO(IDataTransferObject<Category> dto) {
-        return null;
+        CategoryDTO categoryDTO = (CategoryDTO) dto;
+        Category category = new Category();
+        category.setName(categoryDTO.getName());
+        return category;
     }
 
     @Override
-    public Category updateFromDTO(Category object, IDataTransferObject<Category> dto) {
-        return null;
+    public Category updateFromDTO(Category category, IDataTransferObject<Category> dto) {
+        CategoryDTO categoryDTO = (CategoryDTO) dto;
+        category.setName(categoryDTO.getName());
+        return category;
     }
 }
