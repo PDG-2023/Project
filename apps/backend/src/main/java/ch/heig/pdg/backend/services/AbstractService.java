@@ -28,7 +28,7 @@ abstract public class AbstractService {
         Optional<T> entity = repository.findById(id);
 
         if (entity.isEmpty()) {
-            throw new NotFoundException("Category does not exist");
+            throw new NotFoundException("Entity does not exist");
         }
 
         return entity.get();

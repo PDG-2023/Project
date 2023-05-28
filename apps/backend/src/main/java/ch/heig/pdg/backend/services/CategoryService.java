@@ -50,7 +50,7 @@ public class CategoryService extends AbstractService {
 
         Category category = this.categoryMapper.createFromDTO(categoryDTO);
         category.setInventory(inventory);
-        if (categoryDTO.getParentCategoryId() != null) {
+        if (categoryDTO.getParentCategoryId().isPresent()) {
             category.setParent(this.getEntityIfExists(
                     categoryDTO.getParentCategoryId().get(),
                     this.categoryRepository
@@ -71,7 +71,7 @@ public class CategoryService extends AbstractService {
     public CategoryDTO updateCategory(Integer id, CategoryDTO categoryDTO) {
         Category category = this.getEntityIfExists(id, this.categoryRepository);
 
-        if (categoryDTO.getParentCategoryId() != null) {
+        if (categoryDTO.getParentCategoryId().isPresent()) {
             category.setParent(this.getEntityIfExists(
                     categoryDTO.getParentCategoryId().get(),
                     this.categoryRepository

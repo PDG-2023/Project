@@ -13,3 +13,7 @@ INSERT INTO public.category (id, created_at, updated_at, name, inventory_id, par
 VALUES (1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'cat 1', 1, null),
        (2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'cat 2', 1, 1)
 ON CONFLICT DO NOTHING;
+
+SELECT setval('inventory_id_seq', (SELECT MAX(id) + 1 FROM public.inventory));
+SELECT setval('application_user_id_seq', (SELECT MAX(id) + 1 FROM public.application_user));
+SELECT setval('category_id_seq', (SELECT MAX(id) + 1 FROM public.category));

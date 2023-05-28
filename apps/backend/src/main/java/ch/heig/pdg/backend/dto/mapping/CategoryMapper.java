@@ -12,6 +12,8 @@ public class CategoryMapper implements IDataTransferObjectManager<Category> {
         CategoryDTO dto = new CategoryDTO();
         dto.setId(category.getId());
         dto.setName(category.getName());
+        dto.setCreated(category.getCreatedAt().toString());
+        dto.setUpdated(category.getUpdatedAt().toString());
         return dto;
     }
 
