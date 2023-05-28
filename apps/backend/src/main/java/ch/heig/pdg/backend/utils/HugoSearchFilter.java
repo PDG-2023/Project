@@ -16,13 +16,13 @@ public class HugoSearchFilter<T> {
         this.limit = limit;
     }
 
-    public static HugoSearchFilter build(Optional<NativeWebRequest> request){
+    public static <T> HugoSearchFilter<T> build(Optional<NativeWebRequest> request){
         if(request.isEmpty()){
             throw new RuntimeException();
         }
 
         NativeWebRequest req = request.get();
 
-        return new HugoSearchFilter(null, 0, 0);
+        return new HugoSearchFilter<>(null, 0, 0);
     }
 }
