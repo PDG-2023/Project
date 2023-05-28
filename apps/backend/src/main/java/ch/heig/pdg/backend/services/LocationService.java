@@ -2,7 +2,6 @@ package ch.heig.pdg.backend.services;
 
 import ch.heig.pdg.backend.dto.LocationDTO;
 import ch.heig.pdg.backend.dto.mapping.LocationMapper;
-import ch.heig.pdg.backend.entities.Category;
 import ch.heig.pdg.backend.entities.Inventory;
 import ch.heig.pdg.backend.entities.Location;
 import ch.heig.pdg.backend.repositories.InventoryRepository;
