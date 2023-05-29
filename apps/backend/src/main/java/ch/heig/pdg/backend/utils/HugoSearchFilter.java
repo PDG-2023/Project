@@ -1,23 +1,23 @@
 package ch.heig.pdg.backend.utils;
 
-import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.web.context.request.NativeWebRequest;
 
-import java.util.Optional;
+import java.util.HashMap;
+import java.util.Map;
 
-public class HugoSearchFilter<T> {
-    public final CriteriaQuery<T> criteriaQuery;
-    public final Integer offset;
-    public final Integer limit;
+public record HugoSearchFilter<T>(HashMap<String, String> filters, Class<T> klass) {
 
-    private HugoSearchFilter(CriteriaQuery<T> criteriaQuery, Integer offset, Integer limit) {
-        this.criteriaQuery = criteriaQuery;
-        this.offset = offset;
-        this.limit = limit;
+    public boolean hasFilters() {
+        return filters.size() > 0;
     }
 
-    public static <T> HugoSearchFilter<T> build(HttpServletRequest request){
-        return new HugoSearchFilter<>(null, 0, 0);
+    public static <T> HugoSearchFilter<T> build(HttpServletRequest request, Class<T> klass) {
+        HashMap<String, String> filters = new HashMap<>();
+        for (Map.Entry<String, String[]> entry : request.getParameterMap().entrySet()) {
+            if (entry.getKey().matches("^(where|limit|offset|order).*")) {
+                filters.put(entry.getKey(), entry.getValue()[0]);
+            }
+        }
+        return new HugoSearchFilter<>(filters, klass);
     }
 }

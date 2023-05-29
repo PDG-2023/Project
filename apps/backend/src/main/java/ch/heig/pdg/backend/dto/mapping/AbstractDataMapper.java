@@ -1,30 +1,34 @@
 package ch.heig.pdg.backend.dto.mapping;
 
 import ch.heig.pdg.backend.entities.AbstractEntity;
-import ch.heig.pdg.backend.exception.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.openapitools.jackson.nullable.JsonNullable;
-import org.springframework.data.repository.CrudRepository;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
-abstract public class AbstractDataMapper {
-
+public abstract class AbstractDataMapper {
     @PersistenceContext
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
 
-    protected <T> T getEntityIfExists(Integer id, CrudRepository<T, Integer> repository) {
-        Optional<T> entity = repository.findById(id);
-
-        if (entity.isEmpty()) {
-            throw new NotFoundException("Entity does not exist");
-        }
-
-        return entity.get();
+    protected JsonNullable<Integer> getIdOrNull(AbstractEntity entity) {
+        return JsonNullable.of(entity != null ? entity.getId() : null);
     }
 
-    protected JsonNullable<Integer> idOrNull(AbstractEntity entity) {
-        return JsonNullable.of(entity != null ? entity.getId() : null);
+    protected <T extends AbstractEntity> List<Integer> getIdsOrEmptyList(List<T> entities) {
+        if (entities == null || entities.isEmpty()) {
+            return List.of();
+        }
+
+        return entities.stream().map(AbstractEntity::getId).collect(Collectors.toList());
+    }
+
+    protected <T extends AbstractEntity> List<T> getReferences(List<Integer> ids, Class<T> obj) {
+        if (ids == null || ids.isEmpty()) {
+            return null;
+        }
+
+        return ids.stream().map(e -> this.entityManager.getReference(obj, e)).collect(Collectors.toList());
     }
 }

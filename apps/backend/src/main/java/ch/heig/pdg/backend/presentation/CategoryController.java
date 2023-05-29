@@ -23,7 +23,7 @@ public class CategoryController extends AbstractController implements ch.heig.pd
 
     @Override
     public ResponseEntity<List<CategoryDTO>> getCategories(Integer inventoryId) {
-        HugoSearchFilter<Category> filter = HugoSearchFilter.build(this.httpServletRequest);
+        HugoSearchFilter<Category> filter = HugoSearchFilter.build(this.httpServletRequest, Category.class);
 
         return new ResponseEntity<>(
                 this.categoryService.getCategories(inventoryId, filter),
