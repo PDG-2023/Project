@@ -63,3 +63,9 @@ variable "cf_ipv6_list" {
     "2c0f:f248::/32",
   ]
 }
+
+variable "monitoring_email" {
+  description = "Email for monitoring"
+  type = string
+  default = ""
+}
