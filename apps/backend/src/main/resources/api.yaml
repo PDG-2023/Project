@@ -1196,6 +1196,10 @@ components:
           type: string
         description:
           type: string
+        categories:
+          type: array
+          items:
+            type: integer
     LocationDTO:
       x-implements: [ 'ch.heig.pdg.backend.dto.IDataTransferObject<ch.heig.pdg.backend.entities.Location>' ]
       required:
@@ -1268,6 +1272,14 @@ components:
           type: string
         lastName:
           type: string
+        ownedInventories:
+          type: array
+          items:
+            type: integer
+        sharedInventories:
+          type: array
+          items:
+            type: integer
     InventoryDTO:
       x-implements: [ 'ch.heig.pdg.backend.dto.IDataTransferObject<ch.heig.pdg.backend.entities.Inventory>' ]
       required:
@@ -1281,6 +1293,10 @@ components:
           type: string
         name:
           type: string
+        users:
+          type: array
+          items:
+            type: integer
     JWTDTO:
       type: object
       properties:

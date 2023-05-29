@@ -45,7 +45,7 @@ public class LocationController extends AbstractController implements ch.heig.pd
 
     @Override
     public ResponseEntity<List<LocationDTO>> getLocations(Integer inventoryId) {
-        HugoSearchFilter<Location> filter = HugoSearchFilter.build(this.httpServletRequest);
+        HugoSearchFilter<Location> filter = HugoSearchFilter.build(this.httpServletRequest, Location.class);
 
         return new ResponseEntity<>(
                 this.locationService.getLocations(inventoryId, filter),
