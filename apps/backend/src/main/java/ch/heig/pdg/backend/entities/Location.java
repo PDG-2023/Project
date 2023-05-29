@@ -6,6 +6,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.checkerframework.common.aliasing.qual.MaybeAliased;
 
 @Entity
 @Data

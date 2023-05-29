@@ -2,14 +2,21 @@ package ch.heig.pdg.backend.dto.mapping;
 
 import ch.heig.pdg.backend.dto.IDataTransferObject;
 import ch.heig.pdg.backend.dto.MovementDTO;
-import ch.heig.pdg.backend.entities.Item;
-import ch.heig.pdg.backend.entities.Location;
 import ch.heig.pdg.backend.entities.Movement;
+import ch.heig.pdg.backend.repositories.ItemRepository;
+import ch.heig.pdg.backend.repositories.LocationRepository;
 import ch.heig.pdg.backend.utils.DateFormatUtil;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MovementMapper extends AbstractDataMapper implements IDataTransferObjectManager<Movement> {
+    private final LocationRepository locationRepository;
+    private final ItemRepository itemRepository;
+
+    public MovementMapper(LocationRepository locationRepository, ItemRepository itemRepository) {
+        this.locationRepository = locationRepository;
+        this.itemRepository = itemRepository;
+    }
 
     @Override
     public IDataTransferObject<Movement> getDTO(Movement movement) {
@@ -29,8 +36,14 @@ public class MovementMapper extends AbstractDataMapper implements IDataTransferO
     public Movement updateFromDTO(Movement movement, IDataTransferObject<Movement> dto) {
         MovementDTO movementDTO = (MovementDTO) dto;
         movement.setType(Movement.Type.valueOf(movementDTO.getMovementType()));
-        movement.setLocation(this.entityManager.getReference(Location.class, movementDTO.getLocationId()));
-        movement.setItem(this.entityManager.getReference(Item.class, movementDTO.getItemId()));
+        movement.setLocation(this.getEntityIfExists(
+                movementDTO.getLocationId(),
+                this.locationRepository
+        ));
+        movement.setItem(this.getEntityIfExists(
+                movementDTO.getItemId(),
+                this.itemRepository
+        ));
         return movement;
     }
 }

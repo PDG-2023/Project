@@ -3,12 +3,17 @@ package ch.heig.pdg.backend.dto.mapping;
 import ch.heig.pdg.backend.dto.IDataTransferObject;
 import ch.heig.pdg.backend.dto.ItemDTO;
 import ch.heig.pdg.backend.entities.Item;
-import ch.heig.pdg.backend.entities.ItemModel;
+import ch.heig.pdg.backend.repositories.ItemModelRepository;
 import ch.heig.pdg.backend.utils.DateFormatUtil;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ItemMapper extends AbstractDataMapper implements IDataTransferObjectManager<Item> {
+    private final ItemModelRepository itemModelRepository;
+
+    public ItemMapper(ItemModelRepository itemModelRepository) {
+        this.itemModelRepository = itemModelRepository;
+    }
 
     @Override
     public IDataTransferObject<Item> getDTO(Item item) {
@@ -28,7 +33,10 @@ public class ItemMapper extends AbstractDataMapper implements IDataTransferObjec
     @Override
     public Item updateFromDTO(Item item, IDataTransferObject<Item> dto) {
         ItemDTO itemDTO = (ItemDTO) dto;
-        item.setModel(this.entityManager.getReference(ItemModel.class, itemDTO.getModelId()));
+        item.setModel(this.getEntityIfExists(
+                itemDTO.getModelId(),
+                this.itemModelRepository
+        ));
         // FIXME: Is the location computed ?
 //        item.setLocation(this.getEntityIfExists(...));
         return item;

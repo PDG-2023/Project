@@ -45,7 +45,7 @@ public class ItemController extends AbstractController implements ch.heig.pdg.ba
 
     @Override
     public ResponseEntity<List<ItemDTO>> getItems() {
-        HugoSearchFilter<Item> filter = HugoSearchFilter.build(this.httpServletRequest, Item.class);
+        HugoSearchFilter<Item> filter = HugoSearchFilter.build(this.httpServletRequest);
 
         return new ResponseEntity<>(
                 this.itemService.getItems(filter),

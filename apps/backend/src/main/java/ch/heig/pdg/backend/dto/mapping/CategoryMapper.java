@@ -3,11 +3,23 @@ package ch.heig.pdg.backend.dto.mapping;
 import ch.heig.pdg.backend.dto.CategoryDTO;
 import ch.heig.pdg.backend.dto.IDataTransferObject;
 import ch.heig.pdg.backend.entities.Category;
+import ch.heig.pdg.backend.repositories.CategoryRepository;
 import ch.heig.pdg.backend.utils.DateFormatUtil;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CategoryMapper extends AbstractDataMapper implements IDataTransferObjectManager<Category> {
+    private final CategoryRepository categoryRepository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public CategoryMapper(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     @Override
     public IDataTransferObject<Category> getDTO(Category category) {

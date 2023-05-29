@@ -1,6 +1,8 @@
 package ch.heig.pdg.backend.presentation;
 
+import ch.heig.pdg.backend.api.UserApi;
 import ch.heig.pdg.backend.dto.UserDTO;
+import ch.heig.pdg.backend.entities.Location;
 import ch.heig.pdg.backend.entities.User;
 import ch.heig.pdg.backend.services.UserService;
 import ch.heig.pdg.backend.utils.HugoSearchFilter;
@@ -14,7 +16,6 @@ import java.util.List;
 @RestController
 public class UserController extends AbstractController implements ch.heig.pdg.backend.api.UserApi {
     private final UserService userService;
-
     public UserController(HttpServletRequest httpServletRequest, UserService userService) {
         super(httpServletRequest);
         this.userService = userService;
@@ -46,7 +47,7 @@ public class UserController extends AbstractController implements ch.heig.pdg.ba
 
     @Override
     public ResponseEntity<List<UserDTO>> getUsers() {
-        HugoSearchFilter<User> filter = HugoSearchFilter.build(this.httpServletRequest, User.class);
+        HugoSearchFilter<User> filter = HugoSearchFilter.build(this.httpServletRequest);
 
         return new ResponseEntity<>(
                 this.userService.getUsers(filter),
