@@ -16,7 +16,7 @@ public class CategoryMapper extends AbstractDataMapper implements IDataTransferO
         dto.setName(category.getName());
         dto.setCreated(DateFormatUtil.dateToString(category.getCreatedAt()));
         dto.setUpdated(DateFormatUtil.dateToString(category.getUpdatedAt()));
-        dto.setParentCategoryId(this.idOrNull(category.getParent()));
+        dto.setParentCategoryId(this.getIdOrNull(category.getParent()));
         return dto;
     }
 

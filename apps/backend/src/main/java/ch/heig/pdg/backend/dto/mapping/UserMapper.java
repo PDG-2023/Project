@@ -2,6 +2,7 @@ package ch.heig.pdg.backend.dto.mapping;
 
 import ch.heig.pdg.backend.dto.IDataTransferObject;
 import ch.heig.pdg.backend.dto.UserDTO;
+import ch.heig.pdg.backend.entities.Inventory;
 import ch.heig.pdg.backend.entities.User;
 import ch.heig.pdg.backend.utils.DateFormatUtil;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,8 @@ public class UserMapper extends AbstractDataMapper implements IDataTransferObjec
         dto.setLastName(user.getLastName());
         dto.setCreated(DateFormatUtil.dateToString(user.getCreatedAt()));
         dto.setUpdated(DateFormatUtil.dateToString(user.getUpdatedAt()));
+        dto.setOwnedInventories(this.getIdsOrEmptyList(user.getOwnedInventories()));
+        dto.setSharedInventories(this.getIdsOrEmptyList(user.getSharedInventories()));
         return dto;
     }
 
@@ -30,6 +33,10 @@ public class UserMapper extends AbstractDataMapper implements IDataTransferObjec
         user.setEmail(userDTO.getEmail());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
+        // FIXME: change password maybe ?
+
+        user.setSharedInventories(this.getReferences(userDTO.getSharedInventories(), Inventory.class));
+        user.setOwnedInventories(this.getReferences(userDTO.getOwnedInventories(), Inventory.class));
         return user;
     }
 }

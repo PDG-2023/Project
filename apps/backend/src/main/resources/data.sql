@@ -1,6 +1,7 @@
 -- User
 INSERT INTO public.application_user(id, created_at, updated_at, email, first_name, last_name, password, username)
-VALUES (1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'test@gmail.com', 'Paul', 'Test', '1234', 'ptest')
+VALUES (1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'test@gmail.com', 'Paul', 'Test', '1234', 'ptest'),
+       (2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'james@gmail.com', 'not james', 'daniel', '1234', 'notjames')
 ON CONFLICT DO NOTHING;
 
 -- Inventory

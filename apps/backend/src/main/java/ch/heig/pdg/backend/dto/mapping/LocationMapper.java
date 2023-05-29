@@ -17,7 +17,7 @@ public class LocationMapper extends AbstractDataMapper implements IDataTransferO
         dto.setDescription(location.getDescription());
         dto.setCreated(DateFormatUtil.dateToString(location.getCreatedAt()));
         dto.setUpdated(DateFormatUtil.dateToString(location.getUpdatedAt()));
-        dto.setParentLocationId(this.idOrNull(location.getParent()));
+        dto.setParentLocationId(this.getIdOrNull(location.getParent()));
         return dto;
     }
 
