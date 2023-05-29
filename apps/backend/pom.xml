@@ -80,10 +80,60 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
             <version>2.5.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>4.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+            <version>5.7.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.70</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.15.3</version>
+        </dependency>
     </dependencies>
-
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                    <sourceDirectories>
+                        <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+                        <sourceDirectory>${project.build.testSourceDirectory}</sourceDirectory>
+                    </sourceDirectories>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -108,8 +158,8 @@
                         <configuration>
                             <inputSpec>${basedir}/src/main/resources/api.yaml</inputSpec>
                             <generatorName>spring</generatorName>
-                            <apiPackage>ch.heig.pdg.api</apiPackage>
-                            <modelPackage>ch.heig.pdg.business.dto</modelPackage>
+                            <apiPackage>ch.heig.pdg.backend.api</apiPackage>
+                            <modelPackage>ch.heig.pdg.backend.dto</modelPackage>
                             <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
                             <configOptions>
                                 <performBeanValidation>true</performBeanValidation>

@@ -10,6 +10,7 @@ terraform {
 
 module "web_server" {
   source = "./web-server"
+  monitoring_email = var.monitoring_email
 }
 
 module "dns" {

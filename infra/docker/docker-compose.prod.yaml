@@ -10,3 +10,10 @@ services:
     image: nigelmann/storeme-api:v0.0.5
     ports:
       - "8090:8080"
+  
+  bd-sm:
+    volumes:
+        - prod-db-data:/var/lib/postgresql
+
+volumes:
+  prod-db-data:
