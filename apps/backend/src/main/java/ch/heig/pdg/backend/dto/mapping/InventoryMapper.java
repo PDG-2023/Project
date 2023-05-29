@@ -3,9 +3,7 @@ package ch.heig.pdg.backend.dto.mapping;
 import ch.heig.pdg.backend.dto.IDataTransferObject;
 import ch.heig.pdg.backend.dto.InventoryDTO;
 import ch.heig.pdg.backend.entities.Inventory;
-import ch.heig.pdg.backend.entities.Item;
 import ch.heig.pdg.backend.entities.User;
-import ch.heig.pdg.backend.repositories.UserRepository;
 import ch.heig.pdg.backend.utils.DateFormatUtil;
 import org.springframework.stereotype.Service;
 

@@ -5,11 +5,11 @@ import ch.heig.pdg.backend.utils.HugoSearchFilter;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.*;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Path;
+import jakarta.persistence.criteria.Root;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -50,19 +50,18 @@ public class CriteriaRepositoryImpl<T, ID> implements CriteriaRepository<T, ID> 
                             nestedPath = nestedPath.get(nestedName);
                         }
                     }
-
+                    //@formatter:off
                     criteriaQuery.where(
-                            switch (fieldComparison) {
-                                case "eq" -> criteriaBuilder.equal(nestedPath, filterValue);
-                                case "neq" -> criteriaBuilder.notEqual(nestedPath, filterValue);
-                                case "lte" ->
-                                        criteriaBuilder.lessThanOrEqualTo(nestedPath.as(String.class), filterValue);
-                                case "gte" ->
-                                        criteriaBuilder.greaterThanOrEqualTo(nestedPath.as(String.class), filterValue);
-                                case "lt" -> criteriaBuilder.lessThan(nestedPath.as(String.class), filterValue);
-                                case "gt" -> criteriaBuilder.greaterThan(nestedPath.as(String.class), filterValue);
-                                default -> throw new BadRequestException("Unexpected value: " + fieldComparison);
-                            }
+                        switch (fieldComparison) {
+                            case "eq" -> criteriaBuilder.equal(nestedPath, filterValue);
+                            case "neq" -> criteriaBuilder.notEqual(nestedPath, filterValue);
+                            case "lte" -> criteriaBuilder.lessThanOrEqualTo(nestedPath.as(String.class), filterValue);
+                            case "gte" -> criteriaBuilder.greaterThanOrEqualTo(nestedPath.as(String.class), filterValue);
+                            case "lt" -> criteriaBuilder.lessThan(nestedPath.as(String.class), filterValue);
+                            case "gt" -> criteriaBuilder.greaterThan(nestedPath.as(String.class), filterValue);
+                            default -> throw new BadRequestException("Unexpected value: " + fieldComparison);
+                        }
+                        //@formatter:on
                     );
                 } else if (filterContent.startsWith("limit")) {
                     maxResults = Integer.parseInt(filterValue);

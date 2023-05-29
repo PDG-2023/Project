@@ -1,6 +1,5 @@
 package ch.heig.pdg.backend.presentation;
 
-import ch.heig.pdg.backend.api.InventoryApi;
 import ch.heig.pdg.backend.dto.InventoryDTO;
 import ch.heig.pdg.backend.entities.Inventory;
 import ch.heig.pdg.backend.services.InventoryService;
