@@ -3,7 +3,6 @@ package ch.heig.pdg.backend.presentation;
 import ch.heig.pdg.backend.dto.UserDTO;
 import ch.heig.pdg.backend.entities.User;
 import ch.heig.pdg.backend.security.annotations.AuthenticationRequired;
-import ch.heig.pdg.backend.security.utils.CurrentUser;
 import ch.heig.pdg.backend.services.UserService;
 import ch.heig.pdg.backend.utils.HugoSearchFilter;
 import jakarta.servlet.http.HttpServletRequest;

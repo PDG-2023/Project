@@ -5,7 +5,6 @@ import ch.heig.pdg.backend.dto.mapping.UserMapper;
 import ch.heig.pdg.backend.entities.User;
 import ch.heig.pdg.backend.repositories.InventoryRepository;
 import ch.heig.pdg.backend.repositories.UserRepository;
-import ch.heig.pdg.backend.security.annotations.AuthenticationRequired;
 import ch.heig.pdg.backend.security.utils.CurrentUser;
 import ch.heig.pdg.backend.utils.HugoSearchFilter;
 import org.springframework.stereotype.Service;
