@@ -5,6 +5,8 @@ import ch.heig.pdg.backend.dto.mapping.UserMapper;
 import ch.heig.pdg.backend.entities.User;
 import ch.heig.pdg.backend.repositories.InventoryRepository;
 import ch.heig.pdg.backend.repositories.UserRepository;
+import ch.heig.pdg.backend.security.annotations.AuthenticationRequired;
+import ch.heig.pdg.backend.security.utils.CurrentUser;
 import ch.heig.pdg.backend.utils.HugoSearchFilter;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +16,13 @@ import java.util.stream.Collectors;
 @Service
 public class UserService extends AbstractService {
     private final UserRepository userRepository;
+    private final CurrentUser currentUser;
     private final UserMapper userMapper;
 
-    protected UserService(InventoryRepository inventoryRepository, UserRepository userRepository, UserMapper userMapper) {
+    protected UserService(InventoryRepository inventoryRepository, UserRepository userRepository, CurrentUser currentUser, UserMapper userMapper) {
         super(inventoryRepository);
         this.userRepository = userRepository;
+        this.currentUser = currentUser;
         this.userMapper = userMapper;
     }
 
@@ -58,6 +62,12 @@ public class UserService extends AbstractService {
                                 userDTO
                         )
                 )
+        );
+    }
+
+    public UserDTO getCurrentUser() {
+        return (UserDTO) this.userMapper.getDTO(
+                this.getEntityIfExists(this.currentUser.getCurrentUserData().userId, this.userRepository)
         );
     }
 }

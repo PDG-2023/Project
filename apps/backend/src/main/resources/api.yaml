@@ -300,6 +300,21 @@ paths:
           $ref: '#/components/responses/409'
         500:
           $ref: '#/components/responses/500'
+  /users/current-user:
+    get:
+      tags:
+        - User
+      description: Get current connected user
+      operationId: getCurrentUser
+      responses:
+        200:
+          description: OK
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+      security:
+        - JWTAuth: [ ]
   /users/{id}:
     parameters:
       - in: path
