@@ -2,6 +2,7 @@ package ch.heig.pdg.backend.presentation;
 
 import ch.heig.pdg.backend.dto.UserDTO;
 import ch.heig.pdg.backend.entities.User;
+import ch.heig.pdg.backend.security.annotations.AuthenticationRequired;
 import ch.heig.pdg.backend.services.UserService;
 import ch.heig.pdg.backend.utils.HugoSearchFilter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -58,6 +59,15 @@ public class UserController extends AbstractController implements ch.heig.pdg.ba
     public ResponseEntity<UserDTO> updateUser(Integer id, UserDTO userDTO) {
         return new ResponseEntity<>(
                 this.userService.updateUser(id, userDTO),
+                HttpStatus.OK
+        );
+    }
+
+    @AuthenticationRequired
+    @Override
+    public ResponseEntity<UserDTO> getCurrentUser() {
+        return new ResponseEntity<>(
+                this.userService.getCurrentUser(),
                 HttpStatus.OK
         );
     }

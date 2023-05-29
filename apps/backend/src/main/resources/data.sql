@@ -1,7 +1,7 @@
 -- User
 INSERT INTO public.application_user(id, created_at, updated_at, email, first_name, last_name, password, username)
-VALUES (1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'test@gmail.com', 'Paul', 'Test', '1234', 'ptest'),
-       (2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'james@gmail.com', 'not james', 'daniel', '1234', 'notjames')
+VALUES (1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'test@gmail.com', 'Paul', 'Test', '$argon2id$v=19$m=15360,t=2,p=1$FTX71TkODBI88XrntOaqkpMNjo8lILBeKO100oEL1I0$kLTO4aRn5ricGpV6CGPyq1YBWcReAXGTmrTi50STGHRdVx0L3OfiRiA9oMLAMHTrWwxgFKPu+5q8FXboOiC2NQ', 'ptest'),
+       (2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'james@gmail.com', 'not james', 'daniel', '$argon2id$v=19$m=15360,t=2,p=1$FTX71TkODBI88XrntOaqkpMNjo8lILBeKO100oEL1I0$kLTO4aRn5ricGpV6CGPyq1YBWcReAXGTmrTi50STGHRdVx0L3OfiRiA9oMLAMHTrWwxgFKPu+5q8FXboOiC2NQ', 'notjames')
 ON CONFLICT DO NOTHING;
 
 -- Inventory

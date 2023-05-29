@@ -12,6 +12,8 @@ public class UserMapper extends AbstractDataMapper implements IDataTransferObjec
     @Override
     public IDataTransferObject<User> getDTO(User user) {
         UserDTO dto = new UserDTO();
+        dto.setId(user.getId());
+        dto.setUsername(user.getUsername());
         dto.setEmail(user.getEmail());
         dto.setFirstName(user.getFirstName());
         dto.setLastName(user.getLastName());
