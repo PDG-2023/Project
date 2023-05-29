@@ -95,7 +95,7 @@ export class LoginView extends SubscribableComponent implements OnInit {
 			this.activatedRoute.data.subscribe((data: LoginViewData) => {
 				this.isRegistering = data.register ?? false;
 			}),
-			this.authService.getUserConnected().subscribe(user => {
+			this.authService.userConnected$.subscribe(user => {
 				this.user = user;
 
 				if (!user) {

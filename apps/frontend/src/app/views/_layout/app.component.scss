@@ -44,9 +44,14 @@ app-footer {
 }
 
 @include utils.screen-breakpoint("sm") {
-	mat-sidenav-content,
+	mat-sidenav-content {
+		min-height: $content-height;
+		position: relative;
+	}
+
 	#content {
-		height: $content-height;
+		inset: 0;
+		position: absolute;
 	}
 }
 

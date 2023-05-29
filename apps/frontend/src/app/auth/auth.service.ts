@@ -14,11 +14,21 @@ export class AuthService {
 		null
 	);
 
-	public constructor(private readonly service: AuthApiService) {}
-
-	public getUserConnected(): Observable<UserDto | null> {
+	/**
+	 * @returns an observable of the connected user
+	 */
+	public get userConnected$(): Observable<UserDto | null> {
 		return this.userConnected.pipe(map(value => value?.user ?? null));
 	}
+
+	/**
+	 * @returns an observable of a boolean if the user is connected
+	 */
+	public get isUserConnected$() {
+		return this.userConnected$.pipe(map(user => !!user));
+	}
+
+	public constructor(private readonly service: AuthApiService) {}
 
 	/**
 	 * Do the process and update the connected user instance

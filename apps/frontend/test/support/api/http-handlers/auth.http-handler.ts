@@ -26,7 +26,7 @@ export class AuthHttpHandler implements HttpHandlerTest {
 	public handle(params: HttpHandlerTestParams, request: HttpRequest<unknown>) {
 		const { fullUri, uri } = params;
 
-		if (request.method === HTTP_METHOD.POST) {
+		if (request.method === HTTP_METHOD.POST.toString()) {
 			const action = this.getUriAction(uri);
 
 			switch (action) {

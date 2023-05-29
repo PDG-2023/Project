@@ -8,14 +8,14 @@
 
 		<mat-sidenav-content>
 			<div
-				class="flex flex-colm m-2 sm:m-4"
+				class="flex flex-col m-2 sm:m-4"
 				id="content"
-				[class.logged]="isUserConnected | async"
+				[class.logged]="isUserConnected$ | async"
 			>
 				<router-outlet></router-outlet>
 			</div>
 
-			<app-footer *ngIf="isUserConnected | async" class="sm:hidden"></app-footer>
+			<app-footer *ngIf="isUserConnected$ | async" class="sm:hidden"></app-footer>
 		</mat-sidenav-content>
 	</mat-sidenav-container>
 </div>

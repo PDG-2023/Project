@@ -3,4 +3,23 @@
 		<h5 translate>components.sidebar.toolbar-title</h5>
 		<app-toolbar></app-toolbar>
 	</div>
+
+	<div class="flex flex-1 flex-col justify-c-center">
+		<p *ngIf="(isUserConnected$ | async) === false" class="text-center">
+			{{ "components.sidebar.log-or-register._0" | translate }}
+			<a translate [routerLink]="LoginView.PATH_LOGIN">actions.login</a>
+			{{ "components.sidebar.log-or-register._1" | translate }}
+			<a translate [routerLink]="LoginView.PATH_REGISTER">actions.register</a>
+			{{ "components.sidebar.log-or-register._2" | translate }}
+		</p>
+
+		<ng-container *ngIf="isUserConnected$ | async">
+			<!-- TODO: current inventory links -->
+			<mat-nav-list>
+				<mat-list-item>Somewhere</mat-list-item>
+			</mat-nav-list>
+		</ng-container>
+	</div>
+
+	<!-- TODO: "desktop footer" -->
 </div>

@@ -5,6 +5,11 @@
 	},
 	"components": {
 		"sidebar": {
+			"log-or-register": {
+				"_0": "",
+				"_1": "or",
+				"_2": "to enable the navigation."
+			},
 			"toolbar-title": "Menu"
 		}
 	},
@@ -24,7 +29,7 @@
 		},
 		"validation": {
 			"invalid": "The value is invalid.",
-			"minlength": "Minimum of {{requiredLength}} characters required.",
+			"minlength": "Minimum of {{ requiredLength }} characters required.",
 			"required": "The value is required."
 		}
 	},

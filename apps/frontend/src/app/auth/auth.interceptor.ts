@@ -17,7 +17,7 @@ export class AuthInterceptor implements HttpInterceptor {
 	private isConnected = false;
 	public constructor(private readonly service: AuthService, private readonly router: Router) {
 		// No need to unsubscribe, the interceptor is never destroyed
-		this.service.getUserConnected().subscribe(user => (this.isConnected = !!user));
+		this.service.isUserConnected$.subscribe(connected => (this.isConnected = connected));
 	}
 
 	public intercept(

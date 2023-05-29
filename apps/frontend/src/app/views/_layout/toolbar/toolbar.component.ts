@@ -21,7 +21,7 @@ export class ToolbarComponent extends SubscribableComponent implements OnInit {
 
 	public ngOnInit() {
 		this.addSubscriptions(
-			this.authService.getUserConnected().subscribe(user => (this.user = user))
+			this.authService.userConnected$.subscribe(user => (this.user = user))
 		);
 	}
 }

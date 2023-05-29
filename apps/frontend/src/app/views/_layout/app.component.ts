@@ -1,6 +1,5 @@
 import { Component, HostBinding, HostListener, OnInit, ViewChild } from "@angular/core";
 import { MatSidenav } from "@angular/material/sidenav";
-import { map } from "rxjs";
 
 import { AuthService } from "../../auth/auth.service";
 import { SubscribableComponent } from "../../components/_lib/subscribable.component";
@@ -11,9 +10,7 @@ import { SubscribableComponent } from "../../components/_lib/subscribable.compon
 	templateUrl: "./app.component.html"
 })
 export class AppComponent extends SubscribableComponent implements OnInit {
-	protected readonly isUserConnected = this.authService
-		.getUserConnected()
-		.pipe(map(user => !!user));
+	protected readonly isUserConnected$ = this.authService.isUserConnected$;
 
 	/**
 	 * SM width breakpoint
