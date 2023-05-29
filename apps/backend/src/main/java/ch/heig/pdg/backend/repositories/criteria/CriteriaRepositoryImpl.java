@@ -10,6 +10,13 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Root;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAccessor;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +43,12 @@ public class CriteriaRepositoryImpl<T, ID> implements CriteriaRepository<T, ID> 
                 criteriaQuery.select(root);
                 String filterContent = filters.getKey();
                 String filterValue = filters.getValue();
+                Date dateFilterValue = null;
+                try{
+                    LocalDateTime ta = LocalDateTime.parse(filterValue, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                    dateFilterValue = Date.from(ta.atZone(ZoneId.systemDefault()).toInstant());
+                }catch (DateTimeParseException ignored){
+                }
 
                 if (filterContent.startsWith("where")) {
                     String where = filterContent.replace("where[", "").replaceAll("]$", "");
@@ -51,18 +64,33 @@ public class CriteriaRepositoryImpl<T, ID> implements CriteriaRepository<T, ID> 
                         }
                     }
                     //@formatter:off
-                    criteriaQuery.where(
-                        switch (fieldComparison) {
-                            case "eq" -> criteriaBuilder.equal(nestedPath, filterValue);
-                            case "neq" -> criteriaBuilder.notEqual(nestedPath, filterValue);
-                            case "lte" -> criteriaBuilder.lessThanOrEqualTo(nestedPath.as(String.class), filterValue);
-                            case "gte" -> criteriaBuilder.greaterThanOrEqualTo(nestedPath.as(String.class), filterValue);
-                            case "lt" -> criteriaBuilder.lessThan(nestedPath.as(String.class), filterValue);
-                            case "gt" -> criteriaBuilder.greaterThan(nestedPath.as(String.class), filterValue);
-                            default -> throw new BadRequestException("Unexpected value: " + fieldComparison);
-                        }
-                        //@formatter:on
-                    );
+                    if(dateFilterValue == null){
+                        criteriaQuery.where(
+                                switch (fieldComparison) {
+                                    case "eq" -> criteriaBuilder.equal(nestedPath, filterValue);
+                                    case "neq" -> criteriaBuilder.notEqual(nestedPath, filterValue);
+                                    case "lte" -> criteriaBuilder.lessThanOrEqualTo(nestedPath.as(String.class), filterValue);
+                                    case "gte" -> criteriaBuilder.greaterThanOrEqualTo(nestedPath.as(String.class), filterValue);
+                                    case "lt" -> criteriaBuilder.lessThan(nestedPath.as(String.class), filterValue);
+                                    case "gt" -> criteriaBuilder.greaterThan(nestedPath.as(String.class), filterValue);
+                                    default -> throw new BadRequestException("Unexpected value: " + fieldComparison);
+                                }
+                                //@formatter:on
+                        );
+                    }else{
+                        criteriaQuery.where(
+                                switch (fieldComparison) {
+                                    case "eq" -> criteriaBuilder.equal(nestedPath, dateFilterValue);
+                                    case "neq" -> criteriaBuilder.notEqual(nestedPath, dateFilterValue);
+                                    case "lte" -> criteriaBuilder.lessThanOrEqualTo(nestedPath.as(Date.class), dateFilterValue);
+                                    case "gte" -> criteriaBuilder.greaterThanOrEqualTo(nestedPath.as(Date.class), dateFilterValue);
+                                    case "lt" -> criteriaBuilder.lessThan(nestedPath.as(Date.class), dateFilterValue);
+                                    case "gt" -> criteriaBuilder.greaterThan(nestedPath.as(Date.class), dateFilterValue);
+                                    default -> throw new BadRequestException("Unexpected value: " + fieldComparison);
+                                }
+                                //@formatter:on
+                        );
+                    }
                 } else if (filterContent.startsWith("limit")) {
                     maxResults = Integer.parseInt(filterValue);
                 } else if (filterContent.startsWith("offset")) {
@@ -77,8 +105,12 @@ public class CriteriaRepositoryImpl<T, ID> implements CriteriaRepository<T, ID> 
 
         TypedQuery<T> query = entityManager.createQuery(criteriaQuery);
 
-        if (maxResults != null && firstResult != null) {
-            query.setFirstResult(firstResult).setMaxResults(maxResults);
+        if (maxResults != null) {
+            query.setMaxResults(maxResults);
+        }
+
+        if (firstResult != null) {
+            query.setFirstResult(firstResult);
         }
 
         return query.getResultList();
