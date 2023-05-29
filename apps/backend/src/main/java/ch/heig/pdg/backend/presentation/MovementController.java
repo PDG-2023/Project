@@ -45,7 +45,7 @@ public class MovementController extends AbstractController implements ch.heig.pd
 
     @Override
     public ResponseEntity<List<MovementDTO>> getMovements() {
-        HugoSearchFilter<Movement> filter = HugoSearchFilter.build(this.httpServletRequest);
+        HugoSearchFilter<Movement> filter = HugoSearchFilter.build(this.httpServletRequest, Movement.class);
 
         return new ResponseEntity<>(
                 this.movementService.getMovements(filter),

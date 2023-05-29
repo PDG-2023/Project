@@ -16,17 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AuthenticationController implements JwtApi {
-        private final UserRepository userRepository;
-        private final JWTGeneratorService jwtGeneratorService;
-        private final JWTValidatorService jwtValidatorService;
-        private final PasswordService passwordService;
+    private final UserRepository userRepository;
+    private final JWTGeneratorService jwtGeneratorService;
+    private final JWTValidatorService jwtValidatorService;
+    private final PasswordService passwordService;
 
-        public AuthenticationController(UserRepository userRepository, JWTGeneratorService jwtGeneratorService, JWTValidatorService jwtValidatorService, PasswordService passwordService) {
-            this.userRepository = userRepository;
-            this.jwtGeneratorService = jwtGeneratorService;
-            this.jwtValidatorService = jwtValidatorService;
-            this.passwordService = passwordService;
-        }
+    public AuthenticationController(UserRepository userRepository, JWTGeneratorService jwtGeneratorService, JWTValidatorService jwtValidatorService, PasswordService passwordService) {
+        this.userRepository = userRepository;
+        this.jwtGeneratorService = jwtGeneratorService;
+        this.jwtValidatorService = jwtValidatorService;
+        this.passwordService = passwordService;
+    }
 
     @Override
     public ResponseEntity<JWTDTO> getToken(CredentialsDTO credentialsDTO) {
@@ -49,17 +49,17 @@ public class AuthenticationController implements JwtApi {
 
     @Override
     public ResponseEntity<Void> validateToken(String authorization) {
-            String[] authorizationHeaderSplit = authorization.split(" ");
-            if (authorizationHeaderSplit.length != 2) {
-                return new ResponseEntity<>(HttpStatusCode.valueOf(400));
-            }
-            String jwt = authorizationHeaderSplit[1];
-            try {
-                this.jwtValidatorService.validateJWT(jwt);
-                return new ResponseEntity<>(HttpStatusCode.valueOf(200));
+        String[] authorizationHeaderSplit = authorization.split(" ");
+        if (authorizationHeaderSplit.length != 2) {
+            return new ResponseEntity<>(HttpStatusCode.valueOf(400));
+        }
+        String jwt = authorizationHeaderSplit[1];
+        try {
+            this.jwtValidatorService.validateJWT(jwt);
+            return new ResponseEntity<>(HttpStatusCode.valueOf(200));
 
-            } catch (InvalidJWTException e) {
-                return new ResponseEntity<>(HttpStatusCode.valueOf(500));
-            }
+        } catch (InvalidJWTException e) {
+            return new ResponseEntity<>(HttpStatusCode.valueOf(500));
+        }
     }
 }

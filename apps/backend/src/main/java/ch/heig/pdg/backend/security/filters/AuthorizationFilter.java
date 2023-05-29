@@ -74,7 +74,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
                 handlerMethod.getMethod().getAnnotation(AuthenticationRequired.class) != null
                         || handlerMethod.getClass().getAnnotation(AuthenticationRequired.class) != null
         ) {
-            if (this.currentUser.getCurrentUserData() == null){
+            if (this.currentUser.getCurrentUserData() == null) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
