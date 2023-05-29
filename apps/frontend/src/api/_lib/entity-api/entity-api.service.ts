@@ -1,12 +1,28 @@
+import { HttpEventType } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
 import { EntityDto } from "./dtos";
+import { EntityFindQuery, FoundAndTotal } from "./entity-api.types";
 import { ApiClient } from "../../api.client";
+
+export interface FindAndCountParams {
+	uri: string;
+}
 
 @Injectable({
 	providedIn: "root"
 })
-export abstract class EntityApiService<T extends EntityDto, ToCreate, ToUpdate> {
+export abstract class EntityApiService<
+	T extends EntityDto,
+	ToCreate,
+	ToReplace,
+	Q extends EntityFindQuery<T> = EntityFindQuery<T>
+> {
+	/**
+	 * Header key where the total of items is stored
+	 */
+	public static HEADER_TOTAL = "TODO";
+
 	public constructor(protected readonly client: ApiClient) {}
 
 	/**
@@ -22,8 +38,8 @@ export abstract class EntityApiService<T extends EntityDto, ToCreate, ToUpdate> 
 	 * @param query Filter, sort and/or paginate the results
 	 * @returns The results of the request
 	 */
-	public findAndCount(query?: unknown): Promise<unknown> {
-		return Promise.reject(new Error("Not implemented yet"));
+	public findAndCount(query?: Q): Promise<FoundAndTotal<T>> {
+		return this._findAndCount({ uri: this.getEntrypoint() }, query);
 	}
 
 	/**
@@ -50,8 +66,8 @@ export abstract class EntityApiService<T extends EntityDto, ToCreate, ToUpdate> 
 	 * @param body Object to update an entity
 	 * @returns the updated entity
 	 */
-	public update(id: number, body: ToUpdate): Promise<T> {
-		return this.client.patch(`${this.getEntrypoint()}/${id}`, body);
+	public replace(id: number, body: ToReplace): Promise<T> {
+		return this.client.put(`${this.getEntrypoint()}/${id}`, body);
 	}
 
 	/**
@@ -62,5 +78,37 @@ export abstract class EntityApiService<T extends EntityDto, ToCreate, ToUpdate> 
 	 */
 	public delete(id: number): Promise<T> {
 		return this.client.delete(`${this.getEntrypoint()}/${id}`);
+	}
+
+	/**
+	 * Does 'find' request.
+	 * The url can be different, but the filter are the same:
+	 * ex: '/users' and '/group/1/users'
+	 * @param params specific parameters
+	 * @param query to request
+	 * @returns the data found and its total
+	 */
+	protected _findAndCount<T2 = T, Q2 = Q>(
+		params: FindAndCountParams,
+		query?: Q2
+	): Promise<FoundAndTotal<T2>> {
+		const url = params.uri;
+		// TODO: query transformation
+
+		let total: number | undefined;
+		return this.client
+			.get<T2[]>(url, {
+				observeEvent: event => {
+					if (event.type !== HttpEventType.ResponseHeader) {
+						return;
+					}
+
+					const header = event.headers.get(EntityApiService.HEADER_TOTAL);
+					if (header) {
+						total = Number.isNaN(+header) ? -1 : +header;
+					}
+				}
+			})
+			.then(data => ({ data, total: total ?? -1 }));
 	}
 }
