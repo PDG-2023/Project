@@ -12,9 +12,5 @@ import lombok.EqualsAndHashCode;
 public class Item extends AbstractEntity {
     @ManyToOne
     @JoinColumn(nullable = false)
-    private Location location;
-
-    @ManyToOne
-    @JoinColumn(nullable = false)
     private ItemModel model;
 }
