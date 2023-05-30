@@ -29,8 +29,6 @@ public class ItemMapper extends AbstractDataMapper implements IDataTransferObjec
     public Item updateFromDTO(Item item, IDataTransferObject<Item> dto) {
         ItemDTO itemDTO = (ItemDTO) dto;
         item.setModel(this.entityManager.getReference(ItemModel.class, itemDTO.getModelId()));
-        // FIXME: Is the location computed ?
-//        item.setLocation(this.getEntityIfExists(...));
         return item;
     }
 }
