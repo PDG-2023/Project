@@ -38,7 +38,6 @@ export interface RequestOptions {
 export class ApiClient {
 	/**
 	 * "Construct" the url to connect with API backend
-	 *
 	 * @param endpoint the endpoint to concat (suppose to start with `/`)
 	 * @returns the final url
 	 */
@@ -55,7 +54,6 @@ export class ApiClient {
 
 	/**
 	 * GET request
-	 *
 	 * @param endpoint should start with `/`
 	 * @param options options of the request like headers, body, etc.
 	 * @returns the response of the request
@@ -66,7 +64,6 @@ export class ApiClient {
 
 	/**
 	 * POST request
-	 *
 	 * @param endpoint should start with `/`
 	 * @param body of the request.
 	 * @param options options of the request like headers, body, etc.
@@ -78,7 +75,6 @@ export class ApiClient {
 
 	/**
 	 * PATCH request
-	 *
 	 * @param endpoint should start with `/`
 	 * @param body body of the request.
 	 * @param options options of the request like headers, body, etc.
@@ -90,7 +86,6 @@ export class ApiClient {
 
 	/**
 	 * PUT request
-	 *
 	 * @param endpoint should start with `/`
 	 * @param body body of the request.
 	 * @param options options of the request like headers, body, etc.
@@ -102,7 +97,6 @@ export class ApiClient {
 
 	/**
 	 * DELETE request
-	 *
 	 * @param endpoint should start with `/`
 	 * @param options options of the request like headers, body, etc.
 	 * @returns the response of the request
@@ -113,7 +107,6 @@ export class ApiClient {
 
 	/**
 	 *  Constructs a request.
-	 *
 	 * @param method The HTTP method
 	 * @param endpoint The endpoint URL.
 	 * @param options The HTTP options to send with the request.

@@ -2,8 +2,8 @@
 
 <!-- TOC -->
 
-* [Store-Me Frontend](#store-me-frontend)
-	* [Commands](#commands)
+- [Store-Me Frontend](#store-me-frontend)
+  - [Commands](#commands)
 
 <!-- TOC -->
 
