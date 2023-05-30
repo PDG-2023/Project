@@ -1,25 +1,74 @@
 package ch.heig.pdg.backend.presentation;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import ch.heig.pdg.backend.dto.UserDTO;
+import ch.heig.pdg.backend.entities.User;
+import ch.heig.pdg.backend.security.annotations.AuthenticationRequired;
+import ch.heig.pdg.backend.services.UserService;
+import ch.heig.pdg.backend.utils.HugoSearchFilter;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
-public class UserController {
-    @GetMapping("/")
-    public ResponseEntity slash() {
-        ExampleResponse r = new ExampleResponse(2, LocalDateTime.now());
-        return ResponseEntity.ok(r);
+public class UserController extends AbstractController implements ch.heig.pdg.backend.api.UserApi {
+    private final UserService userService;
+
+    public UserController(HttpServletRequest httpServletRequest, UserService userService) {
+        super(httpServletRequest);
+        this.userService = userService;
     }
 
-    @Data
-    @AllArgsConstructor
-    static class ExampleResponse {
-        private int id;
-        private LocalDateTime date;
+    @Override
+    public ResponseEntity<UserDTO> createUser(UserDTO userDTO) {
+        return new ResponseEntity<>(
+                this.userService.addUser(userDTO),
+                HttpStatus.CREATED
+        );
+    }
+
+    @Override
+    public ResponseEntity<UserDTO> deleteUser(Integer id) {
+        return new ResponseEntity<>(
+                this.userService.removeUser(id),
+                HttpStatus.OK
+        );
+    }
+
+    @Override
+    public ResponseEntity<UserDTO> getUser(Integer id) {
+        return new ResponseEntity<>(
+                this.userService.getUser(id),
+                HttpStatus.OK
+        );
+    }
+
+    @Override
+    public ResponseEntity<List<UserDTO>> getUsers() {
+        HugoSearchFilter<User> filter = HugoSearchFilter.build(this.httpServletRequest, User.class);
+
+        return new ResponseEntity<>(
+                this.userService.getUsers(filter),
+                HttpStatus.OK
+        );
+    }
+
+    @Override
+    public ResponseEntity<UserDTO> updateUser(Integer id, UserDTO userDTO) {
+        return new ResponseEntity<>(
+                this.userService.updateUser(id, userDTO),
+                HttpStatus.OK
+        );
+    }
+
+    @AuthenticationRequired
+    @Override
+    public ResponseEntity<UserDTO> getCurrentUser() {
+        return new ResponseEntity<>(
+                this.userService.getCurrentUser(),
+                HttpStatus.OK
+        );
     }
 }

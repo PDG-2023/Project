@@ -62,3 +62,32 @@ resource "aws_security_group_rule" "allow_all" {
   protocol    = "-1"
   cidr_blocks = ["0.0.0.0/0"]
 }
+
+resource "aws_sns_topic" "monitoring" {
+  name = "pdg-monitoring"
+}
+
+resource "aws_cloudwatch_metric_alarm" "status_check_failed" {
+  alarm_name                = "pdg-web-server-status-check-failed"
+  comparison_operator       = "GreaterThanOrEqualToThreshold"
+  evaluation_periods        = 2
+  metric_name               = "StatusCheckFailed"
+  namespace                 = "AWS/EC2"
+  period                    = 120
+  statistic                 = "Average"
+  threshold                 = 0.99
+  alarm_description         = "This metric monitors status checks"
+  dimensions = {
+    InstanceId = aws_instance.web.id
+  }
+  alarm_actions = [
+    aws_sns_topic.monitoring.arn
+  ]
+  insufficient_data_actions = []
+}
+
+resource "aws_sns_topic_subscription" "email_notification" {
+  topic_arn = aws_sns_topic.monitoring.arn
+  protocol  = "email"
+  endpoint  = var.monitoring_email
+}

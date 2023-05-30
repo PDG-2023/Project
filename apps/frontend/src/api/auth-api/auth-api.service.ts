@@ -13,7 +13,6 @@ export class AuthApiService {
 
 	public constructor(private readonly client: ApiClient) {}
 
-	// Pure HTTP calls, avoid using it
 	/**
 	 * @param body login
 	 * @returns the credentials

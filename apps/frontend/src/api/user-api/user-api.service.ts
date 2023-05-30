@@ -12,4 +12,12 @@ export class UserApiService extends EntityApiService<UserDto, UserCreateDto, Use
 	public override getEntrypoint(): string {
 		return USER_API_ENDPOINT;
 	}
+
+	/**
+	 * @returns the connected user
+	 */
+	public getCurrent(): Promise<UserDto> {
+		// Authorization setting is done elsewhere
+		return this.client.get(`${this.getEntrypoint()}/current-user`);
+	}
 }

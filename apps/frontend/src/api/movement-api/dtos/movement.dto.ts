@@ -4,5 +4,6 @@ export interface MovementDto extends EntityDto {
 	itemId: number;
 	locationId: number;
 
-	type: string;
+	// TODO: what are the types?
+	movementType: string;
 }
