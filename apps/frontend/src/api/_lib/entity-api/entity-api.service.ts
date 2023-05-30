@@ -1,7 +1,9 @@
 import { HttpEventType } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { stringify } from "qs";
 
 import { EntityDto } from "./dtos";
+import { entityFindQueryConvert } from "./entity-api.find-query.converter";
 import { EntityFindQuery, FoundAndTotal } from "./entity-api.types";
 import { ApiClient } from "../../api.client";
 
@@ -88,12 +90,18 @@ export abstract class EntityApiService<
 	 * @param query to request
 	 * @returns the data found and its total
 	 */
-	protected _findAndCount<T2 = T, Q2 = Q>(
+	protected _findAndCount<T2 = T, Q2 extends EntityFindQuery<T2> = EntityFindQuery<T2>>(
 		params: FindAndCountParams,
 		query?: Q2
 	): Promise<FoundAndTotal<T2>> {
-		const url = params.uri;
-		// TODO: query transformation
+		let url = params.uri;
+
+		if (query) {
+			const queryString = stringify(entityFindQueryConvert(query));
+			if (queryString) {
+				url += `?${queryString}`;
+			}
+		}
 
 		let total: number | undefined;
 		return this.client

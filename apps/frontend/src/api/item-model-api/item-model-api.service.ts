@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 
 import { ItemModelCreateDto, ItemModelDto, ItemModelUpdateDto } from "./dtos";
-import { EntityApiService } from "../_lib/entity-api";
+import { EntityApiService, EntityFindQuery } from "../_lib/entity-api";
+import { inventorySingleEntrypoint } from "../inventory-api/inventory-api.shared.api";
 
-export const MODEL_ITEM_API_ENDPOINT = "/model-items";
+export const ITEM_MODEL_API_ENDPOINT = "/model-items";
 
 @Injectable({
 	providedIn: "root"
@@ -14,6 +15,13 @@ export class ItemModelApiService extends EntityApiService<
 	ItemModelUpdateDto
 > {
 	public override getEntrypoint(): string {
-		return MODEL_ITEM_API_ENDPOINT;
+		return ITEM_MODEL_API_ENDPOINT;
+	}
+
+	public findAndCountByInventory(inventory: number, query: EntityFindQuery<ItemModelDto>) {
+		return this._findAndCount(
+			{ uri: `${inventorySingleEntrypoint(inventory)}${ITEM_MODEL_API_ENDPOINT}` },
+			query
+		);
 	}
 }

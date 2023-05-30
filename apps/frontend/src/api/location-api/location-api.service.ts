@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 
 import { LocationCreateDto, LocationDto, LocationUpdateDto } from "./dtos";
-import { EntityApiService } from "../_lib/entity-api";
-import { EntityFindQuery } from "../_lib/entity-api/entity-api.types";
+import { EntityApiService, EntityFindQuery } from "../_lib/entity-api";
+import { inventorySingleEntrypoint } from "../inventory-api/inventory-api.shared.api";
 
 export const LOCATION_API_ENDPOINT = "/locations";
 
@@ -19,9 +19,8 @@ export class LocationApiService extends EntityApiService<
 	}
 
 	public findAndCountByInventory(inventory: number, query: EntityFindQuery<LocationDto>) {
-		// TODO: the others + inventory endpoint variable
 		return this._findAndCount(
-			{ uri: `/inventory/${inventory}${LOCATION_API_ENDPOINT}` },
+			{ uri: `${inventorySingleEntrypoint(inventory)}${LOCATION_API_ENDPOINT}` },
 			query
 		);
 	}

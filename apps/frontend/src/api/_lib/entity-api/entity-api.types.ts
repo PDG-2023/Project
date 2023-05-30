@@ -8,19 +8,19 @@ export interface FoundAndTotal<T> {
 	total: number;
 }
 
-export type EntitySortValues = "asc" | "desc";
+export type EntityOrderValues = "asc" | "desc";
 
 /**
  * Return the keys that can be ordered
  */
-export type EntityOrderableKey<T> = keyof {
+export type EntityOrderableKeys<T> = keyof {
 	// nested and relation can not be used to order
 	[P in keyof T as T[P] extends EntityPrimitif ? P : never]: 0;
 };
 
 export interface EntityOrder<T> {
-	direction: EntitySortValues;
-	property: EntityOrderableKey<T>;
+	direction: EntityOrderValues;
+	property: EntityOrderableKeys<T>;
 }
 
 export interface EntityOperator<T> {
