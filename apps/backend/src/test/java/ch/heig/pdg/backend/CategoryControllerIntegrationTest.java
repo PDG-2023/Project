@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -59,17 +60,17 @@ public class CategoryControllerIntegrationTest {
         CategoryDTO dto = new CategoryDTO();
         dto.setName(catName);
         dto.setParentCategoryId(JsonNullable.of(1));
-        // FIXME: This mapper does not work for now
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.findAndRegisterModules();
 
 
-//        this.mvc.perform(post("/inventory/1/categories")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(objectMapper.writeValueAsString(dto))
-//                )
-//                .andExpect(status().isCreated())
-//                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(catName));
+        this.mvc.perform(post("/inventory/1/categories")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(dto))
+                )
+                .andExpect(status().isCreated())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(catName));
     }
 }
