@@ -24,3 +24,8 @@ VALUES (1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'cat 1', 1, NULL),
 INSERT INTO location(id, created_at, updated_at, description, name, inventory_id, parent_id)
 VALUES (1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'location description', 'location name', 1, NULL),
        (2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'an other description', 'another name', 1, 1);
+
+ALTER TABLE category ALTER COLUMN id RESTART WITH (SELECT MAX(id) + 1 FROM category);
+ALTER TABLE inventory ALTER COLUMN id RESTART WITH (SELECT MAX(id) + 1 FROM inventory);
+ALTER TABLE location ALTER COLUMN id RESTART WITH (SELECT MAX(id) + 1 FROM location);
+ALTER TABLE application_user ALTER COLUMN id RESTART WITH (SELECT MAX(id) + 1 FROM application_user);
