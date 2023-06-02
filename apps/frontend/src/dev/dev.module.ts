@@ -3,10 +3,11 @@ import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { RouterModule } from "@angular/router";
 
 import { DevNotifierSnackBar } from "./components/_lib/dev-notifier.snack-bar";
-import { StyleguideButtonsComponent } from "./components/styleguide/styleguide-buttons/styleguide-buttons.component";
 import { DevView } from "./dev.view";
+import { LocationPreviewView } from "./views/components/location-preview/location-preview.view";
 import { devRoutes } from "./views/dev.routes";
 import { IndexView } from "./views/index/index.view";
+import { StyleguideButtonsComponent } from "./views/styleguide/_lib/styleguide-buttons/styleguide-buttons.component";
 import { StyleguideView } from "./views/styleguide/styleguide.view";
 import { ComponentsModule } from "../app/components/components.module";
 
@@ -37,6 +38,7 @@ export const DevInitializerProvider: Provider = {
 		DevNotifierSnackBar,
 		DevView,
 		IndexView,
+		LocationPreviewView,
 		StyleguideButtonsComponent,
 		StyleguideView
 	],
