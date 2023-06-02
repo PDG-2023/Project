@@ -177,7 +177,9 @@
 						"default": {
 							"memberTypes": [
 								"signature",
-								"static-field",
+								"public-static-field",
+								"protected-static-field",
+								"private-static-field",
 								"public-static-get",
 								"protected-static-get",
 								"private-static-get",

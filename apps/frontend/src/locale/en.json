@@ -5,15 +5,36 @@
 	},
 	"components": {
 		"sidebar": {
+			"inventory-none-selected": {
+				"_0": "No current inventory selected. Go to",
+				"_1": "your inventories",
+				"_2": "to select one."
+			},
 			"log-or-register": {
 				"_0": "",
 				"_1": "or",
 				"_2": "to enable the navigation."
 			},
-			"toolbar-title": "Menu"
+			"toolbar-title": "Menu",
+			"your-inventories": "Your inventories"
 		}
 	},
 	"entities": {
+		"category": {
+			"__meta": {
+				"names": "Categories"
+			}
+		},
+		"item-model": {
+			"__meta": {
+				"names": "Item models"
+			}
+		},
+		"location": {
+			"__meta": {
+				"names": "Locations"
+			}
+		},
 		"user": {
 			"email": "Email",
 			"firstname": "Firstname",

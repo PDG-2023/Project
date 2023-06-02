@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { LocationView } from "./location.view";
+import { CategoriesView } from "./categories.view";
 import { ApiModule } from "../../../../api";
 
-describe("LocationView", () => {
-	let component: LocationView;
-	let fixture: ComponentFixture<LocationView>;
+describe("LocationsView", () => {
+	let component: CategoriesView;
+	let fixture: ComponentFixture<CategoriesView>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [LocationView],
+			declarations: [CategoriesView],
 			imports: [ApiModule]
 		}).compileComponents();
 
-		fixture = TestBed.createComponent(LocationView);
+		fixture = TestBed.createComponent(CategoriesView);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

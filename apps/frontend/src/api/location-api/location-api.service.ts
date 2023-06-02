@@ -18,7 +18,7 @@ export class LocationApiService extends EntityApiService<
 		return LOCATION_API_ENDPOINT;
 	}
 
-	public findAndCountByInventory(inventory: number, query: EntityFindQuery<LocationDto>) {
+	public findAndCountByInventory(inventory: number, query?: EntityFindQuery<LocationDto>) {
 		return this._findAndCount(
 			{ uri: `${inventorySingleEntrypoint(inventory)}${LOCATION_API_ENDPOINT}` },
 			query
