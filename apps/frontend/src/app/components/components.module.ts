@@ -8,7 +8,6 @@ import { MaterialsModule } from "../materials/materials.module";
 import { TranslationModule } from "../translation";
 
 @NgModule({
-	declarations: [DescribablePreviewComponent],
 	exports: [
 		CommonModule,
 		DescribablePreviewComponent,
@@ -16,6 +15,13 @@ import { TranslationModule } from "../translation";
 		ReactiveFormsModule,
 		TranslationModule
 	],
-	imports: [CommonModule, MaterialsModule, ReactiveFormsModule, RouterModule, TranslationModule]
+	imports: [
+		CommonModule,
+		DescribablePreviewComponent,
+		MaterialsModule,
+		ReactiveFormsModule,
+		RouterModule,
+		TranslationModule
+	]
 })
 export class ComponentsModule {}

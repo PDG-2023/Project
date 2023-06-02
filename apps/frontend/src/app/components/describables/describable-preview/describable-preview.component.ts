@@ -1,11 +1,30 @@
+import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
+import { MatExpansionModule, MatExpansionPanel } from "@angular/material/expansion";
+import { MatIconModule } from "@angular/material/icon";
+import { MatMenuModule } from "@angular/material/menu";
+import { RouterLink } from "@angular/router";
 
 import { DescribableDto } from "../../../../api/_lib/entity-api/dtos";
+import { TranslationModule } from "../../../translation";
 
 @Component({
+	imports: [
+		CommonModule,
+		MatButtonModule,
+		MatExpansionModule,
+		MatIconModule,
+		MatMenuModule,
+		RouterLink,
+		TranslationModule
+	],
 	selector: "app-describable-preview",
+	standalone: true,
 	styleUrls: ["./describable-preview.component.scss"],
-	templateUrl: "./describable-preview.component.html"
+	templateUrl: "./describable-preview.component.html",
+	// https://stackoverflow.com/questions/51545790/no-provider-for-matexpansionpanel-if-used-inside-child-component-in-ngfor
+	viewProviders: [MatExpansionPanel]
 })
 export class DescribablePreviewComponent<T extends DescribableDto = DescribableDto> {
 	/**
@@ -15,7 +34,7 @@ export class DescribablePreviewComponent<T extends DescribableDto = DescribableD
 	public describable!: T;
 
 	/**
-	 * Does this location has any children?
+	 * Does this describable has any children?
 	 */
 	@Input()
 	public hasChildren = false;
@@ -26,26 +45,26 @@ export class DescribablePreviewComponent<T extends DescribableDto = DescribableD
 	@Input()
 	public expanded = false;
 	/**
-	 * When the location become or is longer expanded.
+	 * When the describable become or is longer expanded.
 	 * Only from the inside; setting the `expanded` input will not trigger this event.
 	 */
 	@Output()
 	public readonly expandedChange = new EventEmitter<boolean>();
 
 	/**
-	 * `href` when asking to show the content of this location
+	 * `href` when asking to show the content of this describable
 	 */
 	@Input()
 	public hrefShow!: string;
 	/**
-	 * `href` when asking to edit the content of this location
+	 * `href` when asking to edit the content of this describable
 	 */
 	@Input()
 	public hrefEdit!: string;
 
 	/**
 	 * Emitted when the delete action is triggered.
-	 * Returns this location in the event
+	 * Returns this describable in the event
 	 */
 	@Output()
 	public readonly delete = new EventEmitter<T>();

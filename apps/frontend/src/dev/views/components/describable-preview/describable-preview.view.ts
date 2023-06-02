@@ -27,13 +27,13 @@ export class DescribablePreviewView {
 		{
 			data: [
 				{
-					expanded: false,
+					expanded: true,
 					hasChildren: true,
 					location: DbBaseSample.categories[0],
 					logs: { delete: [], expanded: [] }
 				},
 				{
-					expanded: true,
+					expanded: false,
 					hasChildren: false,
 					location: DbBaseSample.categories[1],
 					logs: { delete: [], expanded: [] }

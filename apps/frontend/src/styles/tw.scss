@@ -38,6 +38,9 @@
 		display: flex;
 	}
 
+	.#{$prefix}flex-0#{$pseudo} {
+		flex: 0;
+	}
 	.#{$prefix}flex-1#{$pseudo} {
 		flex: 1;
 	}
