@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
+import { concatMap } from "rxjs";
 
+import { LocationApiService } from "../../../../api/location-api";
 import { InventoryService } from "../../../inventory/inventory.service";
 import { InventoryView } from "../inventory/inventory.view";
 
@@ -22,7 +24,14 @@ export class LocationsView {
 	}
 
 	// TODO
-	protected inventoryCurrent$ = this.inventoryService.inventoryCurrent$;
+	protected readonly inventoryCurrent$ = this.inventoryService.inventoryExiting$;
 
-	public constructor(private readonly inventoryService: InventoryService) {}
+	protected readonly locations$ = this.inventoryCurrent$.pipe(
+		concatMap(inventory => this.locationApi.findAndCountByInventory(inventory.id))
+	);
+
+	public constructor(
+		private readonly inventoryService: InventoryService,
+		private readonly locationApi: LocationApiService
+	) {}
 }
