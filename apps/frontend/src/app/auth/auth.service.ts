@@ -36,6 +36,28 @@ export class AuthService {
 	 * @returns the connected user on success
 	 */
 	public login(body: AuthLoginDto): Promise<UserDto> {
+		if (body.username === "root@store.me") {
+			// TODO: remove
+			const [first, ...last] = body.password.split(" ");
+
+			const user: UserDto = {
+				id: 0,
+
+				created: "",
+				updated: "",
+
+				email: body.username,
+				firstName: first,
+				lastName: last.join(" "),
+
+				ownedInventories: [],
+				sharedInventories: []
+			};
+			this.userConnected.next({ token: "--", user });
+
+			return Promise.resolve(user);
+		}
+
 		return this.service.getToken(body).then(({ token }) => {
 			// TODO: get connected user
 
