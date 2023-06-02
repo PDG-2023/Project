@@ -1,18 +1,18 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 
-import { LocationDto } from "../../../../api/location-api/dtos";
+import { DescribableDto } from "../../../../api/_lib/entity-api/dtos";
 
 @Component({
-	selector: "app-location-preview",
-	styleUrls: ["./location-preview.component.scss"],
-	templateUrl: "./location-preview.component.html"
+	selector: "app-describable-preview",
+	styleUrls: ["./describable-preview.component.scss"],
+	templateUrl: "./describable-preview.component.html"
 })
-export class LocationPreviewComponent {
+export class DescribablePreviewComponent<T extends DescribableDto = DescribableDto> {
 	/**
-	 * The location to preview
+	 * The describable to preview
 	 */
 	@Input()
-	public location!: LocationDto;
+	public describable!: T;
 
 	/**
 	 * Does this location has any children?
@@ -48,5 +48,5 @@ export class LocationPreviewComponent {
 	 * Returns this location in the event
 	 */
 	@Output()
-	public readonly delete = new EventEmitter<LocationDto>();
+	public readonly delete = new EventEmitter<T>();
 }

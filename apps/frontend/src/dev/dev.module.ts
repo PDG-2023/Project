@@ -4,7 +4,7 @@ import { RouterModule } from "@angular/router";
 
 import { DevNotifierSnackBar } from "./components/_lib/dev-notifier.snack-bar";
 import { DevView } from "./dev.view";
-import { LocationPreviewView } from "./views/components/location-preview/location-preview.view";
+import { DescribablePreviewView } from "./views/components/describable-preview/describable-preview.view";
 import { devRoutes } from "./views/dev.routes";
 import { IndexView } from "./views/index/index.view";
 import { StyleguideButtonsComponent } from "./views/styleguide/_lib/styleguide-buttons/styleguide-buttons.component";
@@ -35,10 +35,10 @@ export const DevInitializerProvider: Provider = {
 
 @NgModule({
 	declarations: [
+		DescribablePreviewView,
 		DevNotifierSnackBar,
 		DevView,
 		IndexView,
-		LocationPreviewView,
 		StyleguideButtonsComponent,
 		StyleguideView
 	],
