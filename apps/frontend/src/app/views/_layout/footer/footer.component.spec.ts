@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { FooterComponent } from "./footer.component";
+import { ApiModule } from "../../../../api";
 import { MaterialsModule } from "../../../materials/materials.module";
 
 describe("FooterComponent", () => {
@@ -10,7 +11,7 @@ describe("FooterComponent", () => {
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			declarations: [FooterComponent],
-			imports: [MaterialsModule]
+			imports: [ApiModule, MaterialsModule]
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(FooterComponent);

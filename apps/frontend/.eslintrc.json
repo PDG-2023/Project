@@ -112,7 +112,7 @@
 				"@angular-eslint/component-class-suffix": [
 					"error",
 					{
-						"suffixes": ["Component", "SnackBar", "View"]
+						"suffixes": ["Component", "Dialog", "SnackBar", "View"]
 					}
 				],
 				"@angular-eslint/component-selector": [
@@ -272,7 +272,7 @@
 			}
 		},
 		{
-			"files": ["*.snack-bar.ts", "*.view.ts"],
+			"files": ["*.dialog.ts", "*.snack-bar.ts", "*.view.ts"],
 			"rules": {
 				"@angular-eslint/use-component-selector": "off"
 			}

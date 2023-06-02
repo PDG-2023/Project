@@ -33,4 +33,8 @@ export class SidebarComponent {
 	protected isCurrentPathEqualTo(path: string) {
 		return this.router.url.startsWith(path);
 	}
+
+	protected isYourInventoryPath() {
+		return this.router.url.endsWith(InventoriesView.PATH);
+	}
 }

@@ -11,6 +11,7 @@ import { ItemModelView } from "./inventories/item-models/item-model/item-model.v
 import { ItemModelsView } from "./inventories/item-models/item-models.view";
 import { LocationView } from "./inventories/locations/location/location.view";
 import { LocationsView } from "./inventories/locations/locations.view";
+import { SearchView } from "./inventories/search/search.view";
 import { LoginView, LoginViewData } from "./login/login.view";
 import { NotFoundView } from "./not-found/not-found.view";
 import { InventoryService } from "../inventory/inventory.service";
@@ -46,6 +47,7 @@ export const appRoutes: Route[] = [
 				],
 				path: LocationsView.ROUTE_PATH
 			},
+			{ component: SearchView, path: SearchView.ROUTE_PATH },
 			{ component: InventoryView, path: "" }
 		],
 		path: InventoryView.ROUTE_PATH,
