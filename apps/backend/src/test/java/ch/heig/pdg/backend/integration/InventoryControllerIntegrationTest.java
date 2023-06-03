@@ -1,7 +1,7 @@
 package ch.heig.pdg.backend.integration;
 
-import ch.heig.pdg.backend.utility.AbstractAuthenticatedIntegrationTest;
 import ch.heig.pdg.backend.dto.InventoryDTO;
+import ch.heig.pdg.backend.utility.AbstractAuthenticatedIntegrationTest;
 import ch.heig.pdg.backend.utility.IntegrationTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;

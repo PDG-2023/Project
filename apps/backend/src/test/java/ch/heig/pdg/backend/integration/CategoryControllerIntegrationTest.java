@@ -1,8 +1,8 @@
 package ch.heig.pdg.backend.integration;
 
-import ch.heig.pdg.backend.utility.IntegrationTest;
 import ch.heig.pdg.backend.dto.CategoryDTO;
 import ch.heig.pdg.backend.utility.AbstractAuthenticatedIntegrationTest;
+import ch.heig.pdg.backend.utility.IntegrationTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.core.IsNull;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @IntegrationTest
 public class CategoryControllerIntegrationTest extends AbstractAuthenticatedIntegrationTest {
-
     @Test
     public void givenInventoryValid_whenGetCategories_thenStatus200() throws Exception {
         this.mvc.perform(get("/inventory/1/categories")

@@ -21,6 +21,10 @@ VALUES (1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'location description', 'locati
        (2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'an other description', 'another name', 1, 1)
 ON CONFLICT DO NOTHING;
 
+INSERT INTO item_category(item_id, category_id)
+    VALUES (1, 1);
+
+
 -- needed to set the sequences to start correctly
 SELECT SETVAL('inventory_id_seq', (SELECT MAX(id) + 1 FROM public.inventory));
 SELECT SETVAL('application_user_id_seq', (SELECT MAX(id) + 1 FROM public.application_user));
