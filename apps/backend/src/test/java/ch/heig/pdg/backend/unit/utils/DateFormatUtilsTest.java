@@ -1,4 +1,4 @@
-package ch.heig.pdg.backend.unit;
+package ch.heig.pdg.backend.unit.utils;
 
 import ch.heig.pdg.backend.utils.DateFormatUtil;
 import org.junit.jupiter.api.Assertions;
