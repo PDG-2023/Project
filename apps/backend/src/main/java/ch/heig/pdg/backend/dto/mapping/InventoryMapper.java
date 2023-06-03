@@ -15,6 +15,7 @@ public class InventoryMapper extends AbstractDataMapper implements IDataTransfer
         InventoryDTO dto = new InventoryDTO();
         dto.setId(inventory.getId());
         dto.setName(inventory.getName());
+        dto.setOwnerId(inventory.getOwner().getId());
         dto.setCreated(DateFormatUtil.dateToString(inventory.getCreatedAt()));
         dto.setUpdated(DateFormatUtil.dateToString(inventory.getUpdatedAt()));
         dto.setUsers(this.getIdsOrEmptyList(inventory.getUsers()));
@@ -23,8 +24,9 @@ public class InventoryMapper extends AbstractDataMapper implements IDataTransfer
 
     @Override
     public Inventory createFromDTO(IDataTransferObject<Inventory> dto) {
+        InventoryDTO inventoryDTO = (InventoryDTO) dto;
         Inventory inventory = new Inventory();
-        inventory.setOwner(this.entityManager.getReference(User.class, 1));
+        inventory.setOwner(this.entityManager.getReference(User.class, inventoryDTO.getOwnerId()));
         return this.updateFromDTO(inventory, dto);
     }
 

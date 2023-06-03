@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 @SuppressWarnings("checkstyle:HideUtilityClassConstructor")
 public final class DateFormatUtil {
 
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
     public static String dateToString(LocalDateTime date) {
         return date.format(DATE_FORMAT);
