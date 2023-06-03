@@ -1,11 +1,10 @@
 package ch.heig.pdg.backend.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
 
 @Entity
 @Data
@@ -14,11 +13,10 @@ public class Category extends AbstractEntity {
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.ALL)
     private Category parent;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(nullable = false)
     private Inventory inventory;
 }

@@ -32,9 +32,9 @@ public class MovementService extends AbstractService {
     }
 
     public MovementDTO removeMovement(Integer id) {
-        Movement movement = this.getEntityIfExists(id, this.movementRepository);
+        MovementDTO movementDTO = (MovementDTO) this.movementMapper.getDTO(this.getEntityIfExists(id, this.movementRepository));
         this.movementRepository.deleteById(id);
-        return (MovementDTO) this.movementMapper.getDTO(movement);
+        return movementDTO;
     }
 
     public MovementDTO getMovement(Integer id) {

@@ -34,9 +34,9 @@ public class UserService extends AbstractService {
     }
 
     public UserDTO removeUser(Integer id) {
-        User user = this.getEntityIfExists(id, this.userRepository);
+        UserDTO userDTO = (UserDTO) this.userMapper.getDTO(this.getEntityIfExists(id, this.userRepository));
         this.userRepository.deleteById(id);
-        return (UserDTO) this.userMapper.getDTO(user);
+        return userDTO;
     }
 
     public UserDTO getUser(Integer id) {

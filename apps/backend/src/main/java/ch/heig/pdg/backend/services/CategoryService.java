@@ -1,6 +1,7 @@
 package ch.heig.pdg.backend.services;
 
 import ch.heig.pdg.backend.dto.CategoryDTO;
+import ch.heig.pdg.backend.dto.InventoryDTO;
 import ch.heig.pdg.backend.dto.mapping.CategoryMapper;
 import ch.heig.pdg.backend.entities.Category;
 import ch.heig.pdg.backend.entities.Inventory;
@@ -51,9 +52,9 @@ public class CategoryService extends AbstractService {
     }
 
     public CategoryDTO removeCategory(Integer id) {
-        Category category = this.getEntityIfExists(id, this.categoryRepository);
+        CategoryDTO categoryDTO = (CategoryDTO) this.categoryMapper.getDTO(this.getEntityIfExists(id, this.categoryRepository));
         this.categoryRepository.deleteById(id);
-        return (CategoryDTO) this.categoryMapper.getDTO(category);
+        return categoryDTO;
     }
 
     public CategoryDTO updateCategory(Integer id, CategoryDTO categoryDTO) {

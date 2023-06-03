@@ -94,7 +94,7 @@ public class CategoryControllerIntegrationTest {
     }
 
     @Test
-    public void givenCategory_whenDeleteCategory_thenStatus200() throws Exception {
+    public void givenCategory_whenDeleteCategory_thenStatus200_andThen4040() throws Exception {
         this.mvc.perform(delete("/categories/2").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));

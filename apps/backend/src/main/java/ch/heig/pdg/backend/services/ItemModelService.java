@@ -35,9 +35,9 @@ public class ItemModelService extends AbstractService {
     }
 
     public ItemModelDTO removeItemModel(Integer id) {
-        ItemModel itemModel = this.getEntityIfExists(id, this.itemModelRepository);
+        ItemModelDTO itemModelDTO = (ItemModelDTO) this.itemModelMapper.getDTO(this.getEntityIfExists(id, this.itemModelRepository));
         this.itemModelRepository.deleteById(id);
-        return (ItemModelDTO) this.itemModelMapper.getDTO(itemModel);
+        return itemModelDTO;
     }
 
     public ItemModelDTO getItemModel(Integer id) {
