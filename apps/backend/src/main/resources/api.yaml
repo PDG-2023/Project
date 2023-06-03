@@ -116,6 +116,8 @@ paths:
           $ref: "#/components/responses/409"
         "500":
           $ref: "#/components/responses/500"
+      security:
+        - JWTAuth: [ ]
     post:
       tags:
         - Category
@@ -146,6 +148,8 @@ paths:
           $ref: "#/components/responses/409"
         "500":
           $ref: "#/components/responses/500"
+      security:
+        - JWTAuth: [ ]
   "/categories/{id}":
     parameters:
       - in: path

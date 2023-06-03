@@ -22,6 +22,7 @@ public class CategoryController extends AbstractController implements ch.heig.pd
         this.categoryService = categoryService;
     }
 
+    @AuthenticationRequired
     @Override
     public ResponseEntity<List<CategoryDTO>> getCategories(Integer inventoryId) {
         HugoSearchFilter<Category> filter = HugoSearchFilter.build(this.httpServletRequest, Category.class);
@@ -32,8 +33,8 @@ public class CategoryController extends AbstractController implements ch.heig.pd
         );
     }
 
-    @Override
     @AuthenticationRequired
+    @Override
     public ResponseEntity<CategoryDTO> createCategory(Integer inventoryId, CategoryDTO categoryDTO) {
         return new ResponseEntity<>(
                 this.categoryService.addCategory(inventoryId, categoryDTO),
@@ -41,6 +42,7 @@ public class CategoryController extends AbstractController implements ch.heig.pd
         );
     }
 
+    @AuthenticationRequired
     @Override
     public ResponseEntity<CategoryDTO> deleteCategory(Integer id) {
         return new ResponseEntity<>(
@@ -49,6 +51,7 @@ public class CategoryController extends AbstractController implements ch.heig.pd
         );
     }
 
+    @AuthenticationRequired
     @Override
     public ResponseEntity<CategoryDTO> getCategory(Integer id) {
         return new ResponseEntity<>(
@@ -57,6 +60,7 @@ public class CategoryController extends AbstractController implements ch.heig.pd
         );
     }
 
+    @AuthenticationRequired
     @Override
     public ResponseEntity<CategoryDTO> updateCategory(Integer id, CategoryDTO categoryDTO) {
         return new ResponseEntity<>(
