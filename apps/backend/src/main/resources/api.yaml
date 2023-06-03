@@ -1297,6 +1297,8 @@ components:
           type: string
         name:
           type: string
+        owner_id:
+          type: integer
         users:
           type: array
           items:
