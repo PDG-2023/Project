@@ -18,7 +18,7 @@ export class CategoryApiService extends EntityApiService<
 		return CATEGORY_API_ENDPOINT;
 	}
 
-	public findAndCountByInventory(inventory: number, query: EntityFindQuery<CategoryDto>) {
+	public findAndCountByInventory(inventory: number, query?: EntityFindQuery<CategoryDto>) {
 		return this._findAndCount(
 			{ uri: `${inventorySingleEntrypoint(inventory)}${CATEGORY_API_ENDPOINT}` },
 			query

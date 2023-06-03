@@ -18,7 +18,7 @@ export class ItemModelApiService extends EntityApiService<
 		return ITEM_MODEL_API_ENDPOINT;
 	}
 
-	public findAndCountByInventory(inventory: number, query: EntityFindQuery<ItemModelDto>) {
+	public findAndCountByInventory(inventory: number, query?: EntityFindQuery<ItemModelDto>) {
 		return this._findAndCount(
 			{ uri: `${inventorySingleEntrypoint(inventory)}${ITEM_MODEL_API_ENDPOINT}` },
 			query

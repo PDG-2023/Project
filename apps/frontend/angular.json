@@ -48,7 +48,7 @@
 					},
 					"defaultConfiguration": "production",
 					"options": {
-						"assets": ["src/favicon.ico", "src/assets"],
+						"assets": ["src/favicon.png", "src/assets"],
 						"index": "src/index.html",
 						"inlineStyleLanguage": "scss",
 						"main": "src/main.ts",
@@ -63,7 +63,8 @@
 					"builder": "@angular-devkit/build-angular:dev-server",
 					"configurations": {
 						"development": {
-							"browserTarget": "frontend:build:development"
+							"browserTarget": "frontend:build:development",
+							"proxyConfig": "src/proxy.conf.json"
 						},
 						"production": {
 							"browserTarget": "frontend:build:production"

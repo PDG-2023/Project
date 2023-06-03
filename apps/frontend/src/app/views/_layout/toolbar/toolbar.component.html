@@ -1,0 +1,9 @@
+<!-- TODO: link -->
+<a *ngIf="user" mat-button [routerLink]="'/'">
+	<span id="user-fullname">{{ user.firstName }} {{ user.lastName }}</span>
+	<mat-icon iconPositionEnd>account_circle</mat-icon>
+</a>
+
+<a *ngIf="!user" mat-icon-button [routerLink]="LoginView.PATH_LOGIN">
+	<mat-icon matIconSuffix>login</mat-icon>
+</a>

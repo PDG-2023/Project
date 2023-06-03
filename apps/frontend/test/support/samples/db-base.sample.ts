@@ -4,6 +4,38 @@ const date1 = new Date(2020, 1, 1, 12, 0, 0).toISOString();
 const date2 = new Date(2022, 1, 1, 12, 0, 0).toISOString();
 
 export const DbBaseSample: DbSample = {
+	categories: [
+		{
+			id: 1,
+
+			created: date1,
+			updated: date1,
+
+			description: "",
+			name: "Electronics",
+			parentCategoryId: null
+		},
+		{
+			id: 2,
+
+			created: date1,
+			updated: date2,
+
+			description: "",
+			name: "Office",
+			parentCategoryId: null
+		},
+		{
+			id: 3,
+
+			created: date1,
+			updated: date2,
+
+			description: "",
+			name: "To write",
+			parentCategoryId: 2
+		}
+	],
 	inventories: [
 		{
 			id: 1,
@@ -11,7 +43,8 @@ export const DbBaseSample: DbSample = {
 			created: date1,
 			updated: date1,
 
-			name: "My house"
+			name: "My house",
+			users: [1, 2]
 		}
 	],
 	items: [
@@ -57,6 +90,7 @@ export const DbBaseSample: DbSample = {
 			created: date1,
 			updated: date1,
 
+			categories: [1],
 			description: "",
 			name: "PC"
 		},
@@ -66,6 +100,7 @@ export const DbBaseSample: DbSample = {
 			created: date1,
 			updated: date1,
 
+			categories: [],
 			description: "My only socks",
 			name: "Socket"
 		},
@@ -75,6 +110,7 @@ export const DbBaseSample: DbSample = {
 			created: date2,
 			updated: date2,
 
+			categories: [3],
 			description: "",
 			name: "Pen"
 		},
@@ -84,6 +120,7 @@ export const DbBaseSample: DbSample = {
 			created: date2,
 			updated: date2,
 
+			categories: [2],
 			description: "I always need one near me",
 			name: "Inflatable pool"
 		}
@@ -132,9 +169,25 @@ export const DbBaseSample: DbSample = {
 			created: date1,
 			updated: date1,
 
+			email: "admin@local.host",
+			firstName: "Admin",
+			lastName: "Istrator",
+
+			ownedInventories: [1],
+			sharedInventories: []
+		},
+		{
+			id: 2,
+
+			created: date1,
+			updated: date1,
+
 			email: "elise@store.me",
 			firstName: "Elise",
-			lastName: "Store"
+			lastName: "Store",
+
+			ownedInventories: [],
+			sharedInventories: [1]
 		}
 	]
 };

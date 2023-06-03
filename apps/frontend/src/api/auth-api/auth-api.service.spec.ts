@@ -1,13 +1,13 @@
 import { TestBed } from "@angular/core/testing";
 
 import { AuthApiService } from "./auth-api.service";
-import { ApiClient } from "../api.client";
+import { ApiModule } from "../api.module";
 
 describe("AuthApiService", () => {
 	let service: AuthApiService;
 
 	beforeEach(() => {
-		TestBed.configureTestingModule({ imports: [ApiClient] });
+		TestBed.configureTestingModule({ imports: [ApiModule] });
 		service = TestBed.inject(AuthApiService);
 	});
 

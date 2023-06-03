@@ -1,0 +1,72 @@
+<div class="flex flex-1 flex-col gap-4 mx-2 my-1">
+	<div class="sm:hidden align-i-center flex flex-col mt-2">
+		<h5 translate>components.sidebar.toolbar-title</h5>
+		<app-toolbar></app-toolbar>
+	</div>
+
+	<div class="flex flex-1 flex-col justify-c-center">
+		<p *ngIf="(isUserConnected$ | async) === false" class="text-center">
+			{{ "components.sidebar.log-or-register._0" | translate }}
+			<a translate [routerLink]="LoginView.PATH_LOGIN">actions.login</a>
+			{{ "components.sidebar.log-or-register._1" | translate }}
+			<a translate [routerLink]="LoginView.PATH_REGISTER">actions.register</a>
+			{{ "components.sidebar.log-or-register._2" | translate }}
+		</p>
+
+		<div *ngIf="isUserConnected$ | async" class="flex flex-1 flex-col justify-c-between">
+			<mat-list *ngIf="(inventoryCurrent$ | async) === null">
+				<span mat-subheader>
+					{{ "components.sidebar.inventory-none-selected._0" | translate }}
+					<a translate [routerLink]="InventoriesView.PATH"
+						>components.sidebar.inventory-none-selected._1</a
+					>
+					{{ "components.sidebar.inventory-none-selected._2" | translate }}
+				</span>
+			</mat-list>
+
+			<mat-nav-list *ngIf="inventoryCurrent$ | async as inventory">
+				<p class="font-italic text-sm" id="inventory-name" mat-subheader>
+					{{ inventory.name }}
+				</p>
+
+				<mat-divider></mat-divider>
+
+				<mat-list-item
+					[activated]="isCurrentPathEqualTo(CategoriesView.getPath(inventory.id))"
+					[routerLink]="CategoriesView.getPath(inventory.id)"
+				>
+					<mat-icon matListItemIcon>account_tree</mat-icon>
+					<a matListItemTitle translate>entities.category.__meta.names</a>
+				</mat-list-item>
+
+				<mat-list-item
+					[activated]="isCurrentPathEqualTo(LocationsView.getPath(inventory.id))"
+					[routerLink]="LocationsView.getPath(inventory.id)"
+				>
+					<mat-icon matListItemIcon>home_pin</mat-icon>
+					<a matListItemTitle translate>entities.location.__meta.names</a>
+				</mat-list-item>
+
+				<mat-list-item
+					[activated]="isCurrentPathEqualTo(ItemModelsView.getPath(inventory.id))"
+					[routerLink]="ItemModelsView.getPath(inventory.id)"
+				>
+					<mat-icon matListItemIcon>category</mat-icon>
+					<a matListItemTitle translate>entities.item-model.__meta.names</a>
+				</mat-list-item>
+			</mat-nav-list>
+
+			<mat-nav-list>
+				<mat-list-item
+					[activated]="isCurrentPathEqualTo(InventoriesView.PATH)"
+					[routerLink]="InventoriesView.PATH"
+				>
+					<mat-icon matListItemIcon>inventory</mat-icon>
+					<a matListItemTitle translate>components.sidebar.your-inventories</a>
+				</mat-list-item>
+			</mat-nav-list>
+		</div>
+	</div>
+
+	<!-- TODO: "desktop footer" -->
+</div>

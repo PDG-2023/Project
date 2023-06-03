@@ -74,7 +74,7 @@
 			}
 		},
 		{
-			"excludedFiles": ["*.spec.js", "*.spec.ts"],
+			"excludedFiles": ["*.spec.js", "*.spec.ts", "src/dev/**"],
 			"files": ["*.ts", "*.js"],
 			"rules": {
 				"no-restricted-imports": [
@@ -112,7 +112,7 @@
 				"@angular-eslint/component-class-suffix": [
 					"error",
 					{
-						"suffixes": ["Component", "View"]
+						"suffixes": ["Component", "SnackBar", "View"]
 					}
 				],
 				"@angular-eslint/component-selector": [
@@ -177,7 +177,9 @@
 						"default": {
 							"memberTypes": [
 								"signature",
-								"static-field",
+								"public-static-field",
+								"protected-static-field",
+								"private-static-field",
 								"public-static-get",
 								"protected-static-get",
 								"private-static-get",
@@ -270,7 +272,7 @@
 			}
 		},
 		{
-			"files": ["*.view.ts"],
+			"files": ["*.snack-bar.ts", "*.view.ts"],
 			"rules": {
 				"@angular-eslint/use-component-selector": "off"
 			}

@@ -1,7 +1,73 @@
 {
-	"from-server": {
-		"load": "Reload",
-		"response": "The response is: ",
-		"text": "Hello from backend:"
+	"actions": {
+		"login": "Log in",
+		"register": "Register"
+	},
+	"components": {
+		"sidebar": {
+			"inventory-none-selected": {
+				"_0": "No current inventory selected. Go to",
+				"_1": "your inventories",
+				"_2": "to select one."
+			},
+			"log-or-register": {
+				"_0": "",
+				"_1": "or",
+				"_2": "to enable the navigation."
+			},
+			"toolbar-title": "Menu",
+			"your-inventories": "Your inventories"
+		}
+	},
+	"entities": {
+		"category": {
+			"__meta": {
+				"names": "Categories"
+			}
+		},
+		"item-model": {
+			"__meta": {
+				"names": "Item models"
+			}
+		},
+		"location": {
+			"__meta": {
+				"names": "Locations"
+			}
+		},
+		"user": {
+			"email": "Email",
+			"firstname": "Firstname",
+			"lastname": "Lastname",
+			"password": "Password"
+		}
+	},
+	"errors": {
+		"http": {
+			"400": "The request is mal-formed.",
+			"500": "A server error occurred.",
+			"generic": "A network error occurred."
+		},
+		"validation": {
+			"invalid": "The value is invalid.",
+			"minlength": "Minimum of {{ requiredLength }} characters required.",
+			"required": "The value is required."
+		}
+	},
+	"views": {
+		"login": {
+			"_actions": {
+				"create-account": "Create an account"
+			},
+			"_errors": {
+				"email": "An email address is required."
+			},
+			"account-already": "Already an account?",
+			"account-create": "Create your account",
+			"account-none": "No account yet?",
+			"login": "Login",
+			"login-fail": "The identification failed.",
+			"redirect": "You are being redirected."
+		}
 	}
 }

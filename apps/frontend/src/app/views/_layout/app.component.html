@@ -1,11 +1,21 @@
 <div class="flex flex-col" id="root">
-	<app-header></app-header>
+	<app-header (menuClick)="sidenav.toggle()"></app-header>
 
 	<mat-sidenav-container class="flex-1">
+		<mat-sidenav #sidenav>
+			<app-sidebar></app-sidebar>
+		</mat-sidenav>
+
 		<mat-sidenav-content>
-			<router-outlet></router-outlet>
+			<div
+				class="flex flex-col m-2 sm:m-4"
+				id="content"
+				[class.logged]="isUserConnected$ | async"
+			>
+				<router-outlet></router-outlet>
+			</div>
+
+			<app-footer *ngIf="isUserConnected$ | async" class="sm:hidden"></app-footer>
 		</mat-sidenav-content>
 	</mat-sidenav-container>
-
-	<app-footer></app-footer>
 </div>

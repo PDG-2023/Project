@@ -1,1 +1,9 @@
-<p>header works!</p>
+<mat-toolbar class="flex flex-row gap-4 justify-c-between" color="primary">
+	<button class="sm:hidden" mat-icon-button type="button" (click)="menuClick.emit()">
+		<mat-icon>menu</mat-icon>
+	</button>
+
+	<h3 class="cursor-pointer" routerLink="/">Store Me</h3>
+
+	<app-toolbar class="hidden sm:flex"></app-toolbar>
+</mat-toolbar>
