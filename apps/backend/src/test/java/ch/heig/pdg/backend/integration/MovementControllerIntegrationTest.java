@@ -1,13 +1,10 @@
 package ch.heig.pdg.backend.integration;
 
-import ch.heig.pdg.backend.AuthenticatedIntegrationTest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.web.servlet.MockMvc;
+import ch.heig.pdg.backend.utility.AbstractAuthenticatedIntegrationTest;
+import ch.heig.pdg.backend.utility.IntegrationTest;
 
-@AuthenticatedIntegrationTest
-public class MovementControllerIntegrationTest {
-    @Autowired
-    private MockMvc mvc;
+@IntegrationTest
+public class MovementControllerIntegrationTest extends AbstractAuthenticatedIntegrationTest {
 
     // TODO: Add tests
 }

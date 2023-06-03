@@ -1,4 +1,4 @@
-package ch.heig.pdg.backend;
+package ch.heig.pdg.backend.utility;
 
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,8 +13,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @SpringBootTest
-@AutoConfigureMockMvc(addFilters = false) // this is to avoid the auth filter when testing
+@AutoConfigureMockMvc
 @TestPropertySource(locations = "classpath:application-integrationtest.properties")
 @Sql(scripts = "/integration-data.sql")
-public @interface AuthenticatedIntegrationTest {
+public @interface IntegrationTest {
 }

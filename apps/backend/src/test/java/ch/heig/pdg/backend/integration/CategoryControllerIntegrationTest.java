@@ -1,28 +1,28 @@
 package ch.heig.pdg.backend.integration;
 
-import ch.heig.pdg.backend.AuthenticatedIntegrationTest;
+import ch.heig.pdg.backend.utility.IntegrationTest;
 import ch.heig.pdg.backend.dto.CategoryDTO;
+import ch.heig.pdg.backend.utility.AbstractAuthenticatedIntegrationTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.core.IsNull;
 import org.junit.jupiter.api.Test;
 import org.openapitools.jackson.nullable.JsonNullable;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@AuthenticatedIntegrationTest
-public class CategoryControllerIntegrationTest {
-    @Autowired
-    private MockMvc mvc;
+@IntegrationTest
+public class CategoryControllerIntegrationTest extends AbstractAuthenticatedIntegrationTest {
 
     @Test
     public void givenInventoryValid_whenGetCategories_thenStatus200() throws Exception {
-        this.mvc.perform(get("/inventory/1/categories").contentType(MediaType.APPLICATION_JSON))
+        this.mvc.perform(get("/inventory/1/categories")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + this.token)
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("cat 1"));
@@ -30,13 +30,19 @@ public class CategoryControllerIntegrationTest {
 
     @Test
     public void givenInventoryInvalid_whenGetCategories_thenStatus404() throws Exception {
-        this.mvc.perform(get("/inventory/2/categories").contentType(MediaType.APPLICATION_JSON))
+        this.mvc.perform(get("/inventory/2/categories")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + this.token)
+                )
                 .andExpect(status().is(404));
     }
 
     @Test
     public void givenCategory_whenGetCategory_thenStatus200() throws Exception {
-        this.mvc.perform(get("/categories/1").contentType(MediaType.APPLICATION_JSON))
+        this.mvc.perform(get("/categories/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + this.token)
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
@@ -46,7 +52,10 @@ public class CategoryControllerIntegrationTest {
 
     @Test
     public void givenCategory_whenGetCategoryWithParent_thenStatus200() throws Exception {
-        this.mvc.perform(get("/categories/2").contentType(MediaType.APPLICATION_JSON))
+        this.mvc.perform(get("/categories/2")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + this.token)
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2))
@@ -66,6 +75,7 @@ public class CategoryControllerIntegrationTest {
 
         this.mvc.perform(post("/inventory/1/categories")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + this.token)
                         .content(objectMapper.writeValueAsString(dto))
                 )
                 .andExpect(status().isCreated())
@@ -85,6 +95,7 @@ public class CategoryControllerIntegrationTest {
 
         this.mvc.perform(put("/categories/1")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + this.token)
                         .content(objectMapper.writeValueAsString(dto))
                 )
                 .andExpect(status().isOk())
@@ -95,11 +106,17 @@ public class CategoryControllerIntegrationTest {
 
     @Test
     public void givenCategory_whenDeleteCategory_thenStatus200_andThen4040() throws Exception {
-        this.mvc.perform(delete("/categories/2").contentType(MediaType.APPLICATION_JSON))
+        this.mvc.perform(delete("/categories/2")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + this.token)
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
 
-        this.mvc.perform(get("/categories/2").contentType(MediaType.APPLICATION_JSON))
+        this.mvc.perform(get("/categories/2")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + this.token)
+                )
                 .andExpect(status().isNotFound());
     }
 }

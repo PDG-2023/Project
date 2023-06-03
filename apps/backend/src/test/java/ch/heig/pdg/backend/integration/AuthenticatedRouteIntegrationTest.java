@@ -1,6 +1,6 @@
 package ch.heig.pdg.backend.integration;
 
-import ch.heig.pdg.backend.BasicIntegrationTest;
+import ch.heig.pdg.backend.utility.IntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -9,7 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@BasicIntegrationTest
+@IntegrationTest
 public class AuthenticatedRouteIntegrationTest {
     @Autowired
     private MockMvc mvc;

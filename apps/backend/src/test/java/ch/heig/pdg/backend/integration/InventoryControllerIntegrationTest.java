@@ -1,26 +1,25 @@
 package ch.heig.pdg.backend.integration;
 
-import ch.heig.pdg.backend.AuthenticatedIntegrationTest;
+import ch.heig.pdg.backend.utility.AbstractAuthenticatedIntegrationTest;
 import ch.heig.pdg.backend.dto.InventoryDTO;
+import ch.heig.pdg.backend.utility.IntegrationTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@AuthenticatedIntegrationTest
-public class InventoryControllerIntegrationTest {
-    @Autowired
-    private MockMvc mvc;
-
+@IntegrationTest
+public class InventoryControllerIntegrationTest extends AbstractAuthenticatedIntegrationTest {
     @Test
     public void givenInventoryValid_whenGetInventories_thenStatus200() throws Exception {
-        this.mvc.perform(get("/inventories").contentType(MediaType.APPLICATION_JSON))
+        this.mvc.perform(get("/inventories")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + this.token)
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("test inventory"));
@@ -28,7 +27,10 @@ public class InventoryControllerIntegrationTest {
 
     @Test
     public void givenInventory_whenGetInventory_thenStatus200() throws Exception {
-        this.mvc.perform(get("/inventories/1").contentType(MediaType.APPLICATION_JSON))
+        this.mvc.perform(get("/inventories/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + this.token)
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
@@ -38,7 +40,10 @@ public class InventoryControllerIntegrationTest {
 
     @Test
     public void givenInvalidInventory_whenGetInventory_thenStatus404() throws Exception {
-        this.mvc.perform(get("/inventories/2").contentType(MediaType.APPLICATION_JSON))
+        this.mvc.perform(get("/inventories/2")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + this.token)
+                )
                 .andExpect(status().isNotFound());
     }
 
@@ -54,6 +59,7 @@ public class InventoryControllerIntegrationTest {
         this.mvc.perform(post("/inventories")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dto))
+                        .header("Authorization", "Bearer " + this.token)
                 )
                 .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(invName));
@@ -70,6 +76,7 @@ public class InventoryControllerIntegrationTest {
         this.mvc.perform(put("/inventories/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dto))
+                        .header("Authorization", "Bearer " + this.token)
                 )
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(invName));
@@ -77,11 +84,17 @@ public class InventoryControllerIntegrationTest {
 
     @Test
     public void givenInventory_whenDeleteInventory_thenStatus200_andThen4040() throws Exception {
-        this.mvc.perform(delete("/inventories/1").contentType(MediaType.APPLICATION_JSON))
+        this.mvc.perform(delete("/inventories/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + this.token)
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
 
-        this.mvc.perform(get("/inventories/1").contentType(MediaType.APPLICATION_JSON))
+        this.mvc.perform(get("/inventories/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + this.token)
+                )
                 .andExpect(status().isNotFound());
     }
 }
