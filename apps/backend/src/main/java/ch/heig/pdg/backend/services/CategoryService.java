@@ -1,7 +1,6 @@
 package ch.heig.pdg.backend.services;
 
 import ch.heig.pdg.backend.dto.CategoryDTO;
-import ch.heig.pdg.backend.dto.InventoryDTO;
 import ch.heig.pdg.backend.dto.mapping.CategoryMapper;
 import ch.heig.pdg.backend.entities.Category;
 import ch.heig.pdg.backend.entities.Inventory;

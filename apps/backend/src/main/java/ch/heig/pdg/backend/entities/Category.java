@@ -3,8 +3,6 @@ package ch.heig.pdg.backend.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.OnDelete;
 
 @Entity
 @Data

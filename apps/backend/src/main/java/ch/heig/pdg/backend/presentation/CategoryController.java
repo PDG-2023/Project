@@ -2,6 +2,7 @@ package ch.heig.pdg.backend.presentation;
 
 import ch.heig.pdg.backend.dto.CategoryDTO;
 import ch.heig.pdg.backend.entities.Category;
+import ch.heig.pdg.backend.security.annotations.AuthenticationRequired;
 import ch.heig.pdg.backend.services.CategoryService;
 import ch.heig.pdg.backend.utils.HugoSearchFilter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,6 +33,7 @@ public class CategoryController extends AbstractController implements ch.heig.pd
     }
 
     @Override
+    @AuthenticationRequired
     public ResponseEntity<CategoryDTO> createCategory(Integer inventoryId, CategoryDTO categoryDTO) {
         return new ResponseEntity<>(
                 this.categoryService.addCategory(inventoryId, categoryDTO),

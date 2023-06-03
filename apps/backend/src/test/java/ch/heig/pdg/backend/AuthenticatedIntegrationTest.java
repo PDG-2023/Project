@@ -13,8 +13,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false) // this is to avoid the auth filter when testing
 @TestPropertySource(locations = "classpath:application-integrationtest.properties")
 @Sql(scripts = "/integration-data.sql")
-public @interface IntegrationTest {
+public @interface AuthenticatedIntegrationTest {
 }

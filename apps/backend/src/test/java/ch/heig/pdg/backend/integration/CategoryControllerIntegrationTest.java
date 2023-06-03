@@ -1,6 +1,6 @@
 package ch.heig.pdg.backend.integration;
 
-import ch.heig.pdg.backend.IntegrationTest;
+import ch.heig.pdg.backend.AuthenticatedIntegrationTest;
 import ch.heig.pdg.backend.dto.CategoryDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.core.IsNull;
@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.event.annotation.BeforeTestClass;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -15,10 +16,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@IntegrationTest
+@AuthenticatedIntegrationTest
 public class CategoryControllerIntegrationTest {
     @Autowired
     private MockMvc mvc;
+    
+    @BeforeTestClass
+    public void getAuthToken() {
+        
+    }
 
     @Test
     public void givenInventoryValid_whenGetCategories_thenStatus200() throws Exception {

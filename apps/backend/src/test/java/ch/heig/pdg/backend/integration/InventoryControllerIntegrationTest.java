@@ -1,6 +1,6 @@
 package ch.heig.pdg.backend.integration;
 
-import ch.heig.pdg.backend.IntegrationTest;
+import ch.heig.pdg.backend.AuthenticatedIntegrationTest;
 import ch.heig.pdg.backend.dto.InventoryDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@IntegrationTest
+@AuthenticatedIntegrationTest
 public class InventoryControllerIntegrationTest {
     @Autowired
     private MockMvc mvc;
