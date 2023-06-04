@@ -39,6 +39,10 @@ public class AuthenticationControllerIntegrationTest {
         JWTDTO jwt = mapper.readValue(content, JWTDTO.class);
         String token = jwt.getToken();
 
-
+        this.mvc.perform(post("/authentication/validateToken")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + token)
+                )
+                .andExpect(status().isNoContent());
     }
 }
