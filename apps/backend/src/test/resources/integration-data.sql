@@ -8,7 +8,7 @@ TRUNCATE TABLE item;
 TRUNCATE TABLE item_model;
 TRUNCATE TABLE movement;
 TRUNCATE TABLE item_category;
-
+TRUNCATE TABLE shared_inventories;
 SET REFERENTIAL_INTEGRITY TRUE;
 
 -- User

@@ -14,7 +14,7 @@ public class Location extends AbstractEntity {
     @Column(columnDefinition = "TEXT", length = 65535, nullable = false)
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(referencedColumnName = "id")
     private Location parent;
 

@@ -13,11 +13,11 @@ public class Movement extends AbstractEntity {
         IN, OUT
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = false)
     private Item item;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Location location;
 
     @Enumerated(EnumType.STRING)

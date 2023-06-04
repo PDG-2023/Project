@@ -11,7 +11,7 @@ public class Category extends AbstractEntity {
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Category parent;
 
     @ManyToOne

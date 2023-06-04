@@ -13,7 +13,7 @@ public class Inventory extends AbstractEntity {
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = false)
     private User owner;
 
@@ -24,9 +24,9 @@ public class Inventory extends AbstractEntity {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
 
-    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL)
     private List<Category> categories;
 
-    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL)
     private List<Location> locations;
 }

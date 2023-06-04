@@ -1,16 +1,16 @@
 package ch.heig.pdg.backend.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.List;
 
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Item extends AbstractEntity {
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = false)
     private ItemModel model;
 }
