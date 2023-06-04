@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 public class ItemControllerIntegrationTest extends AbstractAuthenticatedIntegrationTest {
     @Test
-    public void givenItemValid_whenGetInventories_thenStatus200() throws Exception {
+    public void whenGetItems_thenStatus200() throws Exception {
         this.mvc.perform(get("/items")
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer " + this.token)

@@ -26,7 +26,7 @@ public class User extends AbstractEntity {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<Inventory> ownedInventories;
 
     @ManyToMany

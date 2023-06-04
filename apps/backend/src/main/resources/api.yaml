@@ -1279,6 +1279,9 @@ components:
           type: string
         lastName:
           type: string
+        plainPassword:
+          type: string
+          nullable: true
         ownedInventories:
           type: array
           items:
