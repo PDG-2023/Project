@@ -3,9 +3,6 @@ package ch.heig.pdg.backend.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.annotations.OnDelete;
-
-import java.util.List;
 
 @Entity
 @Data
@@ -24,7 +21,4 @@ public class Location extends AbstractEntity {
     @ManyToOne
     @JoinColumn(nullable = false)
     private Inventory inventory;
-
-//    @OneToMany(cascade = CascadeType.REMOVE)
-//    private List<Movement> movements;
 }

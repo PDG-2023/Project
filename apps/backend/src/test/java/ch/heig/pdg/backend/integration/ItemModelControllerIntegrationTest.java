@@ -4,7 +4,6 @@ import ch.heig.pdg.backend.dto.ItemModelDTO;
 import ch.heig.pdg.backend.utility.AbstractAuthenticatedIntegrationTest;
 import ch.heig.pdg.backend.utility.IntegrationTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hamcrest.core.IsNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
