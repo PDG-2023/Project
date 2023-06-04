@@ -161,10 +161,10 @@
 			gap: $value;
 		}
 		.#{$prefix}gap-x-#{$size}#{$pseudo} {
-			row-gap: $value;
+			column-gap: $value;
 		}
 		.#{$prefix}gap-y-#{$size}#{$pseudo} {
-			column-gap: $value;
+			row-gap: $value;
 		}
 
 		// example: https://tailwindcss.com/docs/margin

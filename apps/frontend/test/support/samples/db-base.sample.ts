@@ -45,6 +45,7 @@ export const DbBaseSample: DbSample = {
 			updated: date1,
 
 			name: "My house",
+			ownerId: 2,
 			users: [1, 2]
 		}
 	],

@@ -22,6 +22,9 @@ export class TranslationService {
 		if (errors.required !== undefined) {
 			return this.translate.stream("errors.validation.required");
 		}
+		if (errors.email !== undefined) {
+			return this.translate.stream("errors.validation.email");
+		}
 		if (errors.minlength !== undefined) {
 			return this.translate.stream("errors.validation.minlength", errors.minlength as never);
 		}

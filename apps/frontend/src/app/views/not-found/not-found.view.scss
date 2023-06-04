@@ -1,0 +1,11 @@
+:host ::ng-deep {
+	position: relative;
+
+	span.lie {
+		bottom: 0;
+		right: 0;
+
+		font-size: 10px;
+		position: absolute;
+	}
+}

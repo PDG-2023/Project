@@ -7,6 +7,10 @@ import { CategoryView } from "./inventories/categories/categories/category.view"
 import { CategoriesView } from "./inventories/categories/categories.view";
 import { InventoriesView } from "./inventories/inventories.view";
 import { InventoryView, InventoryViewRouteParam } from "./inventories/inventory/inventory.view";
+import {
+	InventoryErrorView,
+	InventoryErrorViewData
+} from "./inventories/inventory-error/inventory-error.view";
 import { ItemModelView } from "./inventories/item-models/item-model/item-model.view";
 import { ItemModelsView } from "./inventories/item-models/item-models.view";
 import { LocationView } from "./inventories/locations/location/location.view";
@@ -57,11 +61,12 @@ export const appRoutes: Route[] = [
 				const params = route.params as Partial<Record<InventoryViewRouteParam, string>>;
 				const service = inject(InventoryService);
 
-				// TODO
 				return service.loadInventory(+(params.inventory ?? "-")).catch(error => {
-					if (error instanceof HttpErrorResponse) {
-						// TODO: 404 inventory
-					}
+					// Kinda a "hack"
+					route.component = InventoryErrorView;
+					route.data = {
+						_error: error as HttpErrorResponse
+					} satisfies InventoryErrorViewData;
 				});
 			}) satisfies ResolveFn<unknown>
 		}

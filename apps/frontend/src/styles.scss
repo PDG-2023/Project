@@ -10,11 +10,6 @@ body {
 	background-color: #fafafa;
 }
 
-body {
-	font-family: Roboto, "Helvetica Neue", sans-serif;
-	margin: 0;
-}
-
 h4,
 h5,
 h6,
@@ -24,8 +19,11 @@ p {
 
 @include utils.css-vars;
 
-app-root {
-	// inside `app-root` to take priority over material classes
+body {
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+	margin: 0;
+
+	// inside `body` to take priority over material classes
 	@include tw.base;
 	@include tw.base("hover", "hover");
 

@@ -1,0 +1,20 @@
+<h3 class="px-4">
+	{{ isObservable(data.title) ? (data.title | async) : data.title }}
+</h3>
+
+<mat-dialog-content>
+	<p
+		*ngIf="data.description"
+		[innerHTML]="isObservable(data.description) ? (data.description | async) : data.description"
+	></p>
+</mat-dialog-content>
+
+<mat-dialog-actions class="justify-c-end">
+	<button mat-raised-button type="button" [mat-dialog-close]="false">
+		{{ "actions.cancel" | translate }}
+	</button>
+
+	<button color="primary" mat-raised-button type="submit" [mat-dialog-close]="true">
+		{{ isObservable(data.confirm) ? (data.confirm | async) : data.confirm }}
+	</button>
+</mat-dialog-actions>

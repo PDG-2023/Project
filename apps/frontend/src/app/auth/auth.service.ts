@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, map, Observable } from "rxjs";
+import { BehaviorSubject, filter, map, Observable } from "rxjs";
 
 import { AuthApiService } from "../../api/auth-api";
 import { AuthLoginDto } from "../../api/auth-api/dtos";
@@ -15,17 +15,26 @@ export class AuthService {
 	);
 
 	/**
-	 * @returns an observable of the connected user
+	 * @returns an observable of the connected user or null
 	 */
-	public get userConnected$(): Observable<UserDto | null> {
+	public get user$(): Observable<UserDto | null> {
 		return this.userConnected.pipe(map(value => value?.user ?? null));
+	}
+
+	/**
+	 * @returns an observable of the ("last") connected user
+	 */
+	public get userConnected$() {
+		return this.user$.pipe(
+			filter((user => !!user) as (value: UserDto | null) => value is UserDto)
+		);
 	}
 
 	/**
 	 * @returns an observable of a boolean if the user is connected
 	 */
 	public get isUserConnected$() {
-		return this.userConnected$.pipe(map(user => !!user));
+		return this.user$.pipe(map(user => !!user));
 	}
 
 	public constructor(private readonly service: AuthApiService) {}
