@@ -21,11 +21,15 @@
 				<div class="mx-4">
 					<div class="flex flex-row flex-wrap gap-x-4">
 						<span translate>entities.entity.created</span>
-						<span class="flex flex-1 justify-c-end">{{ inventory.created }}</span>
+						<span class="flex flex-1 justify-c-end">{{
+							inventory.created | date : (dateFormat(inventory.created) | translate)
+						}}</span>
 					</div>
 					<div class="flex flex-row flex-wrap gap-x-4">
 						<span translate>entities.entity.updated</span>
-						<span class="flex flex-1 justify-c-end">{{ inventory.updated }}</span>
+						<span class="flex flex-1 justify-c-end">{{
+							inventory.updated | date : (dateFormat(inventory.updated) | translate)
+						}}</span>
 					</div>
 				</div>
 
@@ -123,8 +127,8 @@
 				</div>
 			</mat-card-content>
 
-			<mat-card-actions>
-				<form class="flex flex-1 mt-4" (ngSubmit)="addUser()">
+			<mat-card-actions *ngIf="isOwner" class="mt-4">
+				<form class="flex flex-1" (ngSubmit)="addUser()">
 					<mat-form-field class="flex flex-1">
 						<mat-label translate>entities.user.email</mat-label>
 						<input matInput [formControl]="userControl" />

@@ -1,7 +1,13 @@
 import { Injectable } from "@angular/core";
 import { ValidationErrors } from "@angular/forms";
+import { marker } from "@biesbjerg/ngx-translate-extract-marker";
 import { TranslateService } from "@ngx-translate/core";
 import { Observable, of } from "rxjs";
+
+// Always keep these keys in the locale file
+marker("formats.date");
+marker("formats.datetime");
+marker("formats.time");
 
 @Injectable({
 	providedIn: "root"

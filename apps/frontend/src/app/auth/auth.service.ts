@@ -50,7 +50,7 @@ export class AuthService {
 			const [first, ...last] = body.password.split(" ");
 
 			const user: UserDto = {
-				id: 0,
+				id: 1,
 
 				created: "",
 				updated: "",

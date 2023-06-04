@@ -87,6 +87,11 @@
 			"required": "The value is required."
 		}
 	},
+	"formats": {
+		"date": "YYYY MM dd",
+		"datetime": "YYYY MM dd HH:mm:ss",
+		"time": "HH:mm:ss"
+	},
 	"views": {
 		"inventory": {
 			"dialogs": {

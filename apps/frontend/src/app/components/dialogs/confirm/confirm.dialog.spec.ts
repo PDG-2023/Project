@@ -11,8 +11,7 @@ describe("ConfirmComponent", () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [ConfirmDialog],
-			imports: [MaterialsModule, TranslationModule],
+			imports: [ConfirmDialog, MaterialsModule, TranslationModule],
 			providers: [
 				{
 					provide: MAT_DIALOG_DATA,

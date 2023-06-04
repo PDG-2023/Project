@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, Validators } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
+import * as dateFns from "date-fns";
 import { debounceTime, distinctUntilChanged, filter, lastValueFrom, Observable, tap } from "rxjs";
 
 import { sleep } from "../../../../_lib/utils";
@@ -83,7 +84,7 @@ export class InventoryView extends SubscribableComponent implements OnInit {
 			return false;
 		}
 
-		return true || this.user.id === this.inventory.ownerId;
+		return this.user.id === this.inventory.owner_id;
 	}
 
 	public constructor(
@@ -127,7 +128,17 @@ export class InventoryView extends SubscribableComponent implements OnInit {
 				.subscribe(email => {
 					this.userApi
 						.findAndCount({ limit: 1, offset: 0, where: { email: { $eq: email } } })
-						.then(({ data }) => (this.userSelected = data.length ? data[0] : null))
+						.then(({ data }) => {
+							if (data.length) {
+								const [user] = data;
+
+								if (!this.inventory.users.includes(user.id)) {
+									this.userSelected = user;
+								}
+							} else {
+								this.userSelected = null;
+							}
+						})
 						.catch(() => (this.userSelected = null))
 						.finally(() => {
 							const { errors } = this.userControl;
@@ -224,6 +235,10 @@ export class InventoryView extends SubscribableComponent implements OnInit {
 		}
 
 		return this.translationService.translateControlError(errors);
+	}
+
+	protected dateFormat(date: string) {
+		return dateFns.isSameDay(new Date(), new Date(date)) ? "formats.time" : "formats.date";
 	}
 
 	private afterUpdate(fn: Promise<InventoryDto>) {
