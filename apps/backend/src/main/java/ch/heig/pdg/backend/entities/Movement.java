@@ -18,6 +18,7 @@ public class Movement extends AbstractEntity {
     private Item item;
 
     @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(nullable = false)
     private Location location;
 
     @Enumerated(EnumType.STRING)

@@ -1,15 +1,12 @@
 package ch.heig.pdg.backend.integration;
 
-import ch.heig.pdg.backend.dto.LocationDTO;
+import ch.heig.pdg.backend.dto.ItemModelDTO;
 import ch.heig.pdg.backend.utility.AbstractAuthenticatedIntegrationTest;
 import ch.heig.pdg.backend.utility.IntegrationTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.core.IsNull;
 import org.junit.jupiter.api.Test;
-import org.openapitools.jackson.nullable.JsonNullable;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -17,22 +14,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @IntegrationTest
-public class LocationControllerIntegrationTest extends AbstractAuthenticatedIntegrationTest {
-
+public class ItemModelControllerIntegrationTest extends AbstractAuthenticatedIntegrationTest {
     @Test
-    public void givenInventoryValid_whenGetLocations_thenStatus200() throws Exception {
-        this.mvc.perform(get("/inventory/1/locations")
+    public void givenInventoryValid_whenGetItemModels_thenStatus200() throws Exception {
+        this.mvc.perform(get("/inventory/1/item-models")
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer " + this.token)
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("location name"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("name"));
     }
 
     @Test
-    public void givenInventoryInvalid_whenGetLocations_thenStatus404() throws Exception {
-        this.mvc.perform(get("/inventory/2/locations")
+    public void givenInventoryInvalid_whenGetItemModels_thenStatus404() throws Exception {
+        this.mvc.perform(get("/inventory/2/item-models")
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer " + this.token)
                 )
@@ -40,69 +36,51 @@ public class LocationControllerIntegrationTest extends AbstractAuthenticatedInte
     }
 
     @Test
-    public void givenLocation_whenGetLocation_thenStatus200() throws Exception {
-        this.mvc.perform(get("/locations/1")
+    public void givenItemModel_whenGetItemModel_thenStatus200() throws Exception {
+        this.mvc.perform(get("/item-models/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer " + this.token)
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("location name"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("location description"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.parentLocationId").value(IsNull.nullValue()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("name"));
     }
 
     @Test
-    public void givenLocation_whenGetLocationWithParent_thenStatus200() throws Exception {
-        this.mvc.perform(get("/locations/2")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + this.token)
-                )
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("another name"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("an other description"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.parentLocationId").value(1));
-    }
-
-    @Test
-    public void givenLocation_whenPostLocation_thenStatus204() throws Exception {
-        String catName = "Test";
-        String description = "description";
-        LocationDTO dto = new LocationDTO();
-        dto.setName(catName);
+    public void givenItemModel_whenPostItemModel_thenStatus204() throws Exception {
+        String itemModelName = "Test";
+        String description = "a description";
+        ItemModelDTO dto = new ItemModelDTO();
+        dto.setName(itemModelName);
         dto.setDescription(description);
-        dto.setParentLocationId(JsonNullable.of(1));
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.findAndRegisterModules();
 
 
-        this.mvc.perform(post("/inventory/1/locations")
+        this.mvc.perform(post("/inventory/1/item-models")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dto))
                         .header("Authorization", "Bearer " + this.token)
                 )
                 .andExpect(status().isCreated())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(3))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(catName))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(itemModelName))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.description").value(description));
     }
 
     @Test
-    public void givenLocation_whenPutLocation_thenStatus200() throws Exception {
-        String catName = "Test";
-        String description = "description";
-        LocationDTO dto = new LocationDTO();
-        dto.setName(catName);
+    public void givenItemModel_whenPutItemModel_thenStatus200() throws Exception {
+        String itemModelName = "Test";
+        String description = "a description";
+        ItemModelDTO dto = new ItemModelDTO();
+        dto.setName(itemModelName);
         dto.setDescription(description);
-        dto.setParentLocationId(JsonNullable.of(1));
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.findAndRegisterModules();
 
-        this.mvc.perform(put("/locations/1")
+        this.mvc.perform(put("/item-models/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dto))
                         .header("Authorization", "Bearer " + this.token)
@@ -110,20 +88,20 @@ public class LocationControllerIntegrationTest extends AbstractAuthenticatedInte
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(catName))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(itemModelName))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.description").value(description));
     }
 
     @Test
-    public void givenLocation_whenDeleteLocation_thenStatus200_andThen4040() throws Exception {
-        this.mvc.perform(delete("/locations/2")
+    public void givenItemModel_whenDeleteItemModel_thenStatus200_andThen4040() throws Exception {
+        this.mvc.perform(delete("/item-models/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer " + this.token)
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
 
-        this.mvc.perform(get("/locations/2")
+        this.mvc.perform(get("/item-models/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer " + this.token)
                 )

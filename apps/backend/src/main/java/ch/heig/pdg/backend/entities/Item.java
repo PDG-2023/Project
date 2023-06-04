@@ -10,7 +10,10 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Item extends AbstractEntity {
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(nullable = false)
     private ItemModel model;
+
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+    private List<Movement> movements;
 }

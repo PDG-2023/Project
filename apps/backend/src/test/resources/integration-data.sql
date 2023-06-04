@@ -45,6 +45,7 @@ VALUES (1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1);
 INSERT INTO movement (id, created_at, updated_at, type, item_id, location_id)
 VALUES (1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'IN', 1, 1);
 
+-- item-model and categories
 INSERT INTO item_category(item_id, category_id)
 VALUES (1, 1);
 
