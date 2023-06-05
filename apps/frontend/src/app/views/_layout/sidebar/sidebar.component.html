@@ -58,7 +58,7 @@
 
 			<mat-nav-list>
 				<mat-list-item
-					[activated]="isCurrentPathEqualTo(InventoriesView.PATH)"
+					[activated]="isYourInventoryPath()"
 					[routerLink]="InventoriesView.PATH"
 				>
 					<mat-icon matListItemIcon>inventory</mat-icon>
@@ -67,6 +67,6 @@
 			</mat-nav-list>
 		</div>
 	</div>
-
-	<!-- TODO: "desktop footer" -->
 </div>
+
+<app-footer *ngIf="isUserConnected$ | async" class="sm-max:hidden"></app-footer>

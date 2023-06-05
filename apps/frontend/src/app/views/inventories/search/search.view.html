@@ -1,0 +1,37 @@
+<h1>Inventory search</h1>
+
+<div class="flex">
+	<form class="flex flex-1" (ngSubmit)="handleSearch()">
+		<mat-form-field class="flex-1">
+			<mat-label translate>actions.search</mat-label>
+			<input matInput [formControl]="searchControl" />
+
+			<mat-spinner
+				*ngIf="searching"
+				diameter="18"
+				matTextSuffix
+				mode="indeterminate"
+			></mat-spinner>
+
+			<button
+				*ngIf="!searching && searchControl.value"
+				mat-icon-button
+				matSuffix
+				type="button"
+				(click)="clearSearch()"
+			>
+				<mat-icon>close</mat-icon>
+			</button>
+
+			<mat-icon *ngIf="!searching && !searchControl.value" matSuffix>search</mat-icon>
+		</mat-form-field>
+	</form>
+</div>
+
+<div class="flex flex-col gap-4">
+	<div *ngIf="error"><mat-icon>warning</mat-icon>An error occurred</div>
+
+	<h5>"results":</h5>
+
+	<div>{{ data }}</div>
+</div>

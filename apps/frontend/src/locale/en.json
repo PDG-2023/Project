@@ -1,12 +1,17 @@
 {
 	"actions": {
+		"close": "Close",
 		"login": "Log in",
 		"register": "Register",
+		"search": "Search",
 		"show": "Show"
 	},
 	"components": {
 		"describable-preview": {
 			"description-none": "No description set."
+		},
+		"footer": {
+			"inventory-none": "No inventory selected."
 		},
 		"sidebar": {
 			"inventory-none-selected": {
@@ -21,6 +26,11 @@
 			},
 			"toolbar-title": "Menu",
 			"your-inventories": "Your inventories"
+		}
+	},
+	"dialogs": {
+		"code-2d-scanner": {
+			"text": "Would it be nice to scan a barcode or a QR code and then open the product(s) with this code or add a new one if the code does not exist?<br>Well, that is not available for now."
 		}
 	},
 	"entities": {

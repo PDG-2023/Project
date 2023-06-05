@@ -1,1 +1,15 @@
-<mat-toolbar>footer</mat-toolbar>
+<mat-toolbar class="flex flex-row justify-c-between">
+	<ng-template #noInventory>
+		<p class="flex-1 text-center" translate>components.footer.inventory-none</p></ng-template
+	>
+
+	<ng-container *ngIf="inventoryCurrent$ | async as inventory; else noInventory">
+		<a color="primary" mat-mini-fab [routerLink]="SearchView.getPath(inventory.id)">
+			<mat-icon>search</mat-icon>
+		</a>
+
+		<button color="accent" mat-mini-fab type="button" (click)="openScanner()">
+			<mat-icon>qr_code_scanner</mat-icon>
+		</button>
+	</ng-container>
+</mat-toolbar>
