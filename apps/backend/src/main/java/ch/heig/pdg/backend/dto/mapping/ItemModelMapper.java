@@ -14,6 +14,7 @@ public class ItemModelMapper extends AbstractDataMapper implements IDataTransfer
         ItemModelDTO dto = new ItemModelDTO();
         dto.setId(itemModel.getId());
         dto.setName(itemModel.getName());
+        dto.setDescription(itemModel.getDescription());
         dto.setCreated(DateFormatUtil.dateToString(itemModel.getCreatedAt()));
         dto.setUpdated(DateFormatUtil.dateToString(itemModel.getUpdatedAt()));
         dto.setCategories(this.getIdsOrEmptyList(itemModel.getCategories()));

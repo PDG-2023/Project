@@ -2,6 +2,7 @@ package ch.heig.pdg.backend.presentation;
 
 import ch.heig.pdg.backend.dto.LocationDTO;
 import ch.heig.pdg.backend.entities.Location;
+import ch.heig.pdg.backend.security.annotations.AuthenticationRequired;
 import ch.heig.pdg.backend.services.LocationService;
 import ch.heig.pdg.backend.utils.HugoSearchFilter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ public class LocationController extends AbstractController implements ch.heig.pd
         this.locationService = locationService;
     }
 
+    @AuthenticationRequired
     @Override
     public ResponseEntity<LocationDTO> createLocation(Integer inventoryId, LocationDTO locationDTO) {
         return new ResponseEntity<>(
@@ -27,6 +29,7 @@ public class LocationController extends AbstractController implements ch.heig.pd
         );
     }
 
+    @AuthenticationRequired
     @Override
     public ResponseEntity<LocationDTO> deleteLocation(Integer id) {
         return new ResponseEntity<>(
@@ -35,6 +38,7 @@ public class LocationController extends AbstractController implements ch.heig.pd
         );
     }
 
+    @AuthenticationRequired
     @Override
     public ResponseEntity<LocationDTO> getLocation(Integer id) {
         return new ResponseEntity<>(
@@ -43,6 +47,7 @@ public class LocationController extends AbstractController implements ch.heig.pd
         );
     }
 
+    @AuthenticationRequired
     @Override
     public ResponseEntity<List<LocationDTO>> getLocations(Integer inventoryId) {
         HugoSearchFilter<Location> filter = HugoSearchFilter.build(this.httpServletRequest, Location.class);
@@ -53,6 +58,7 @@ public class LocationController extends AbstractController implements ch.heig.pd
         );
     }
 
+    @AuthenticationRequired
     @Override
     public ResponseEntity<LocationDTO> updateLocation(Integer id, LocationDTO locationDTO) {
         return new ResponseEntity<>(

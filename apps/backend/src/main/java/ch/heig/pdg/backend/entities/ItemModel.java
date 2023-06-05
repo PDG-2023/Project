@@ -26,4 +26,7 @@ public class ItemModel extends AbstractEntity {
     @ManyToOne
     @JoinColumn(nullable = false)
     private Inventory inventory;
+
+    @OneToMany(mappedBy = "model", cascade = CascadeType.ALL)
+    private List<Item> items;
 }

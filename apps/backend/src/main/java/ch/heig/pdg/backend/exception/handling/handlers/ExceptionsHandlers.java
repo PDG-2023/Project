@@ -105,4 +105,12 @@ public class ExceptionsHandlers extends ResponseEntityExceptionHandler {
                 HttpStatusCode.valueOf(409)
         );
     }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<JSONErrorMessage> handleUnauthorizedException(UnauthorizedException exception) {
+        return new ResponseEntity<>(
+                new JSONErrorMessage().addErrorsItem(exception.getMessage()),
+                HttpStatusCode.valueOf(401)
+        );
+    }
 }
