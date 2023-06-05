@@ -1,0 +1,86 @@
+@use "sass:map";
+@use "../../../../styles/utils";
+@use "../../../../styles/palettes";
+
+$header-height: 75px;
+$img-min-size: 2 * $header-height;
+
+// https://angular.io/guide/component-styles#deprecated-deep--and-ng-deep
+:host mat-expansion-panel::ng-deep .mat-expansion-panel-body {
+	padding-bottom: 0;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+mat-expansion-panel {
+	border: 1px solid lightgray;
+
+	&.with-children {
+		$color1: map.get(palettes.$frontend-accent-palette, 300);
+		$color2: map.get(palettes.$frontend-accent-palette, 800);
+		$size-b: 4px;
+		$size-r: 2px;
+		$blur: 2px;
+		box-shadow: $size-r $size-b $blur $color1, 2 * $size-r 2 * $size-b $blur $color2;
+	}
+}
+
+mat-expansion-panel-header {
+	height: $header-height;
+
+	position: relative;
+
+	mat-panel-description {
+		button,
+		img {
+			transition: all 250ms;
+
+			&.fade-out {
+				opacity: 0;
+				transform: translateY(-75%);
+			}
+		}
+
+		img {
+			height: 100%;
+			width: $header-height;
+
+			right: 0;
+			top: 0;
+
+			object-fit: cover;
+			position: absolute;
+		}
+	}
+}
+
+#content {
+	#image {
+		background: linear-gradient(#00000004, #0000001a, #00000004);
+
+		--img-width: unset;
+		max-width: var(--img-width);
+	}
+
+	@include utils.screen-breakpoint("md", true) {
+		#img {
+			min-height: $img-min-size;
+		}
+	}
+
+	@include utils.screen-breakpoint("md") {
+		#image {
+			--img-width: 400px;
+		}
+
+		#describable-description {
+			min-width: 250px;
+		}
+	}
+
+	@include utils.screen-breakpoint("lg") {
+		#image {
+			--img-width: 600px;
+		}
+	}
+}

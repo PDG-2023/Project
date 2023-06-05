@@ -1,8 +1,6 @@
-import { EntityDto } from "../../_lib/entity-api/dtos";
+import { DescribableDto } from "../../_lib/entity-api/dtos";
 
-export interface LocationDto extends EntityDto {
-	description: string;
-	name: string;
+export interface LocationDto extends DescribableDto {
 	parentLocationId: number | null;
 	subtitle: string;
 }

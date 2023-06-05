@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { filter } from "rxjs";
 
 import { InventoryDto } from "../../../../api/inventory-api/dtos";
 import { SubscribableComponent } from "../../../components/_lib/subscribable.component";
@@ -37,10 +36,6 @@ export class InventoryView extends SubscribableComponent implements OnInit {
 	}
 
 	public ngOnInit() {
-		this.addSubscriptions(
-			this.service.inventoryCurrent$
-				.pipe(filter<InventoryDto | null>(value => !!value))
-				.subscribe(data => (this.data = data!))
-		);
+		this.addSubscriptions(this.service.inventoryExiting$.subscribe(data => (this.data = data)));
 	}
 }

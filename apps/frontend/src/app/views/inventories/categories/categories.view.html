@@ -1,3 +1,18 @@
-<h1>Categories view</h1>
+<h1>
+	Categories view for <span class="font-italic">{{ (inventoryCurrent$ | async)?.name }}</span>
+</h1>
 
-<pre>{{ inventoryCurrent$ | async | json }}</pre>
+<div>
+	<ng-template #loading>Loading</ng-template>
+
+	<div *ngIf="categories$ | async as categoryInfo; else loading" class="flex flex-col gap-4">
+		<h4>Tot : {{ categoryInfo.total }}</h4>
+
+		<div class="flex flex-col gap-8">
+			<app-describable-preview
+				*ngFor="let category of categoryInfo.data"
+				[describable]="category"
+			></app-describable-preview>
+		</div>
+	</div>
+</div>

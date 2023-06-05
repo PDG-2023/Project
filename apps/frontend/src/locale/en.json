@@ -1,9 +1,13 @@
 {
 	"actions": {
 		"login": "Log in",
-		"register": "Register"
+		"register": "Register",
+		"show": "Show"
 	},
 	"components": {
+		"describable-preview": {
+			"description-none": "No description set."
+		},
 		"sidebar": {
 			"inventory-none-selected": {
 				"_0": "No current inventory selected. Go to",

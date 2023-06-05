@@ -4,7 +4,7 @@ import { ItemModelCreateDto, ItemModelDto, ItemModelUpdateDto } from "./dtos";
 import { EntityApiService, EntityFindQuery } from "../_lib/entity-api";
 import { inventorySingleEntrypoint } from "../inventory-api/inventory-api.shared.api";
 
-export const ITEM_MODEL_API_ENDPOINT = "/model-items";
+export const ITEM_MODEL_API_ENDPOINT = "/item-models";
 
 @Injectable({
 	providedIn: "root"

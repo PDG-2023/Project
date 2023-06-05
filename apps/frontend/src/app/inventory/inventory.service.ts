@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, filter } from "rxjs";
 
 import { InventoryApiService } from "../../api/inventory-api";
 import { InventoryDto } from "../../api/inventory-api/dtos";
@@ -11,10 +11,28 @@ export class InventoryService {
 	private readonly currentInventory = new BehaviorSubject<InventoryDto | null>(null);
 
 	/**
-	 * @returns the current active location or null
+	 * @returns the current active inventory or null
 	 */
 	public get inventoryCurrent$() {
 		return this.currentInventory.asObservable();
+	}
+
+	/**
+	 * @returns only an existing current inventory
+	 */
+	public get inventoryExiting$() {
+		return this.inventoryCurrent$.pipe(
+			filter(
+				(inventory => !!inventory) as (value: InventoryDto | null) => value is InventoryDto
+			)
+		);
+	}
+
+	/**
+	 * @returns the current active inventory or null at the moment
+	 */
+	public get inventoryCurrent() {
+		return this.currentInventory.value;
 	}
 
 	public constructor(public readonly api: InventoryApiService) {}
