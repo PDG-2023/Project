@@ -4,21 +4,26 @@ import { BehaviorSubject, filter, map, Observable } from "rxjs";
 
 import { AuthApiService } from "../../api/auth-api";
 import { AuthLoginDto } from "../../api/auth-api/dtos";
-import { UserDto } from "../../api/user-api/dtos";
+import { UserApiService } from "../../api/user-api";
+import { UserCreateDto, UserDto } from "../../api/user-api/dtos";
+
+export interface TokenStored {
+	date: Date;
+	value: string;
+}
 
 @Injectable({
 	providedIn: "root"
 })
 export class AuthService {
-	protected readonly userConnected = new BehaviorSubject<{ token: string; user: UserDto } | null>(
-		null
-	);
+	private readonly user = new BehaviorSubject<UserDto | null>(null);
+	private readonly token = new BehaviorSubject<TokenStored | null>(null);
 
 	/**
 	 * @returns an observable of the connected user or null
 	 */
 	public get user$(): Observable<UserDto | null> {
-		return this.userConnected.pipe(map(value => value?.user ?? null));
+		return this.user.asObservable();
 	}
 
 	/**
@@ -30,6 +35,10 @@ export class AuthService {
 		);
 	}
 
+	public get token$() {
+		return this.token.asObservable();
+	}
+
 	/**
 	 * @returns an observable of a boolean if the user is connected
 	 */
@@ -37,7 +46,21 @@ export class AuthService {
 		return this.user$.pipe(map(user => !!user));
 	}
 
-	public constructor(private readonly service: AuthApiService) {}
+	public constructor(
+		private readonly authApi: AuthApiService,
+		private readonly userApi: UserApiService
+	) {}
+
+	/**
+	 * Create the user and login
+	 * @param body to create the user
+	 * @returns the connected user on success
+	 */
+	public create(body: UserCreateDto): Promise<UserDto> {
+		return this.userApi
+			.create({ username: body.email, ...body })
+			.then(() => this.login({ password: body.plainPassword, username: body.email }));
+	}
 
 	/**
 	 * Do the process and update the connected user instance
@@ -45,46 +68,27 @@ export class AuthService {
 	 * @returns the connected user on success
 	 */
 	public login(body: AuthLoginDto): Promise<UserDto> {
-		if (body.username === "root@store.me") {
-			// TODO: remove
-			const [first, ...last] = body.password.split(" ");
+		return this.authApi.getToken(body).then(({ token }) =>
+			this.userApi.getCurrent(token).then(connected => {
+				this.token.next({ date: new Date(), value: token });
 
-			const user: UserDto = {
-				id: 1,
-
-				created: "",
-				updated: "",
-
-				email: body.username,
-				firstName: first,
-				lastName: last.join(" "),
-
-				ownedInventories: [],
-				sharedInventories: []
-			};
-			this.userConnected.next({ token: "--", user });
-
-			return Promise.resolve(user);
-		}
-
-		return this.service.getToken(body).then(({ token }) => {
-			// TODO: get connected user
-
-			throw new Error("Not implemented yet");
-		});
+				this.user.next(connected);
+				return connected;
+			})
+		);
 	}
 
 	/**
 	 * @returns if the given credentials data are valid
 	 */
 	public async isValid(): Promise<boolean> {
-		const connected = this.userConnected.value;
-		if (!connected) {
+		const { value } = this.token;
+		if (!value) {
 			return false;
 		}
 
-		return this.service
-			.validateToken(connected.token)
+		return this.authApi
+			.validateToken(value.value)
 			.then(() => true)
 			.catch((error: unknown) => {
 				if (error instanceof HttpErrorResponse && error.status === 401) {
@@ -97,6 +101,6 @@ export class AuthService {
 	}
 
 	public invalidUser() {
-		this.userConnected.next(null);
+		this.user.next(null);
 	}
 }

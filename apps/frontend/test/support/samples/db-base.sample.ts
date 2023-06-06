@@ -172,6 +172,8 @@ export const DbBaseSample: DbSample = {
 			updated: date1,
 
 			email: "admin@local.host",
+			username: "admin@local.host",
+
 			firstName: "Admin",
 			lastName: "Istrator",
 
@@ -185,6 +187,8 @@ export const DbBaseSample: DbSample = {
 			updated: date1,
 
 			email: "elise@store.me",
+			username: "elise@store.me",
+
 			firstName: "Elise",
 			lastName: "Store",
 

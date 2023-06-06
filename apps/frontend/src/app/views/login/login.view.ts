@@ -106,7 +106,7 @@ export class LoginView extends SubscribableComponent implements OnInit {
 				const redirect =
 					(this.activatedRoute.snapshot.queryParams as LoginViewQuery).redirect ?? "/";
 
-				void sleep(2000).then(() => this.router.navigateByUrl(redirect));
+				void sleep(1250).then(() => this.router.navigateByUrl(redirect));
 			})
 		);
 	}
@@ -121,17 +121,8 @@ export class LoginView extends SubscribableComponent implements OnInit {
 
 		const { email, firstName, lastName, password } = this.form.getRawValue();
 		const request = this.isRegistering
-			? this.userApiService
-					.create({
-						email,
-						firstName,
-						lastName
-					})
-					.then(() => this.authService.login({ password, username: email }))
-			: this.authService.login({
-					password,
-					username: email
-			  });
+			? this.authService.create({ email, firstName, lastName, plainPassword: password })
+			: this.authService.login({ password, username: email });
 
 		await request
 			.catch(error => (this.error = error as HttpErrorResponse))

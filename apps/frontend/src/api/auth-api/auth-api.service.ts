@@ -11,6 +11,10 @@ export const AUTH_API_ENTRYPOINT = "/authentication";
 export class AuthApiService {
 	public static readonly AUTH_HEADER = "Authorization";
 
+	public static authHeaderToken(token: string) {
+		return `bearer ${token}`;
+	}
+
 	public constructor(private readonly client: ApiClient) {}
 
 	/**
@@ -23,7 +27,7 @@ export class AuthApiService {
 
 	public validateToken(token: string): Promise<boolean> {
 		return this.client.post(`${AUTH_API_ENTRYPOINT}/validateToken`, undefined, {
-			headers: { [AuthApiService.AUTH_HEADER]: token }
+			headers: { [AuthApiService.AUTH_HEADER]: AuthApiService.authHeaderToken(token) }
 		});
 	}
 }

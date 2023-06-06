@@ -4,8 +4,16 @@ export interface UserDto extends EntityDto {
 	email: string;
 	firstName: string;
 	lastName: string;
-
-	// inventory relations
+	/**
+	 *inventory relations
+	 */
 	ownedInventories: number[];
+	/**
+	 *inventory relations
+	 */
 	sharedInventories: number[];
+	/**
+	 * Not used currently
+	 */
+	username: string;
 }
