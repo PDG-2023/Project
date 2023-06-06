@@ -13,14 +13,23 @@ public class Inventory extends AbstractEntity {
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = false)
     private User owner;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "shared_inventories",
             joinColumns = @JoinColumn(name = "inventory_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
+
+    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL)
+    private List<Category> categories;
+
+    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL)
+    private List<Location> locations;
+
+    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL)
+    private List<ItemModel> itemModels;
 }

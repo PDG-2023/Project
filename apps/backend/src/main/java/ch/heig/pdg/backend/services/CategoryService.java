@@ -51,9 +51,9 @@ public class CategoryService extends AbstractService {
     }
 
     public CategoryDTO removeCategory(Integer id) {
-        Category category = this.getEntityIfExists(id, this.categoryRepository);
+        CategoryDTO categoryDTO = (CategoryDTO) this.categoryMapper.getDTO(this.getEntityIfExists(id, this.categoryRepository));
         this.categoryRepository.deleteById(id);
-        return (CategoryDTO) this.categoryMapper.getDTO(category);
+        return categoryDTO;
     }
 
     public CategoryDTO updateCategory(Integer id, CategoryDTO categoryDTO) {

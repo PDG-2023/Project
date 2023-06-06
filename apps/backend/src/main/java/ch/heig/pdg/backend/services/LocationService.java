@@ -35,9 +35,9 @@ public class LocationService extends AbstractService {
     }
 
     public LocationDTO removeLocation(Integer id) {
-        Location location = this.getEntityIfExists(id, this.locationRepository);
+        LocationDTO locationDTO = (LocationDTO) this.locationMapper.getDTO(this.getEntityIfExists(id, this.locationRepository));
         this.locationRepository.deleteById(id);
-        return (LocationDTO) this.locationMapper.getDTO(location);
+        return locationDTO;
     }
 
     public LocationDTO getLocation(Integer id) {

@@ -52,8 +52,8 @@ public class InventoryService extends AbstractService {
     }
 
     public InventoryDTO removeInventory(Integer id) {
-        Inventory inventory = this.getEntityIfExists(id, this.inventoryRepository);
+        InventoryDTO inventoryDTO = (InventoryDTO) this.inventoryMapper.getDTO(this.getEntityIfExists(id, this.inventoryRepository));
         this.inventoryRepository.deleteById(id);
-        return (InventoryDTO) this.inventoryMapper.getDTO(inventory);
+        return inventoryDTO;
     }
 }

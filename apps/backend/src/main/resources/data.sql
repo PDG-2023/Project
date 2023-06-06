@@ -21,6 +21,26 @@ VALUES (1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'location description', 'locati
        (2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'an other description', 'another name', 1, 1)
 ON CONFLICT DO NOTHING;
 
+-- ItemModel
+INSERT INTO item_model(id, created_at, updated_at, description, name, inventory_id)
+VALUES (1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'description', 'name', 1)
+ON CONFLICT DO NOTHING;
+
+INSERT INTO item(id, created_at, updated_at, model_id)
+VALUES (1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1)
+ON CONFLICT DO NOTHING;
+
+-- Movements
+INSERT INTO movement (id, created_at, updated_at, type, item_id, location_id)
+VALUES (1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'IN', 1, 1)
+ON CONFLICT DO NOTHING;
+
+-- item-model and categories
+INSERT INTO item_category(item_id, category_id)
+VALUES (1, 1)
+ON CONFLICT DO NOTHING;
+
+
 -- needed to set the sequences to start correctly
 SELECT SETVAL('inventory_id_seq', (SELECT MAX(id) + 1 FROM public.inventory));
 SELECT SETVAL('application_user_id_seq', (SELECT MAX(id) + 1 FROM public.application_user));

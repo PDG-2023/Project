@@ -1,9 +1,6 @@
 package ch.heig.pdg.backend.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -17,7 +14,8 @@ public class Location extends AbstractEntity {
     @Column(columnDefinition = "TEXT", length = 65535, nullable = false)
     private String description;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(referencedColumnName = "id")
     private Location parent;
 
     @ManyToOne

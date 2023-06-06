@@ -2,6 +2,7 @@ package ch.heig.pdg.backend.presentation;
 
 import ch.heig.pdg.backend.dto.InventoryDTO;
 import ch.heig.pdg.backend.entities.Inventory;
+import ch.heig.pdg.backend.security.annotations.AuthenticationRequired;
 import ch.heig.pdg.backend.services.InventoryService;
 import ch.heig.pdg.backend.utils.HugoSearchFilter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ public class InventoryController implements ch.heig.pdg.backend.api.InventoryApi
         this.httpServletRequest = httpServletRequest;
     }
 
+    @AuthenticationRequired
     @Override
     public ResponseEntity<InventoryDTO> createInventory(InventoryDTO inventoryDTO) {
         return new ResponseEntity<>(
@@ -29,6 +31,7 @@ public class InventoryController implements ch.heig.pdg.backend.api.InventoryApi
         );
     }
 
+    @AuthenticationRequired
     @Override
     public ResponseEntity<InventoryDTO> deleteInventory(Integer id) {
         return new ResponseEntity<>(
@@ -37,6 +40,7 @@ public class InventoryController implements ch.heig.pdg.backend.api.InventoryApi
         );
     }
 
+    @AuthenticationRequired
     @Override
     public ResponseEntity<List<InventoryDTO>> getInventories() {
         HugoSearchFilter<Inventory> filter = HugoSearchFilter.build(this.httpServletRequest, Inventory.class);
@@ -46,6 +50,7 @@ public class InventoryController implements ch.heig.pdg.backend.api.InventoryApi
         );
     }
 
+    @AuthenticationRequired
     @Override
     public ResponseEntity<InventoryDTO> getInventory(Integer id) {
         return new ResponseEntity<>(
@@ -54,6 +59,7 @@ public class InventoryController implements ch.heig.pdg.backend.api.InventoryApi
         );
     }
 
+    @AuthenticationRequired
     @Override
     public ResponseEntity<InventoryDTO> updateInventory(Integer id, InventoryDTO inventoryDTO) {
         return new ResponseEntity<>(

@@ -2,6 +2,7 @@ package ch.heig.pdg.backend.presentation;
 
 import ch.heig.pdg.backend.dto.ItemModelDTO;
 import ch.heig.pdg.backend.entities.ItemModel;
+import ch.heig.pdg.backend.security.annotations.AuthenticationRequired;
 import ch.heig.pdg.backend.services.ItemModelService;
 import ch.heig.pdg.backend.utils.HugoSearchFilter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ public class ItemModelController extends AbstractController implements ch.heig.p
         this.itemModelService = itemModelService;
     }
 
+    @AuthenticationRequired
     @Override
     public ResponseEntity<ItemModelDTO> createItemModel(Integer inventoryId, ItemModelDTO itemModelDTO) {
         return new ResponseEntity<>(
@@ -28,6 +30,7 @@ public class ItemModelController extends AbstractController implements ch.heig.p
         );
     }
 
+    @AuthenticationRequired
     @Override
     public ResponseEntity<ItemModelDTO> deleteItemModel(Integer id) {
         return new ResponseEntity<>(
@@ -36,6 +39,7 @@ public class ItemModelController extends AbstractController implements ch.heig.p
         );
     }
 
+    @AuthenticationRequired
     @Override
     public ResponseEntity<ItemModelDTO> getItemModel(Integer id) {
         return new ResponseEntity<>(
@@ -44,6 +48,7 @@ public class ItemModelController extends AbstractController implements ch.heig.p
         );
     }
 
+    @AuthenticationRequired
     @Override
     public ResponseEntity<List<ItemModelDTO>> getItemModels(Integer inventoryId) {
         HugoSearchFilter<ItemModel> filter = HugoSearchFilter.build(this.httpServletRequest, ItemModel.class);
@@ -54,6 +59,7 @@ public class ItemModelController extends AbstractController implements ch.heig.p
         );
     }
 
+    @AuthenticationRequired
     @Override
     public ResponseEntity<ItemModelDTO> updateItemModel(Integer id, ItemModelDTO itemModelDTO) {
         return new ResponseEntity<>(

@@ -56,7 +56,7 @@ public class AuthenticationController implements JwtApi {
         String jwt = authorizationHeaderSplit[1];
         try {
             this.jwtValidatorService.validateJWT(jwt);
-            return new ResponseEntity<>(HttpStatusCode.valueOf(200));
+            return new ResponseEntity<>(HttpStatusCode.valueOf(204));
 
         } catch (InvalidJWTException e) {
             return new ResponseEntity<>(HttpStatusCode.valueOf(500));
