@@ -12,6 +12,7 @@ import { CategoryView } from "./inventories/categories/categories/category.view"
 import { CategoriesView } from "./inventories/categories/categories.view";
 import { InventoriesView } from "./inventories/inventories.view";
 import { InventoryView } from "./inventories/inventory/inventory.view";
+import { InventoryErrorView } from "./inventories/inventory-error/inventory-error.view";
 import { ItemModelView } from "./inventories/item-models/item-model/item-model.view";
 import { ItemModelsView } from "./inventories/item-models/item-models.view";
 import { LocationView } from "./inventories/locations/location/location.view";
@@ -34,6 +35,7 @@ import { AppRouterModule } from "../router";
 		HeaderComponent,
 		IndexView,
 		InventoriesView,
+		InventoryErrorView,
 		InventoryView,
 		ItemModelsView,
 		ItemModelView,

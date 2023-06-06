@@ -11,6 +11,7 @@ import { MatListModule } from "@angular/material/list";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatTableModule } from "@angular/material/table";
 import { MatToolbarModule } from "@angular/material/toolbar";
 
 @NgModule({
@@ -27,6 +28,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 		MatProgressBarModule,
 		MatProgressSpinnerModule,
 		MatSidenavModule,
+		MatTableModule,
 		MatToolbarModule
 	]
 })

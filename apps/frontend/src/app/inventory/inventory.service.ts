@@ -51,12 +51,16 @@ export class InventoryService {
 		});
 	}
 
-	public removeCurrent() {
-		this.currentInventory.next(null);
+	/**
+	 * Set the current inventory
+	 * @param inventory the inventory to set
+	 */
+	public setInventory(inventory: InventoryDto) {
+		this.currentInventory.next(inventory);
 	}
 
-	private setInventory(inventory: InventoryDto) {
-		this.currentInventory.next(inventory);
+	public removeCurrent() {
+		this.currentInventory.next(null);
 	}
 
 	// TODO: get current active inventory (+ store for when the user refresh page)
