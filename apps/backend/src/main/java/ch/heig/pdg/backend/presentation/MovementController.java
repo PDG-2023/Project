@@ -7,9 +7,11 @@ import ch.heig.pdg.backend.utils.HugoSearchFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class MovementController extends AbstractController implements ch.heig.pdg.backend.api.MovementApi {
@@ -47,8 +49,10 @@ public class MovementController extends AbstractController implements ch.heig.pd
     public ResponseEntity<List<MovementDTO>> getMovements() {
         HugoSearchFilter<Movement> filter = HugoSearchFilter.build(this.httpServletRequest, Movement.class);
 
+        List<MovementDTO> movements = this.movementService.getMovements(filter);
         return new ResponseEntity<>(
-                this.movementService.getMovements(filter),
+                movements,
+                new LinkedMultiValueMap<>(Map.of("X-Total", List.of(String.format("%d", movements.size())))),
                 HttpStatus.OK
         );
     }

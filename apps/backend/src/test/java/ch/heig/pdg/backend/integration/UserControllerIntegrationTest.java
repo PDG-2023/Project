@@ -10,8 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @IntegrationTest
 public class UserControllerIntegrationTest extends AbstractAuthenticatedIntegrationTest {
@@ -22,6 +21,7 @@ public class UserControllerIntegrationTest extends AbstractAuthenticatedIntegrat
                         .header("Authorization", "Bearer " + this.token)
                 )
                 .andExpect(status().isOk())
+                .andExpect(header().exists("X-Total"))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].username").value("ptest"));
     }

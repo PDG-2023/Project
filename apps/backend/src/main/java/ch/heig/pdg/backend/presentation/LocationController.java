@@ -8,9 +8,11 @@ import ch.heig.pdg.backend.utils.HugoSearchFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class LocationController extends AbstractController implements ch.heig.pdg.backend.api.LocationApi {
@@ -52,8 +54,10 @@ public class LocationController extends AbstractController implements ch.heig.pd
     public ResponseEntity<List<LocationDTO>> getLocations(Integer inventoryId) {
         HugoSearchFilter<Location> filter = HugoSearchFilter.build(this.httpServletRequest, Location.class);
 
+        List<LocationDTO> locations = this.locationService.getLocations(inventoryId, filter);
         return new ResponseEntity<>(
-                this.locationService.getLocations(inventoryId, filter),
+                locations,
+                new LinkedMultiValueMap<>(Map.of("X-Total", List.of(String.format("%d", locations.size())))),
                 HttpStatus.OK
         );
     }

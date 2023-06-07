@@ -8,9 +8,11 @@ import ch.heig.pdg.backend.utils.HugoSearchFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class ItemModelController extends AbstractController implements ch.heig.pdg.backend.api.ItemModelApi {
@@ -53,8 +55,10 @@ public class ItemModelController extends AbstractController implements ch.heig.p
     public ResponseEntity<List<ItemModelDTO>> getItemModels(Integer inventoryId) {
         HugoSearchFilter<ItemModel> filter = HugoSearchFilter.build(this.httpServletRequest, ItemModel.class);
 
+        List<ItemModelDTO> itemModels = this.itemModelService.getItemModels(inventoryId, filter);
         return new ResponseEntity<>(
-                this.itemModelService.getItemModels(inventoryId, filter),
+                itemModels,
+                new LinkedMultiValueMap<>(Map.of("X-Total", List.of(String.format("%d", itemModels.size())))),
                 HttpStatus.OK
         );
     }
