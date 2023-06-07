@@ -106,7 +106,7 @@ export class LoginView extends SubscribableComponent implements OnInit {
 				const redirect =
 					(this.activatedRoute.snapshot.queryParams as LoginViewQuery).redirect ?? "/";
 
-				void sleep(1250).then(() => this.router.navigateByUrl(redirect));
+				void sleep(1000).then(() => this.router.navigateByUrl(redirect));
 			})
 		);
 	}

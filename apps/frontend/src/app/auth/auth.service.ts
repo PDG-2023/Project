@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, filter, map, Observable } from "rxjs";
+import { Jsonify } from "type-fest";
 
 import { AuthApiService } from "../../api/auth-api";
 import { AuthLoginDto } from "../../api/auth-api/dtos";
@@ -8,6 +9,9 @@ import { UserApiService } from "../../api/user-api";
 import { UserCreateDto, UserDto } from "../../api/user-api/dtos";
 
 export interface TokenStored {
+	/**
+	 * Store the date to know when the token was generated
+	 */
 	date: Date;
 	value: string;
 }
@@ -18,6 +22,8 @@ export interface TokenStored {
 export class AuthService {
 	private readonly user = new BehaviorSubject<UserDto | null>(null);
 	private readonly token = new BehaviorSubject<TokenStored | null>(null);
+
+	private _initialized = false;
 
 	/**
 	 * @returns an observable of the connected user or null
@@ -78,29 +84,55 @@ export class AuthService {
 		);
 	}
 
+	public invalidUser() {
+		this.user.next(null);
+		this.token.next(null);
+	}
+
 	/**
-	 * @returns if the given credentials data are valid
+	 * To be called on application initialisation.
+	 * Will determine if a token is already stored and log the user.
 	 */
-	public async isValid(): Promise<boolean> {
-		const { value } = this.token;
-		if (!value) {
-			return false;
+	public async _init() {
+		if (this._initialized) {
+			return;
 		}
 
+		this._initialized = true;
+
+		const LOCAL_STORAGE_KEY = "store-me_auth";
+
+		const storedRaw = localStorage.getItem(LOCAL_STORAGE_KEY);
+		if (storedRaw) {
+			const stored = (JSON.parse(storedRaw) ?? {}) as Partial<Jsonify<TokenStored>>;
+			const { value } = stored;
+			if (value && (await this.isValid(value))) {
+				// TODO: use also date to validate?
+				this.token.next({ date: new Date(), value });
+				await this.userApi.getCurrent(value).then(connected => this.user.next(connected));
+			}
+		}
+
+		// No need to unsubscribe, services are never destroyed (at the end to avoid to set null, before reading)
+		this.token$.subscribe(token =>
+			localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(token ?? {}))
+		);
+	}
+
+	/**
+	 * @param token to validate
+	 * @returns if the given credentials data are valid
+	 */
+	private async isValid(token: string): Promise<boolean> {
 		return this.authApi
-			.validateToken(value.value)
+			.validateToken(token)
 			.then(() => true)
 			.catch((error: unknown) => {
 				if (error instanceof HttpErrorResponse && error.status === 401) {
-					this.invalidUser();
 					return false;
 				}
 
 				throw error;
 			});
-	}
-
-	public invalidUser() {
-		this.user.next(null);
 	}
 }

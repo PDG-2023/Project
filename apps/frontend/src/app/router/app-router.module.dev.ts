@@ -10,7 +10,7 @@ import { appRoutes } from "../views/app.routes";
 	imports: [
 		MatSnackBarModule,
 		RouterModule.forRoot([{ loadChildren: () => DevModule, path: "_dev" }, ...appRoutes], {
-			initialNavigation: "enabledBlocking"
+			initialNavigation: "enabledNonBlocking"
 		})
 	],
 	providers: [DevInitializerProvider]

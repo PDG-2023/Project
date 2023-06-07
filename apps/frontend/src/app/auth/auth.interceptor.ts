@@ -15,12 +15,10 @@ import { LoginView, LoginViewQuery } from "../views/login/login.view";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-	private isConnected = false;
 	private token: TokenStored | null = null;
 
 	public constructor(private readonly service: AuthService, private readonly router: Router) {
 		// No need to unsubscribe, the interceptor is never destroyed
-		this.service.isUserConnected$.subscribe(connected => (this.isConnected = connected));
 		this.service.token$.subscribe(token => (this.token = token));
 	}
 
@@ -37,19 +35,18 @@ export class AuthInterceptor implements HttpInterceptor {
 		}
 
 		return next.handle(request).pipe(
-			catchError((error, observer) => {
-				if (
-					error instanceof HttpErrorResponse &&
-					error.status === 401 &&
-					this.isConnected
-				) {
+			catchError(error => {
+				// No user is connected
+				if (error instanceof HttpErrorResponse && error.status === 401) {
 					this.service.invalidUser();
+
+					const redirect = window.location.pathname;
 					void this.router.navigate([LoginView.PATH_LOGIN], {
 						queryParams: {
-							redirect: this.router.routerState.snapshot.url
+							// redirect: window.location.pathname
+							redirect: redirect === "/" ? undefined : redirect
 						} satisfies LoginViewQuery
 					});
-					return observer;
 				}
 
 				return throwError(error);
