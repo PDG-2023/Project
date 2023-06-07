@@ -4,7 +4,7 @@ import ch.heig.pdg.backend.api.JwtApi;
 import ch.heig.pdg.backend.dto.CredentialsDTO;
 import ch.heig.pdg.backend.dto.JWTDTO;
 import ch.heig.pdg.backend.entities.User;
-import ch.heig.pdg.backend.exception.exceptions.NotFoundException;
+import ch.heig.pdg.backend.exception.exceptions.UnauthorizedException;
 import ch.heig.pdg.backend.repositories.UserRepository;
 import ch.heig.pdg.backend.security.services.JWTGeneratorService;
 import ch.heig.pdg.backend.security.services.JWTValidatorService;
@@ -30,7 +30,7 @@ public class AuthenticationController implements JwtApi {
 
     @Override
     public ResponseEntity<JWTDTO> getToken(CredentialsDTO credentialsDTO) {
-        User user = this.userRepository.findByUsername(credentialsDTO.getUsername()).orElseThrow(NotFoundException::new);
+        User user = this.userRepository.findByUsername(credentialsDTO.getUsername()).orElseThrow(UnauthorizedException::new);
 
         if (!this.passwordService.validate(credentialsDTO.getPassword(), user.getPassword())) {
             return new ResponseEntity<>(HttpStatusCode.valueOf(401));
