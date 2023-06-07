@@ -64,7 +64,7 @@ public class ItemModelControllerIntegrationTest extends AbstractAuthenticatedInt
                 )
                 .andExpect(status().isCreated())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(3))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(itemModelName))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.description").value(description));
     }

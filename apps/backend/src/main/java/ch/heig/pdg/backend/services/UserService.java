@@ -35,6 +35,14 @@ public class UserService extends AbstractService {
         );
     }
 
+    public List<UserDTO> search(Integer inventoryId, String searchTerm) {
+        return this.userRepository
+                .search(inventoryId, searchTerm)
+                .stream()
+                .map(u -> (UserDTO) this.userMapper.getDTO(u))
+                .collect(Collectors.toList());
+    }
+
     public UserDTO removeUser(Integer id) {
         if (!Objects.equals(this.currentUser.getCurrentUserData().userId, id)) {
             throw new ForbiddenOperationException("Can not remove other user");
