@@ -67,6 +67,7 @@ public class CriteriaRepositoryImpl<T, ID> implements CriteriaRepository<T, ID> 
                                 case "gte" -> criteriaBuilder.greaterThanOrEqualTo(nestedPath.as(String.class), filterValue);
                                 case "lt" -> criteriaBuilder.lessThan(nestedPath.as(String.class), filterValue);
                                 case "gt" -> criteriaBuilder.greaterThan(nestedPath.as(String.class), filterValue);
+                                case "like" -> criteriaBuilder.like(nestedPath.as(String.class), filterValue);
                                 default -> throw new BadRequestException("Unexpected value: " + fieldComparison);
                             }
                         );
