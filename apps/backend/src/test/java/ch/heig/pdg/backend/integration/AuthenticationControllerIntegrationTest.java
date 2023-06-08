@@ -45,4 +45,34 @@ public class AuthenticationControllerIntegrationTest {
                 )
                 .andExpect(status().isNoContent());
     }
+
+    @Test
+    public void whenUnknownUser_thenStatus401() throws Exception {
+        CredentialsDTO credentials = new CredentialsDTO();
+        credentials.setPassword("blabla");
+        credentials.setUsername("unknown");
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.findAndRegisterModules();
+
+        this.mvc.perform(post("/authentication/getToken")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(credentials))
+                )
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    public void whenWrongPassword_thenStatus401() throws Exception {
+        CredentialsDTO credentials = new CredentialsDTO();
+        credentials.setPassword("wrong");
+        credentials.setUsername("ptest");
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.findAndRegisterModules();
+
+        this.mvc.perform(post("/authentication/getToken")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(credentials))
+                )
+                .andExpect(status().isUnauthorized());
+    }
 }
