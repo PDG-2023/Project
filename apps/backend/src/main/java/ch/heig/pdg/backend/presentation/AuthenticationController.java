@@ -30,7 +30,7 @@ public class AuthenticationController implements JwtApi {
 
     @Override
     public ResponseEntity<JWTDTO> getToken(CredentialsDTO credentialsDTO) {
-        User user = this.userRepository.findByUsername(credentialsDTO.getUsername()).orElseThrow(UnauthorizedException::new);
+        User user = this.userRepository.findByUsernameOrEmail(credentialsDTO.getUsername(), credentialsDTO.getUsername()).orElseThrow(UnauthorizedException::new);
 
         if (!this.passwordService.validate(credentialsDTO.getPassword(), user.getPassword())) {
             return new ResponseEntity<>(HttpStatusCode.valueOf(401));
