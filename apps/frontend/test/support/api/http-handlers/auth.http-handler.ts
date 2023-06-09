@@ -36,7 +36,7 @@ export class AuthHttpHandler implements HttpHandlerTest {
 
 				if (userId) {
 					return new HttpResponse({
-						body: this.db.find(({ id }) => id === userId)!,
+						body: this.db.find(({ id }) => id === userId),
 						status: 200,
 						url: fullUri
 					});

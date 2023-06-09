@@ -23,7 +23,7 @@ export abstract class EntityApiService<
 	/**
 	 * Header key where the total of items is stored
 	 */
-	public static HEADER_TOTAL = "TODO";
+	public static HEADER_TOTAL = "x-total";
 
 	public constructor(protected readonly client: ApiClient) {}
 
@@ -107,7 +107,7 @@ export abstract class EntityApiService<
 		return this.client
 			.get<T2[]>(url, {
 				observeEvent: event => {
-					if (event.type !== HttpEventType.ResponseHeader) {
+					if (event.type !== HttpEventType.Response) {
 						return;
 					}
 
