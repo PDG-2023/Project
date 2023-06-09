@@ -75,8 +75,8 @@ export class AuthService {
 	 */
 	public create(body: UserCreateDto): Promise<UserDto> {
 		return this.userApi
-			.create({ username: body.email, ...body })
-			.then(() => this.login({ password: body.plainPassword, username: body.email }));
+			.create(body)
+			.then(() => this.login({ password: body.plainPassword, username: body.username }));
 	}
 
 	/**

@@ -124,6 +124,7 @@
 			"account-already": "Already an account?",
 			"account-create": "Create your account",
 			"account-none": "No account yet?",
+			"email-or-username": "Email or Username",
 			"login": "Login",
 			"login-fail": "The identification failed.",
 			"redirect": "You are being redirected."

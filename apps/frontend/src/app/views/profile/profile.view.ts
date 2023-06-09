@@ -62,11 +62,7 @@ export class ProfileView extends SubscribableComponent implements OnInit {
 			return;
 		}
 
-		const { firstName, lastName } = this.userForm.value;
-		if (!firstName || !lastName) {
-			return;
-		}
-
+		const { firstName, lastName } = this.userForm.getRawValue();
 		void this.userApi
 			.replace(this.user.id, { ...this.user, firstName, lastName })
 			.then(() => this.authService.updateConnected());

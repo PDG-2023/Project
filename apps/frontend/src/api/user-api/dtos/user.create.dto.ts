@@ -4,8 +4,11 @@ import { EntityDtoKeys } from "../../_lib/entity-api/dtos";
 // TODO
 export interface UserCreateDto
 	extends Partial<
-			Omit<UserDto, EntityDtoKeys | "email" | "ownedInventories" | "sharedInventories">
+			Omit<
+				UserDto,
+				EntityDtoKeys | "email" | "ownedInventories" | "sharedInventories" | "username"
+			>
 		>,
-		Pick<UserDto, "email"> {
+		Pick<UserDto, "email" | "username"> {
 	plainPassword: string;
 }

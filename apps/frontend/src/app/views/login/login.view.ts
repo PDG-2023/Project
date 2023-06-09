@@ -26,7 +26,10 @@ export interface LoginViewQuery {
 }
 
 interface FormControls
-	extends Record<keyof Pick<UserDto, "email" | "firstName" | "lastName">, FormControl<string>> {
+	extends Record<
+		keyof Pick<UserDto, "email" | "firstName" | "lastName" | "username">,
+		FormControl<string>
+	> {
 	password: FormControl<string>;
 }
 
@@ -86,6 +89,13 @@ export class LoginView extends SubscribableComponent implements OnInit {
 					control => Validators.required(control),
 					control => Validators.minLength(LoginView.PASSWORD_MIN_LENGTH)(control)
 				]
+			}),
+			username: new FormControl("", {
+				nonNullable: true,
+				validators: [
+					requiredOnRegister,
+					control => Validators.minLength(LoginView.PASSWORD_MIN_LENGTH)(control)
+				]
 			})
 		});
 	}
@@ -119,9 +129,16 @@ export class LoginView extends SubscribableComponent implements OnInit {
 		this.error = false;
 		this.loading = true;
 
-		const { email, firstName, lastName, password } = this.form.getRawValue();
+		const { email, firstName, lastName, password, username } = this.form.getRawValue();
 		const request = this.isRegistering
-			? this.authService.create({ email, firstName, lastName, plainPassword: password })
+			? this.authService.create({
+					email,
+					firstName,
+					lastName,
+					username,
+
+					plainPassword: password
+			  })
 			: this.authService.login({ password, username: email });
 
 		await request
