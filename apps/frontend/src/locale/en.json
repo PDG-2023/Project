@@ -5,6 +5,7 @@
 		"confirm": "Confirm",
 		"delete": "Delete",
 		"login": "Log in",
+		"logout": "Logout",
 		"register": "Register",
 		"search": "Search",
 		"show": "Show",
@@ -71,7 +72,8 @@
 			"email": "Email",
 			"firstname": "Firstname",
 			"lastname": "Lastname",
-			"password": "Password"
+			"password": "Password",
+			"username": "Username"
 		}
 	},
 	"errors": {
@@ -129,6 +131,13 @@
 		"not-found": {
 			"text": "Did you get lost? There is nothing to see here... <br>Except that:<br><span class=\"lie\">... I lied.</span>",
 			"title": "Page not found"
+		},
+		"profile": {
+			"last-update": "Date of your last profile update",
+			"registration": "You registered the ",
+			"update-password": "Update your password",
+			"your-informations": "Your profile informations",
+			"your-profile": "Your profile"
 		}
 	}
 }

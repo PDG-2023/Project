@@ -4,6 +4,7 @@ import { UserDto } from "../../../../api/user-api/dtos";
 import { AuthService } from "../../../auth/auth.service";
 import { SubscribableComponent } from "../../../components/_lib/subscribable.component";
 import { LoginView } from "../../login/login.view";
+import { ProfileView } from "../../profile/profile.view";
 
 @Component({
 	selector: "app-toolbar",
@@ -12,6 +13,7 @@ import { LoginView } from "../../login/login.view";
 })
 export class ToolbarComponent extends SubscribableComponent implements OnInit {
 	protected readonly LoginView = LoginView;
+	protected readonly ProfileView = ProfileView;
 
 	protected user: UserDto | null = null;
 

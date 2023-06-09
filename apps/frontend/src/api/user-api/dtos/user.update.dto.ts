@@ -1,5 +1,5 @@
-import { UserDto } from "./user.dto";
-import { EntityDtoKeys } from "../../_lib/entity-api/dtos";
+import { UserCreateDto } from "./user.create.dto";
 
 // TODO
-export type UserUpdateDto = Omit<UserDto, EntityDtoKeys>;
+export type UserUpdateDto = Omit<UserCreateDto, "plainPassword"> &
+	Partial<Pick<UserCreateDto, "plainPassword">>;

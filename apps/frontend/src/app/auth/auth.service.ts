@@ -58,6 +58,17 @@ export class AuthService {
 	) {}
 
 	/**
+	 * Reload the connected user
+	 * @returns The connected user
+	 */
+	public updateConnected() {
+		return this.userApi.getCurrent().then(connected => {
+			this.user.next(connected);
+			return connected;
+		});
+	}
+
+	/**
 	 * Create the user and login
 	 * @param body to create the user
 	 * @returns the connected user on success
