@@ -36,7 +36,8 @@ VALUES (1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'location description', 'locati
 
 -- ItemModel
 INSERT INTO item_model(id, created_at, updated_at, description, name, inventory_id)
-VALUES (1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'description', 'name', 1);
+VALUES (1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'description', 'name', 1),
+       (2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'notCommonDesc', 'name', 1);
 
 INSERT INTO item(id, created_at, updated_at, model_id)
 VALUES (1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1);
