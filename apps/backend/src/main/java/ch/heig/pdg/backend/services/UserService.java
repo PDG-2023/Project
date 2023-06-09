@@ -2,7 +2,6 @@ package ch.heig.pdg.backend.services;
 
 import ch.heig.pdg.backend.dto.UserDTO;
 import ch.heig.pdg.backend.dto.mapping.UserMapper;
-import ch.heig.pdg.backend.entities.Category;
 import ch.heig.pdg.backend.entities.User;
 import ch.heig.pdg.backend.exception.exceptions.ForbiddenOperationException;
 import ch.heig.pdg.backend.repositories.InventoryRepository;

@@ -3,7 +3,6 @@ package ch.heig.pdg.backend.services;
 import ch.heig.pdg.backend.dto.InventoryDTO;
 import ch.heig.pdg.backend.dto.SearchResultDTO;
 import ch.heig.pdg.backend.dto.mapping.InventoryMapper;
-import ch.heig.pdg.backend.entities.Category;
 import ch.heig.pdg.backend.entities.Inventory;
 import ch.heig.pdg.backend.repositories.InventoryRepository;
 import ch.heig.pdg.backend.utils.HugoSearchFilter;

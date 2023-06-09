@@ -2,7 +2,6 @@ package ch.heig.pdg.backend.services;
 
 import ch.heig.pdg.backend.dto.ItemDTO;
 import ch.heig.pdg.backend.dto.mapping.ItemMapper;
-import ch.heig.pdg.backend.entities.Category;
 import ch.heig.pdg.backend.entities.Item;
 import ch.heig.pdg.backend.repositories.InventoryRepository;
 import ch.heig.pdg.backend.repositories.ItemRepository;

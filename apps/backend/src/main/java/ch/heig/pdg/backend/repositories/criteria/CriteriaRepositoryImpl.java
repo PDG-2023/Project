@@ -21,7 +21,6 @@ public class CriteriaRepositoryImpl<T, ID> implements CriteriaRepository<T, ID> 
         return this.findByFilter(filter, null);
     }
 
-
     public Integer count(HugoSearchFilter<T> filter, Integer inventoryId) {
         return this.findByFilter(filter, inventoryId, false).size();
     }
@@ -118,7 +117,7 @@ public class CriteriaRepositoryImpl<T, ID> implements CriteriaRepository<T, ID> 
         criteriaQuery.orderBy(ordering);
         TypedQuery<T> query = entityManager.createQuery(criteriaQuery);
 
-        if(addLimitOffset){
+        if (addLimitOffset) {
             if (maxResults != null) {
                 query.setMaxResults(maxResults);
             }
