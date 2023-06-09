@@ -25,6 +25,14 @@ public class ItemModelService extends AbstractService {
         this.itemModelMapper = itemModelMapper;
     }
 
+    public List<ItemModelDTO> search(Integer inventoryId, String searchTerm) {
+        return this.itemModelRepository
+                .search(inventoryId, searchTerm)
+                .stream()
+                .map(i -> (ItemModelDTO) this.itemModelMapper.getDTO(i))
+                .collect(Collectors.toList());
+    }
+
     public ItemModelDTO addItemModel(Integer inventoryId, ItemModelDTO itemModelDTO) {
         Inventory inventory = this.checkInventory(inventoryId);
 

@@ -1,6 +1,7 @@
 package ch.heig.pdg.backend.presentation;
 
 import ch.heig.pdg.backend.dto.InventoryDTO;
+import ch.heig.pdg.backend.dto.SearchResultDTO;
 import ch.heig.pdg.backend.entities.Inventory;
 import ch.heig.pdg.backend.security.annotations.AuthenticationRequired;
 import ch.heig.pdg.backend.services.InventoryService;
@@ -68,6 +69,15 @@ public class InventoryController implements ch.heig.pdg.backend.api.InventoryApi
     public ResponseEntity<InventoryDTO> updateInventory(Integer id, InventoryDTO inventoryDTO) {
         return new ResponseEntity<>(
                 this.inventoryService.updateInventory(id, inventoryDTO),
+                HttpStatus.OK
+        );
+    }
+
+    @AuthenticationRequired
+    @Override
+    public ResponseEntity<List<SearchResultDTO>> searchInventory(String searchTerm, Integer id) {
+        return new ResponseEntity<>(
+                this.inventoryService.searchInventory(searchTerm, id),
                 HttpStatus.OK
         );
     }
