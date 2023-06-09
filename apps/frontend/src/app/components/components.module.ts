@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 
 import { DescribablePreviewComponent } from "./describables/describable-preview/describable-preview.component";
+import { InventoryPreviewComponent } from "./inventories/inventory-preview/inventory-preview.component";
 import { MaterialsModule } from "../materials/materials.module";
 import { TranslationModule } from "../translation";
 
@@ -11,6 +12,7 @@ import { TranslationModule } from "../translation";
 	exports: [
 		CommonModule,
 		DescribablePreviewComponent,
+		InventoryPreviewComponent,
 		MaterialsModule,
 		ReactiveFormsModule,
 		TranslationModule
@@ -18,6 +20,7 @@ import { TranslationModule } from "../translation";
 	imports: [
 		CommonModule,
 		DescribablePreviewComponent,
+		InventoryPreviewComponent,
 		MaterialsModule,
 		ReactiveFormsModule,
 		RouterModule,

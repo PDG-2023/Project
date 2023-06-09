@@ -1,7 +1,13 @@
-<h1>Many locations view</h1>
+<h1 translate>components.sidebar.your-inventories</h1>
 
-<ul>
-	<li *ngFor="let i of inventories">
-		<a [routerLink]="InventoryView.getPath(i.id)">{{ i.name }}</a>
-	</li>
-</ul>
+<div class="flex flex-col gap-4">
+	<app-inventory-preview
+		*ngFor="let inventory of inventories"
+		class="cursor-pointer"
+		[inventory]="inventory.inventory"
+		[isOwner]="inventory.isOwner"
+		[routerLink]="InventoryView.getPath(inventory.inventory.id)"
+		[selected]="inventory.inventory.id === current?.id"
+		(setCurrentClick)="setCurrent($event)"
+	></app-inventory-preview>
+</div>

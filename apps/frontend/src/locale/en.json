@@ -18,6 +18,12 @@
 		"footer": {
 			"inventory-none": "No inventory selected."
 		},
+		"inventories": {
+			"inventory-preview": {
+				"set-current": "Set as current",
+				"you-are-owner": "You are the owner of the inventory."
+			}
+		},
 		"sidebar": {
 			"inventory-none-selected": {
 				"_0": "No current inventory selected. Go to",
