@@ -9,8 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @IntegrationTest
 public class InventoryControllerIntegrationTest extends AbstractAuthenticatedIntegrationTest {
@@ -21,8 +20,49 @@ public class InventoryControllerIntegrationTest extends AbstractAuthenticatedInt
                         .header("Authorization", "Bearer " + this.token)
                 )
                 .andExpect(status().isOk())
+                .andExpect(header().exists("X-Total"))
+                .andExpect(header().string("X-Total", "1"))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("test inventory"));
+    }
+
+    @Test
+    public void givenInventoryValid_whenSearchInventoryForTermThatMatchesAUser_thenResultsPresent() throws Exception {
+        this.mvc.perform(get("/inventory/1/search?searchTerm=aul")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + this.token)
+                )
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].entityType").value("user"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Paul Test"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].description").value(""));
+    }
+
+    @Test
+    public void givenInventoryValid_whenSearchInventoryForTermThatMatchesALocation_thenResultsPresent() throws Exception {
+        this.mvc.perform(get("/inventory/1/search?searchTerm=other description")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + this.token)
+                )
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].entityType").value("location"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("another name"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].description").value("an other description"));
+    }
+
+    @Test
+    public void givenInventoryValid_whenSearchInventoryForTermThatMatchesAnItemModel_thenResultsPresent() throws Exception {
+        this.mvc.perform(get("/inventory/1/search?searchTerm=notCommonDes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + this.token)
+                )
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].entityType").value("itemModel"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("name"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].description").value("notCommonDesc"));
     }
 
     @Test

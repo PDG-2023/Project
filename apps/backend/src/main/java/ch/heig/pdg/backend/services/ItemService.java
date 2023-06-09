@@ -50,6 +50,10 @@ public class ItemService extends AbstractService {
                 .collect(Collectors.toList());
     }
 
+    public Integer getItemsCount(HugoSearchFilter<Item> filter) {
+        return this.itemRepository.count(filter);
+    }
+
     public ItemDTO updateItem(Integer id, ItemDTO itemDTO) {
         Item item = this.getEntityIfExists(id, this.itemRepository);
 

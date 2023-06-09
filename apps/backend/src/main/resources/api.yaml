@@ -1155,6 +1155,48 @@ paths:
           $ref: "#/components/responses/500"
       security:
         - JWTAuth: []
+  "/inventory/{id}/search":
+    parameters:
+      - in: query
+        name: searchTerm
+        schema:
+          type: string
+        required: true
+        description: Numeric of the current inventory
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the inventory to search in
+    get:
+      tags:
+        - Inventory
+      description: Search locations, item models and users
+      operationId: searchInventory
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SearchResultDTO"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+        "409":
+          $ref: "#/components/responses/409"
+        "500":
+          $ref: "#/components/responses/500"
+      security:
+        - JWTAuth: [ ]
 components:
   schemas:
     JSONErrorMessage:
@@ -1310,6 +1352,17 @@ components:
           type: array
           items:
             type: integer
+    SearchResultDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        entityType:
+          type: string
     JWTDTO:
       type: object
       properties:
