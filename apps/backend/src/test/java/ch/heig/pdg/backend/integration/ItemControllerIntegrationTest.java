@@ -21,6 +21,7 @@ public class ItemControllerIntegrationTest extends AbstractAuthenticatedIntegrat
                 )
                 .andExpect(status().isOk())
                 .andExpect(header().exists("X-Total"))
+                .andExpect(header().string("X-Total", "1"))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].modelId").value(1));
     }

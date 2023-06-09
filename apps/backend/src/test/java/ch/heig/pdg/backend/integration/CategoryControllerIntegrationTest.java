@@ -23,6 +23,7 @@ public class CategoryControllerIntegrationTest extends AbstractAuthenticatedInte
                 )
                 .andExpect(status().isOk())
                 .andExpect(header().exists("X-Total"))
+                .andExpect(header().string("X-Total", "2"))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("cat 1"));
     }

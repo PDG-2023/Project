@@ -21,6 +21,7 @@ public class MovementControllerIntegrationTest extends AbstractAuthenticatedInte
                 )
                 .andExpect(status().isOk())
                 .andExpect(header().exists("X-Total"))
+                .andExpect(header().string("X-Total", "1"))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].movementType").value("IN"));
     }

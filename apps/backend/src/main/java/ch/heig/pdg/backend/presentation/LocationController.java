@@ -57,7 +57,7 @@ public class LocationController extends AbstractController implements ch.heig.pd
         List<LocationDTO> locations = this.locationService.getLocations(inventoryId, filter);
         return new ResponseEntity<>(
                 locations,
-                new LinkedMultiValueMap<>(Map.of("X-Total", List.of(String.format("%d", locations.size())))),
+                new LinkedMultiValueMap<>(Map.of("X-Total", List.of(String.format("%d", this.locationService.getLocationsCount(inventoryId, filter))))),
                 HttpStatus.OK
         );
     }

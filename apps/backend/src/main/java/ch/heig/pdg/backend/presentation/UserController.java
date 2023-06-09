@@ -54,7 +54,7 @@ public class UserController extends AbstractController implements ch.heig.pdg.ba
         List<UserDTO> users = this.userService.getUsers(filter);
         return new ResponseEntity<>(
                 users,
-                new LinkedMultiValueMap<>(Map.of("X-Total", List.of(String.format("%d", users.size())))),
+                new LinkedMultiValueMap<>(Map.of("X-Total", List.of(String.format("%d", this.userService.getUsersCount(filter))))),
                 HttpStatus.OK
         );
     }

@@ -2,6 +2,7 @@ package ch.heig.pdg.backend.services;
 
 import ch.heig.pdg.backend.dto.MovementDTO;
 import ch.heig.pdg.backend.dto.mapping.MovementMapper;
+import ch.heig.pdg.backend.entities.Category;
 import ch.heig.pdg.backend.entities.Movement;
 import ch.heig.pdg.backend.repositories.InventoryRepository;
 import ch.heig.pdg.backend.repositories.MovementRepository;
@@ -49,5 +50,9 @@ public class MovementService extends AbstractService {
                 .stream()
                 .map(m -> (MovementDTO) this.movementMapper.getDTO(m))
                 .collect(Collectors.toList());
+    }
+
+    public Integer getMovementsCount(HugoSearchFilter<Movement> filter) {
+        return this.movementRepository.count(filter);
     }
 }

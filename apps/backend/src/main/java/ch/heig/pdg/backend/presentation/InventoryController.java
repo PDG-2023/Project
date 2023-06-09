@@ -49,7 +49,7 @@ public class InventoryController implements ch.heig.pdg.backend.api.InventoryApi
         List<InventoryDTO> inventories = this.inventoryService.getInventories(filter);
         return new ResponseEntity<>(
                 inventories,
-                new LinkedMultiValueMap<>(Map.of("X-Total", List.of(String.format("%d", inventories.size())))),
+                new LinkedMultiValueMap<>(Map.of("X-Total", List.of(String.format("%d", this.inventoryService.getInventoriesCount(filter))))),
                 HttpStatus.OK
         );
     }

@@ -2,6 +2,7 @@ package ch.heig.pdg.backend.services;
 
 import ch.heig.pdg.backend.dto.LocationDTO;
 import ch.heig.pdg.backend.dto.mapping.LocationMapper;
+import ch.heig.pdg.backend.entities.Category;
 import ch.heig.pdg.backend.entities.Inventory;
 import ch.heig.pdg.backend.entities.Location;
 import ch.heig.pdg.backend.repositories.InventoryRepository;
@@ -53,6 +54,12 @@ public class LocationService extends AbstractService {
                 .stream()
                 .map(l -> (LocationDTO) this.locationMapper.getDTO(l))
                 .collect(Collectors.toList());
+    }
+
+    public Integer getLocationsCount(Integer inventoryId, HugoSearchFilter<Location> filter) {
+        this.checkInventory(inventoryId);
+
+        return this.locationRepository.count(filter, inventoryId);
     }
 
     public LocationDTO updateLocation(Integer id, LocationDTO locationDTO) {

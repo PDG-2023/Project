@@ -32,7 +32,7 @@ public class CategoryController extends AbstractController implements ch.heig.pd
         List<CategoryDTO> categories = this.categoryService.getCategories(inventoryId, filter);
         return new ResponseEntity<>(
                 categories,
-                new LinkedMultiValueMap<>(Map.of("X-Total", List.of(String.format("%d", categories.size())))),
+                new LinkedMultiValueMap<>(Map.of("X-Total", List.of(String.format("%d", this.categoryService.getCategoriesCount(inventoryId, filter))))),
                 HttpStatus.OK
         );
     }

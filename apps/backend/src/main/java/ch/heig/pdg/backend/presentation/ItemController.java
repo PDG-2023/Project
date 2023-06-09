@@ -57,7 +57,7 @@ public class ItemController extends AbstractController implements ch.heig.pdg.ba
         List<ItemDTO> items = this.itemService.getItems(filter);
         return new ResponseEntity<>(
                 items,
-                new LinkedMultiValueMap<>(Map.of("X-Total", List.of(String.format("%d", items.size())))),
+                new LinkedMultiValueMap<>(Map.of("X-Total", List.of(String.format("%d", this.itemService.getItemsCount(filter))))),
                 HttpStatus.OK
         );
     }

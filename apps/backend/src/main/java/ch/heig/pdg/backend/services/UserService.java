@@ -2,6 +2,7 @@ package ch.heig.pdg.backend.services;
 
 import ch.heig.pdg.backend.dto.UserDTO;
 import ch.heig.pdg.backend.dto.mapping.UserMapper;
+import ch.heig.pdg.backend.entities.Category;
 import ch.heig.pdg.backend.entities.User;
 import ch.heig.pdg.backend.exception.exceptions.ForbiddenOperationException;
 import ch.heig.pdg.backend.repositories.InventoryRepository;
@@ -56,6 +57,10 @@ public class UserService extends AbstractService {
                 .stream()
                 .map(u -> (UserDTO) this.userMapper.getDTO(u))
                 .collect(Collectors.toList());
+    }
+
+    public Integer getUsersCount(HugoSearchFilter<User> filter) {
+        return this.userRepository.count(filter);
     }
 
     public UserDTO updateUser(Integer id, UserDTO userDTO) {

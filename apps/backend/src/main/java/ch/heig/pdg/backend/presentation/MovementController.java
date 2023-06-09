@@ -52,7 +52,7 @@ public class MovementController extends AbstractController implements ch.heig.pd
         List<MovementDTO> movements = this.movementService.getMovements(filter);
         return new ResponseEntity<>(
                 movements,
-                new LinkedMultiValueMap<>(Map.of("X-Total", List.of(String.format("%d", movements.size())))),
+                new LinkedMultiValueMap<>(Map.of("X-Total", List.of(String.format("%d", this.movementService.getMovementsCount(filter))))),
                 HttpStatus.OK
         );
     }

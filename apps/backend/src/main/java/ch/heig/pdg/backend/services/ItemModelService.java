@@ -2,7 +2,9 @@ package ch.heig.pdg.backend.services;
 
 import ch.heig.pdg.backend.dto.ItemModelDTO;
 import ch.heig.pdg.backend.dto.mapping.ItemModelMapper;
+import ch.heig.pdg.backend.entities.Category;
 import ch.heig.pdg.backend.entities.Inventory;
+import ch.heig.pdg.backend.entities.Item;
 import ch.heig.pdg.backend.entities.ItemModel;
 import ch.heig.pdg.backend.repositories.InventoryRepository;
 import ch.heig.pdg.backend.repositories.ItemModelRepository;
@@ -54,6 +56,12 @@ public class ItemModelService extends AbstractService {
                 .stream()
                 .map(i -> (ItemModelDTO) this.itemModelMapper.getDTO(i))
                 .collect(Collectors.toList());
+    }
+
+    public Integer getItemModelsCount(Integer inventoryId, HugoSearchFilter<ItemModel> filter) {
+        this.checkInventory(inventoryId);
+
+        return this.itemModelRepository.count(filter, inventoryId);
     }
 
     public ItemModelDTO updateItemModel(Integer id, ItemModelDTO itemModelDTO) {
