@@ -118,9 +118,6 @@
 			"_actions": {
 				"create-account": "Create an account"
 			},
-			"_errors": {
-				"email": "An email address is required."
-			},
 			"account-already": "Already an account?",
 			"account-create": "Create your account",
 			"account-none": "No account yet?",
