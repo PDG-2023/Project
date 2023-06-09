@@ -8,9 +8,11 @@ import ch.heig.pdg.backend.utils.HugoSearchFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class UserController extends AbstractController implements ch.heig.pdg.backend.api.UserApi {
@@ -49,8 +51,10 @@ public class UserController extends AbstractController implements ch.heig.pdg.ba
     public ResponseEntity<List<UserDTO>> getUsers() {
         HugoSearchFilter<User> filter = HugoSearchFilter.build(this.httpServletRequest, User.class);
 
+        List<UserDTO> users = this.userService.getUsers(filter);
         return new ResponseEntity<>(
-                this.userService.getUsers(filter),
+                users,
+                new LinkedMultiValueMap<>(Map.of("X-Total", List.of(String.format("%d", this.userService.getUsersCount(filter))))),
                 HttpStatus.OK
         );
     }

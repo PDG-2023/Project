@@ -50,4 +50,8 @@ public class MovementService extends AbstractService {
                 .map(m -> (MovementDTO) this.movementMapper.getDTO(m))
                 .collect(Collectors.toList());
     }
+
+    public Integer getMovementsCount(HugoSearchFilter<Movement> filter) {
+        return this.movementRepository.count(filter);
+    }
 }

@@ -34,6 +34,14 @@ public class LocationService extends AbstractService {
         );
     }
 
+    public List<LocationDTO> search(Integer inventoryId, String searchTerm) {
+        return this.locationRepository
+                .search(inventoryId, searchTerm)
+                .stream()
+                .map(l -> (LocationDTO) this.locationMapper.getDTO(l))
+                .collect(Collectors.toList());
+    }
+
     public LocationDTO removeLocation(Integer id) {
         LocationDTO locationDTO = (LocationDTO) this.locationMapper.getDTO(this.getEntityIfExists(id, this.locationRepository));
         this.locationRepository.deleteById(id);
@@ -53,6 +61,12 @@ public class LocationService extends AbstractService {
                 .stream()
                 .map(l -> (LocationDTO) this.locationMapper.getDTO(l))
                 .collect(Collectors.toList());
+    }
+
+    public Integer getLocationsCount(Integer inventoryId, HugoSearchFilter<Location> filter) {
+        this.checkInventory(inventoryId);
+
+        return this.locationRepository.count(filter, inventoryId);
     }
 
     public LocationDTO updateLocation(Integer id, LocationDTO locationDTO) {

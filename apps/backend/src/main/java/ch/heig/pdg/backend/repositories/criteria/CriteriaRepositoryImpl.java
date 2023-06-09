@@ -21,7 +21,19 @@ public class CriteriaRepositoryImpl<T, ID> implements CriteriaRepository<T, ID> 
         return this.findByFilter(filter, null);
     }
 
+    public Integer count(HugoSearchFilter<T> filter, Integer inventoryId) {
+        return this.findByFilter(filter, inventoryId, false).size();
+    }
+
+    public Integer count(HugoSearchFilter<T> filter) {
+        return this.findByFilter(filter, null, false).size();
+    }
+
     public List<T> findByFilter(HugoSearchFilter<T> filter, Integer inventoryId) {
+        return this.findByFilter(filter, null, true);
+    }
+
+    private List<T> findByFilter(HugoSearchFilter<T> filter, Integer inventoryId, boolean addLimitOffset) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(filter.klass());
         Root<T> root = criteriaQuery.from(filter.klass());
@@ -106,14 +118,15 @@ public class CriteriaRepositoryImpl<T, ID> implements CriteriaRepository<T, ID> 
         criteriaQuery.orderBy(ordering);
         TypedQuery<T> query = entityManager.createQuery(criteriaQuery);
 
-        if (maxResults != null) {
-            query.setMaxResults(maxResults);
-        }
+        if (addLimitOffset) {
+            if (maxResults != null) {
+                query.setMaxResults(maxResults);
+            }
 
-        if (firstResult != null) {
-            query.setFirstResult(firstResult);
+            if (firstResult != null) {
+                query.setFirstResult(firstResult);
+            }
         }
-
 
         return query.getResultList();
     }

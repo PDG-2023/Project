@@ -11,8 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @IntegrationTest
 public class LocationControllerIntegrationTest extends AbstractAuthenticatedIntegrationTest {
@@ -24,6 +23,8 @@ public class LocationControllerIntegrationTest extends AbstractAuthenticatedInte
                         .header("Authorization", "Bearer " + this.token)
                 )
                 .andExpect(status().isOk())
+                .andExpect(header().exists("X-Total"))
+                .andExpect(header().string("X-Total", "2"))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("location name"));
     }

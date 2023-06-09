@@ -39,6 +39,12 @@ public class CategoryService extends AbstractService {
                 .collect(Collectors.toList());
     }
 
+    public Integer getCategoriesCount(Integer inventoryId, HugoSearchFilter<Category> filter) {
+        this.checkInventory(inventoryId);
+
+        return this.categoryRepository.count(filter, inventoryId);
+    }
+
     public CategoryDTO addCategory(Integer inventoryId, CategoryDTO categoryDTO) {
         Inventory inventory = this.checkInventory(inventoryId);
 
