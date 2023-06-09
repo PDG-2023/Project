@@ -7,7 +7,7 @@ import { appRoutes } from "../views/app.routes";
 	exports: [RouterModule],
 	imports: [
 		RouterModule.forRoot(appRoutes, {
-			initialNavigation: "enabledBlocking"
+			initialNavigation: "enabledNonBlocking"
 		})
 	]
 })

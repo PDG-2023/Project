@@ -18,6 +18,8 @@ import { LocationsView } from "./inventories/locations/locations.view";
 import { SearchView } from "./inventories/search/search.view";
 import { LoginView, LoginViewData } from "./login/login.view";
 import { NotFoundView } from "./not-found/not-found.view";
+import { ProfileView } from "./profile/profile.view";
+import { AuthService } from "../auth/auth.service";
 import { InventoryService } from "../inventory/inventory.service";
 
 export const appRoutes: Route[] = [
@@ -72,5 +74,11 @@ export const appRoutes: Route[] = [
 		}
 	},
 	{ component: InventoriesView, path: InventoriesView.ROUTE_PATH },
+	{
+		component: ProfileView,
+		path: ProfileView.ROUTE_PATH,
+		// This will load the user or redirect to the login if not connected
+		resolve: { user: () => inject(AuthService).updateConnected() }
+	},
 	{ component: NotFoundView, path: "**" }
 ];

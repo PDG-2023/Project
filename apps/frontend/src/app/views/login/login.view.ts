@@ -26,7 +26,10 @@ export interface LoginViewQuery {
 }
 
 interface FormControls
-	extends Record<keyof Pick<UserDto, "email" | "firstName" | "lastName">, FormControl<string>> {
+	extends Record<
+		keyof Pick<UserDto, "email" | "firstName" | "lastName" | "username">,
+		FormControl<string>
+	> {
 	password: FormControl<string>;
 }
 
@@ -69,7 +72,7 @@ export class LoginView extends SubscribableComponent implements OnInit {
 				nonNullable: true,
 				validators: [
 					control => Validators.required(control),
-					control => Validators.email(control)
+					control => (this.isRegistering ? Validators.email(control) : null)
 				]
 			}),
 			firstName: new FormControl("", {
@@ -84,6 +87,13 @@ export class LoginView extends SubscribableComponent implements OnInit {
 				nonNullable: true,
 				validators: [
 					control => Validators.required(control),
+					control => Validators.minLength(LoginView.PASSWORD_MIN_LENGTH)(control)
+				]
+			}),
+			username: new FormControl("", {
+				nonNullable: true,
+				validators: [
+					requiredOnRegister,
 					control => Validators.minLength(LoginView.PASSWORD_MIN_LENGTH)(control)
 				]
 			})
@@ -106,7 +116,7 @@ export class LoginView extends SubscribableComponent implements OnInit {
 				const redirect =
 					(this.activatedRoute.snapshot.queryParams as LoginViewQuery).redirect ?? "/";
 
-				void sleep(2000).then(() => this.router.navigateByUrl(redirect));
+				void sleep(1000).then(() => this.router.navigateByUrl(redirect));
 			})
 		);
 	}
@@ -119,19 +129,17 @@ export class LoginView extends SubscribableComponent implements OnInit {
 		this.error = false;
 		this.loading = true;
 
-		const { email, firstName, lastName, password } = this.form.getRawValue();
+		const { email, firstName, lastName, password, username } = this.form.getRawValue();
 		const request = this.isRegistering
-			? this.userApiService
-					.create({
-						email,
-						firstName,
-						lastName
-					})
-					.then(() => this.authService.login({ password, username: email }))
-			: this.authService.login({
-					password,
-					username: email
-			  });
+			? this.authService.create({
+					email,
+					firstName,
+					lastName,
+					username,
+
+					plainPassword: password
+			  })
+			: this.authService.login({ password, username: email });
 
 		await request
 			.catch(error => (this.error = error as HttpErrorResponse))

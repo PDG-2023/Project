@@ -33,6 +33,7 @@ app-footer {
 
 	max-height: var(--footer-height);
 	position: fixed;
+	z-index: 100;
 }
 
 :host {

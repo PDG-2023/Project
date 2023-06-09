@@ -20,11 +20,34 @@ export class AuthHttpHandler implements HttpHandlerTest {
 	private readonly db = DbBaseSample.users;
 
 	public canHandle(uri: string) {
-		return uri.startsWith(AUTH_API_ENTRYPOINT);
+		return uri.startsWith(AUTH_API_ENTRYPOINT) || uri.startsWith("/users/current-user");
 	}
 
 	public handle(params: HttpHandlerTestParams, request: HttpRequest<unknown>) {
 		const { fullUri, uri } = params;
+
+		if (
+			request.method === HTTP_METHOD.GET.toString() &&
+			uri.startsWith("/users/current-user")
+		) {
+			const tokenRaw = request.headers.get(AuthApiService.AUTH_HEADER);
+			if (tokenRaw) {
+				const userId = this.tokens.get(tokenRaw.slice(7));
+
+				if (userId) {
+					return new HttpResponse({
+						body: this.db.find(({ id }) => id === userId)!,
+						status: 200,
+						url: fullUri
+					});
+				}
+			}
+
+			return new HttpResponse({
+				status: 401,
+				url: fullUri
+			});
+		}
 
 		if (request.method === HTTP_METHOD.POST.toString()) {
 			const action = this.getUriAction(uri);
