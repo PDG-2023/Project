@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, Inject } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
+import { ThemePalette } from "@angular/material/core";
 import { MAT_DIALOG_DATA, MatDialogModule } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import { isObservable, Observable } from "rxjs";
@@ -14,6 +15,10 @@ export interface ConfirmDialogData {
 	 * @default translation of "OK"
 	 */
 	confirm?: Text;
+	/**
+	 * Palette color of the confirm button
+	 */
+	confirmColor?: ThemePalette;
 	/**
 	 * Text of a description
 	 * Can be html

@@ -4,9 +4,11 @@
 		"close": "Close",
 		"confirm": "Confirm",
 		"delete": "Delete",
+		"edit": "Edit",
 		"login": "Log in",
 		"logout": "Logout",
 		"register": "Register",
+		"remove": "Remove",
 		"search": "Search",
 		"show": "Show",
 		"update": "Update"
@@ -48,7 +50,8 @@
 		"category": {
 			"__meta": {
 				"names": "Categories"
-			}
+			},
+			"name": "Name"
 		},
 		"entity": {
 			"created": "Date of creation",
@@ -88,6 +91,7 @@
 			"500": "A server error occurred.",
 			"generic": "A network error occurred."
 		},
+		"occurred": "An error occurred.",
 		"validation": {
 			"email": "The value is not a valid email.",
 			"invalid": "The value is invalid.",
@@ -101,6 +105,33 @@
 		"time": "HH:mm:ss"
 	},
 	"views": {
+		"categories": {
+			"dialogs": {
+				"delete": {
+					"description": "This actions can not be reversed.",
+					"title": "Delete a category"
+				},
+				"remove-category": {
+					"description": "It will move the child category to the parent category.",
+					"title": "Remove the category"
+				},
+				"remove-item": {
+					"description": "The item model would no longer be accessible from this category.",
+					"title": "Remove the item model"
+				}
+			}
+		},
+		"inventories": {
+			"one": {
+				"title": {
+					"_0": "Category",
+					"_1": ""
+				}
+			},
+			"roots": {
+				"title": "Root categories"
+			}
+		},
 		"inventory": {
 			"dialogs": {
 				"user-delete": {

@@ -14,7 +14,12 @@
 		{{ "actions.cancel" | translate }}
 	</button>
 
-	<button color="primary" mat-raised-button type="submit" [mat-dialog-close]="true">
+	<button
+		mat-raised-button
+		type="submit"
+		[color]="data.confirmColor ?? 'primary'"
+		[mat-dialog-close]="true"
+	>
 		{{ isObservable(data.confirm) ? (data.confirm | async) : data.confirm }}
 	</button>
 </mat-dialog-actions>

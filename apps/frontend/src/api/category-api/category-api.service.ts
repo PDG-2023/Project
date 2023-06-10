@@ -28,4 +28,11 @@ export class CategoryApiService extends EntityApiService<
 			query
 		);
 	}
+
+	public createForInventory(inventory: number, body: CategoryCreateDto) {
+		return this.client.post(
+			`${inventorySingleEntrypoint(inventory)}${CATEGORY_API_ENDPOINT}`,
+			body
+		);
+	}
 }

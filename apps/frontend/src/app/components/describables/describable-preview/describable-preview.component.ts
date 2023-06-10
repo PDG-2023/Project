@@ -39,11 +39,15 @@ export class DescribablePreviewComponent<T extends DescribableDto = DescribableD
 	@Input()
 	public hasChildren = false;
 
+	@Input()
+	public canRemove = false;
+
 	/**
 	 * Expand the preview on rendering
 	 */
 	@Input()
 	public expanded = false;
+
 	/**
 	 * When the describable become or is longer expanded.
 	 * Only from the inside; setting the `expanded` input will not trigger this event.
@@ -67,5 +71,5 @@ export class DescribablePreviewComponent<T extends DescribableDto = DescribableD
 	 * Returns this describable in the event
 	 */
 	@Output()
-	public readonly delete = new EventEmitter<T>();
+	public readonly remove = new EventEmitter<T>();
 }

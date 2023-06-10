@@ -8,8 +8,8 @@ import { HeaderComponent } from "./_layout/header/header.component";
 import { SidebarComponent } from "./_layout/sidebar/sidebar.component";
 import { ToolbarComponent } from "./_layout/toolbar/toolbar.component";
 import { IndexView } from "./index/index.view";
-import { CategoryView } from "./inventories/categories/categories/category.view";
 import { CategoriesView } from "./inventories/categories/categories.view";
+import { CategoryEditView } from "./inventories/categories/category-edit/category-edit.view";
 import { InventoriesView } from "./inventories/inventories.view";
 import { InventoryView } from "./inventories/inventory/inventory.view";
 import { InventoryErrorView } from "./inventories/inventory-error/inventory-error.view";
@@ -30,7 +30,7 @@ import { AppRouterModule } from "../router";
 	declarations: [
 		AppComponent,
 		CategoriesView,
-		CategoryView,
+		CategoryEditView,
 		FooterComponent,
 		HeaderComponent,
 		IndexView,

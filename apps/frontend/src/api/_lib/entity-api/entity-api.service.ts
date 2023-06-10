@@ -18,7 +18,7 @@ export abstract class EntityApiService<
 	T extends EntityDto,
 	ToCreate,
 	ToReplace,
-	Q extends EntityFindQuery<T> = EntityFindQuery<T>
+	Q = EntityFindQuery<T>
 > {
 	/**
 	 * Header key where the total of items is stored
@@ -90,7 +90,7 @@ export abstract class EntityApiService<
 	 * @param query to request
 	 * @returns the data found and its total
 	 */
-	protected _findAndCount<T2 = T, Q2 extends EntityFindQuery<T2> = EntityFindQuery<T2>>(
+	protected _findAndCount<T2 = T, Q2 = EntityFindQuery<T2>>(
 		params: FindAndCountParams,
 		query?: Q2
 	): Promise<FoundAndTotal<T2>> {

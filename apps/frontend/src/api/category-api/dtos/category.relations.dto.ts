@@ -4,5 +4,5 @@ export interface CategoryRelationsDto extends CategoryDto {
 	/**
 	 * Can not exist
 	 */
-	parent: CategoryDto;
+	parent: CategoryRelationsDto;
 }

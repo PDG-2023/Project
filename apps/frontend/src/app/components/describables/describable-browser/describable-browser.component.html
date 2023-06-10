@@ -1,53 +1,53 @@
-<mat-card>
-	<mat-card-content class="flex flex-col gap-4">
-		<div class="flex flex-col">
-			<mat-form-field>
-				<mat-label translate>actions.search</mat-label>
-				<input matInput [formControl]="searchControl" />
+<div class="flex flex-col gap-4">
+	<div class="flex flex-col">
+		<mat-form-field>
+			<mat-label translate>actions.search</mat-label>
+			<input matInput [formControl]="searchControl" />
 
-				<mat-spinner
-					*ngIf="searching"
-					diameter="18"
-					matTextSuffix
-					mode="indeterminate"
-				></mat-spinner>
-
-				<button
-					*ngIf="!searching && searchControl.value"
-					mat-icon-button
-					matSuffix
-					type="button"
-					(click)="searchControl.setValue('')"
-				>
-					<mat-icon>close</mat-icon>
-				</button>
-
-				<mat-icon *ngIf="!searching && !searchControl.value" matSuffix>search</mat-icon>
-			</mat-form-field>
-
-			<mat-progress-bar
+			<mat-spinner
+				*ngIf="searching"
+				diameter="18"
+				matTextSuffix
 				mode="indeterminate"
-				[class.v-hidden]="!dataState.loading"
-			></mat-progress-bar>
-		</div>
+			></mat-spinner>
 
-		<div *ngIf="dataState.data as dataPaginated" class="flex flex-col gap-4">
-			<app-describable-preview
-				*ngFor="let describable of dataPaginated.data"
-				[describable]="describable"
-				[hrefEdit]="hrefEdit(describable)"
-				[hrefShow]="hrefShow(describable)"
-				(delete)="delete.emit($event)"
-				(expandedChange)="expandedChange.emit({ item: describable, expanded: $event })"
-			></app-describable-preview>
-		</div>
+			<button
+				*ngIf="!searching && searchControl.value"
+				mat-icon-button
+				matSuffix
+				type="button"
+				(click)="searchControl.setValue('')"
+			>
+				<mat-icon>close</mat-icon>
+			</button>
 
-		<mat-paginator
-			showFirstLastButtons
-			[length]="dataState.data?.total ?? 0"
-			[pageSize]="initialSize"
-			[pageSizeOptions]="pageOptions"
-			(page)="handlePageChange($event)"
-		></mat-paginator>
-	</mat-card-content>
-</mat-card>
+			<mat-icon *ngIf="!searching && !searchControl.value" matSuffix>search</mat-icon>
+		</mat-form-field>
+
+		<mat-progress-bar
+			mode="indeterminate"
+			[class.v-hidden]="!dataState.loading"
+		></mat-progress-bar>
+	</div>
+
+	<div *ngIf="dataState.data as dataPaginated" class="flex flex-col gap-4">
+		<app-describable-preview
+			*ngFor="let describable of dataPaginated.data"
+			[canRemove]="describable.canRemove ?? false"
+			[describable]="describable.data"
+			[hasChildren]="describable.hasChildren ?? false"
+			[hrefEdit]="describable.hrefEdit"
+			[hrefShow]="describable.hrefShow"
+			(expandedChange)="expandedChange.emit({ item: describable.data, expanded: $event })"
+			(remove)="remove.emit($event)"
+		></app-describable-preview>
+	</div>
+
+	<mat-paginator
+		showFirstLastButtons
+		[length]="dataState.data?.total ?? 0"
+		[pageSize]="initialSize"
+		[pageSizeOptions]="pageOptions"
+		(page)="handlePageChange($event)"
+	></mat-paginator>
+</div>

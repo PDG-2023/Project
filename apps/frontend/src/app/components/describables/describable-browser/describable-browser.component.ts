@@ -3,7 +3,6 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
-import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
@@ -13,6 +12,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { TranslateModule } from "@ngx-translate/core";
 import { debounceTime, distinctUntilChanged, tap } from "rxjs";
 
+import { LoadState } from "../../../../_lib/load-state";
 import { sleep } from "../../../../_lib/utils";
 import { FoundAndTotal } from "../../../../api/_lib/entity-api";
 import { DescribableDto } from "../../../../api/_lib/entity-api/dtos";
@@ -38,10 +38,12 @@ export interface DescribableBrowserLoaderParams {
 	size: number;
 }
 
-interface LoadState<T> {
-	data?: T;
-	error: HttpErrorResponse | false;
-	loading: boolean;
+export interface DescribableWithMeta<T> {
+	canRemove?: boolean;
+	data: T;
+	hasChildren?: boolean;
+	hrefEdit: string;
+	hrefShow: string;
 }
 
 @Component({
@@ -54,7 +56,6 @@ interface LoadState<T> {
 		CommonModule,
 		DescribablePreviewComponent,
 		MatPaginatorModule,
-		MatCardModule,
 		MatButtonModule,
 		MatFormFieldModule,
 		MatIconModule,
@@ -70,14 +71,9 @@ export class DescribableBrowserComponent<T extends DescribableDto = DescribableD
 	implements OnInit
 {
 	@Input()
-	public hrefShow!: (describable: T) => string;
-	@Input()
-	public hrefEdit!: (describable: T) => string;
-
-	@Input()
 	public loader!: (
 		params: DescribableBrowserLoaderParams
-	) => FoundAndTotal<T> | Promise<FoundAndTotal<T>>;
+	) => FoundAndTotal<DescribableWithMeta<T>> | Promise<FoundAndTotal<DescribableWithMeta<T>>>;
 
 	/**
 	 * Max size of a page (this does not force the data to 10).
@@ -97,12 +93,15 @@ export class DescribableBrowserComponent<T extends DescribableDto = DescribableD
 	public initialSearch = "";
 
 	@Output()
-	public readonly delete = new EventEmitter<T>();
+	public readonly remove = new EventEmitter<T>();
 	@Output()
 	public readonly expandedChange = new EventEmitter<{ expanded: boolean; item: T }>();
 
 	protected readonly pageOptions = [5, 10, 25, 50];
-	protected readonly dataState: LoadState<FoundAndTotal<T>> = { error: false, loading: true };
+	protected readonly dataState: LoadState<FoundAndTotal<DescribableWithMeta<T>>> = {
+		error: false,
+		loading: true
+	};
 
 	protected searching = false;
 	protected readonly searchControl = new FormControl<string>("", { nonNullable: true });
@@ -135,6 +134,18 @@ export class DescribableBrowserComponent<T extends DescribableDto = DescribableD
 			page: this.initialPage,
 			search: this.initialSearch,
 			size: this.initialSize
+		});
+	}
+
+	/**
+	 * Re-load data
+	 * @returns a promise when the data is loaded
+	 */
+	public refresh() {
+		return this.loadData({
+			page: this.paginator.pageIndex,
+			search: this.searchControl.value,
+			size: this.paginator.pageSize
 		});
 	}
 
