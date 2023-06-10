@@ -1,0 +1,28 @@
+<mat-card>
+	<mat-card-content class="flex flex-col gap-2 sm:flex-row">
+		<div class="flex flex-1 flex-row gap-2 align-i-center">
+			<div class="flex justify-c-center">
+				<mat-icon *ngIf="!selected">inventory</mat-icon>
+				<mat-icon *ngIf="selected" color="primary">outbox</mat-icon>
+			</div>
+
+			<div>
+				<h3>{{ inventory.name }}</h3>
+
+				<span *ngIf="isOwner" translate
+					>components.inventories.inventory-preview.you-are-owner</span
+				>
+			</div>
+		</div>
+
+		<div *ngIf="!selected" class="flex align-i-end justify-c-end">
+			<button
+				mat-button
+				type="button"
+				(click)="$event.stopPropagation(); setCurrentClick.emit(inventory)"
+			>
+				{{ "components.inventories.inventory-preview.set-current" | translate }}
+			</button>
+		</div>
+	</mat-card-content>
+</mat-card>
