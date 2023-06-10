@@ -2,15 +2,24 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { debounceTime, distinctUntilChanged, filter, tap } from "rxjs";
+import { TranslateService } from "@ngx-translate/core";
+import { debounceTime, distinctUntilChanged, Observable, tap } from "rxjs";
 
-import { InventoryDto } from "../../../../api/inventory-api/dtos";
+import { LoadState } from "../../../../_lib/load-state";
+import { InventorySearchResults } from "../../../../api/inventory-api";
+import { InventoryDto, InventorySearchEntityType } from "../../../../api/inventory-api/dtos";
 import { SubscribableComponent } from "../../../components/_lib/subscribable.component";
 import { InventoryService } from "../../../inventory/inventory.service";
 import { InventoryView } from "../inventory/inventory.view";
 
 export interface SearchViewQuery {
 	text?: string;
+}
+
+interface ResultTab {
+	href: string | false;
+	label: Observable<string>;
+	type: InventorySearchEntityType;
 }
 
 @Component({
@@ -31,16 +40,43 @@ export class SearchView extends SubscribableComponent implements OnInit {
 	protected readonly searchControl = new FormControl<string>("", { nonNullable: true });
 	protected inventory!: InventoryDto;
 
-	protected error: HttpErrorResponse | false = false;
-	protected searching = false;
-	protected data?: string;
+	protected readonly searchState: LoadState<InventorySearchResults> = {
+		error: false,
+		loading: false
+	};
+
+	protected readonly resultTabs: ResultTab[];
 
 	public constructor(
 		private inventoryService: InventoryService,
 		private readonly activatedRoute: ActivatedRoute,
-		private readonly router: Router
+		private readonly router: Router,
+		private readonly translateService: TranslateService
 	) {
 		super();
+
+		this.resultTabs = [
+			{
+				// TODO
+				href: "",
+				label: translateService.stream(
+					"entities.location.__meta.names"
+				) as Observable<string>,
+				type: "location"
+			},
+			{
+				href: "",
+				label: translateService.stream(
+					"entities.item-model.__meta.names"
+				) as Observable<string>,
+				type: "itemModel"
+			},
+			{
+				href: false,
+				label: translateService.stream("entities.user.__meta.names") as Observable<string>,
+				type: "user"
+			}
+		];
 	}
 
 	public ngOnInit() {
@@ -50,12 +86,13 @@ export class SearchView extends SubscribableComponent implements OnInit {
 			),
 			this.searchControl.valueChanges
 				.pipe(
-					filter(value => !!value),
-					tap(() => (this.searching = true)),
-					debounceTime(750),
+					tap(() => (this.searchState.loading = true)),
+					debounceTime(350),
 					distinctUntilChanged()
 				)
-				.subscribe(() => this.handleSearch())
+				.subscribe(() => {
+					void this.handleSearch();
+				})
 		);
 
 		const { text } = this.activatedRoute.snapshot.queryParams as SearchViewQuery;
@@ -68,25 +105,22 @@ export class SearchView extends SubscribableComponent implements OnInit {
 		this.searchControl.setValue("");
 	}
 
-	protected handleSearch() {
+	protected async handleSearch() {
 		const { value } = this.searchControl;
+		void this.router.navigate([], {
+			queryParams: value ? ({ text: value } satisfies SearchViewQuery) : {},
+			replaceUrl: true
+		});
+
 		if (!value) {
 			return;
 		}
 
-		if (value.startsWith("error")) {
-			// eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- temporary
-			this.error = { status: 500 } as HttpErrorResponse;
-		} else {
-			this.data = `${value}-${value}`;
-			this.error = false;
-		}
-
-		this.searching = false;
-		void this.router.navigate([], {
-			queryParams: value ? ({ text: value } satisfies SearchViewQuery) : {},
-			queryParamsHandling: "merge",
-			replaceUrl: true
-		});
+		this.searchState.loading = true;
+		return this.inventoryService.api
+			.search(this.inventory.id, value)
+			.then(results => (this.searchState.data = results))
+			.catch(e => (this.searchState.error = e as HttpErrorResponse))
+			.finally(() => (this.searchState.loading = false));
 	}
 }

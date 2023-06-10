@@ -177,6 +177,9 @@
 			"update-password": "Update your password",
 			"your-informations": "Your profile informations",
 			"your-profile": "Your profile"
+		},
+		"search": {
+			"no-results": "No results found."
 		}
 	}
 }

@@ -6,6 +6,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { SearchView } from "./search.view";
 import { ApiModule } from "../../../../api";
 import { MaterialsModule } from "../../../materials/materials.module";
+import { TranslationModule } from "../../../translation";
 
 describe("LocationsView", () => {
 	let component: SearchView;
@@ -20,7 +21,8 @@ describe("LocationsView", () => {
 				MaterialsModule,
 				ReactiveFormsModule,
 				NoopAnimationsModule,
-				RouterTestingModule
+				RouterTestingModule,
+				TranslationModule
 			]
 		}).compileComponents();
 

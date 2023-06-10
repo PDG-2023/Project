@@ -1,0 +1,8 @@
+@use "sass:map";
+@use "../../../../styles/palettes";
+
+:host app-search-result-preview.cursor-pointer::ng-deep mat-card {
+	&:hover {
+		background-color: map.get(palettes.$frontend-warn-palette, 50);
+	}
+}
