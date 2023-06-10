@@ -2,6 +2,7 @@ package ch.heig.pdg.backend.services;
 
 import ch.heig.pdg.backend.dto.UserDTO;
 import ch.heig.pdg.backend.dto.mapping.UserMapper;
+import ch.heig.pdg.backend.entities.Inventory;
 import ch.heig.pdg.backend.entities.User;
 import ch.heig.pdg.backend.exception.exceptions.ForbiddenOperationException;
 import ch.heig.pdg.backend.repositories.InventoryRepository;
@@ -28,11 +29,20 @@ public class UserService extends AbstractService {
     }
 
     public UserDTO addUser(UserDTO userDTO) {
-        return (UserDTO) this.userMapper.getDTO(
-                this.userRepository.save(
-                        this.userMapper.createFromDTO(userDTO)
-                )
+        User user = this.userRepository.save(
+                this.userMapper.createFromDTO(userDTO)
         );
+        UserDTO newUserDTO = (UserDTO) this.userMapper.getDTO(
+                user
+        );
+
+        Inventory inventory = new Inventory();
+        inventory.setOwner(user);
+        inventory.setName(user.getFirstName() + "'s pouch of wonders");
+
+        this.inventoryRepository.save(inventory);
+
+        return newUserDTO;
     }
 
     public List<UserDTO> search(Integer inventoryId, String searchTerm) {
