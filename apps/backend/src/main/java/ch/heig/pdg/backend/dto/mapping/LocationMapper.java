@@ -31,12 +31,9 @@ public class LocationMapper extends AbstractDataMapper implements IDataTransferO
         LocationDTO locationDTO = (LocationDTO) dto;
         location.setName(locationDTO.getName());
         location.setDescription(locationDTO.getDescription());
+
         if (locationDTO.getParentLocationId().isPresent()) {
-            location.setParent(
-                locationDTO.getParentLocationId().get() == null
-                    ? null
-                    : this.entityManager.getReference(Location.class, locationDTO.getParentLocationId().get())
-            );
+            location.setParent(this.getReference(locationDTO.getParentLocationId().get(), Location.class));
         }
         return location;
     }

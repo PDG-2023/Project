@@ -30,11 +30,7 @@ public class CategoryMapper extends AbstractDataMapper implements IDataTransferO
         CategoryDTO categoryDTO = (CategoryDTO) dto;
         category.setName(categoryDTO.getName());
         if (categoryDTO.getParentCategoryId().isPresent()) {
-            category.setParent(
-                categoryDTO.getParentCategoryId().get() == null
-                    ? null
-                    : this.entityManager.getReference(Category.class, categoryDTO.getParentCategoryId().get())
-            );
+            category.setParent(this.getReference(categoryDTO.getParentCategoryId().get(), Category.class));
         }
         return category;
     }
