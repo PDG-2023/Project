@@ -1,0 +1,13 @@
+#path-category {
+	.path-category {
+		a {
+			text-decoration: none;
+		}
+
+		&.children {
+			&::before {
+				content: "> ";
+			}
+		}
+	}
+}

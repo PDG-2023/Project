@@ -4,6 +4,7 @@ import { ResolveFn, Route } from "@angular/router";
 
 import { IndexView } from "./index/index.view";
 import { CategoriesView } from "./inventories/categories/categories.view";
+import { CategoryEditView } from "./inventories/categories/category-edit/category-edit.view";
 import { InventoriesView } from "./inventories/inventories.view";
 import { InventoryView, InventoryViewRouteParam } from "./inventories/inventory/inventory.view";
 import {
@@ -33,6 +34,7 @@ export const appRoutes: Route[] = [
 		children: [
 			{
 				children: [
+					{ component: CategoryEditView, path: CategoryEditView.ROUTE_PATH },
 					{ component: CategoriesView, path: CategoriesView.ROUTE_PATH_FOR_ONE_PARAM },
 					{ component: CategoriesView, path: "" }
 				],

@@ -2,7 +2,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormControl, Validators } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { lastValueFrom } from "rxjs";
 
@@ -69,8 +69,7 @@ export class CategoriesView extends SubscribableComponent implements OnInit {
 	 * null on root view
 	 */
 	protected categoryState: LoadState<CategoryDto> | null = null;
-	protected parent: CategoryDto | null = null;
-
+	protected parents: CategoryDto[] = [];
 	protected readonly addCategoryNameControl = new FormControl("", {
 		nonNullable: true,
 		validators: [control => Validators.required(control)]
@@ -81,14 +80,21 @@ export class CategoriesView extends SubscribableComponent implements OnInit {
 	@ViewChild("browserItems")
 	private browserItems?: DescribableBrowserComponent;
 
+	protected get parent(): CategoryDto | null {
+		return this.parents.length ? this.parents[this.parents.length - 1] : null;
+	}
+
+	protected get ROOT_PATH() {
+		return CategoriesView.getPath(this.inventory.id);
+	}
+
 	public constructor(
 		private readonly inventoryService: InventoryService,
 		private readonly categoryApi: CategoryApiService,
 		private readonly itemModelApi: ItemModelApiService,
 		private readonly activatedRoute: ActivatedRoute,
 		private readonly matDialog: MatDialog,
-		private readonly translateService: TranslateService,
-		private readonly router: Router
+		private readonly translateService: TranslateService
 	) {
 		super();
 	}
@@ -112,9 +118,18 @@ export class CategoriesView extends SubscribableComponent implements OnInit {
 						.findById(categoryId)
 						.then(category => (state.data = category))
 						.then(async category => {
-							this.parent = category.parentCategoryId
-								? await this.categoryApi.findById(category.parentCategoryId)
-								: null;
+							const parents = [];
+							let child = category;
+
+							while (child.parentCategoryId) {
+								const parent = await this.categoryApi.findById(
+									child.parentCategoryId
+								);
+								parents.unshift(parent);
+								child = parent;
+							}
+
+							this.parents = parents;
 						})
 						.catch(e => (state.error = e as HttpErrorResponse));
 
@@ -151,36 +166,6 @@ export class CategoriesView extends SubscribableComponent implements OnInit {
 				this.addCategoryNameControl.setValue("");
 				return this.browserCategories?.refresh();
 			});
-	}
-
-	protected handleDelete(category: CategoryDto) {
-		return lastValueFrom(
-			this.matDialog
-				.open<ConfirmDialog, ConfirmDialogData, boolean>(ConfirmDialog, {
-					data: {
-						confirm: this.translateService.get("actions.delete"),
-						confirmColor: "warn",
-						description: this.translateService.get(
-							"views.categories.dialogs.delete.description"
-						),
-						title: this.translateService.get("views.categories.dialogs.delete.title")
-					}
-				})
-				.afterClosed()
-		).then(confirmed => {
-			if (!confirmed) {
-				return;
-			}
-			void this.categoryApi
-				.delete(category.id)
-				.then(() =>
-					this.router.navigate([
-						this.parent
-							? this.getCategoryHrefShow(this.parent)
-							: CategoriesView.getPath(this.inventory.id)
-					])
-				);
-		});
 	}
 
 	protected loadCategories(

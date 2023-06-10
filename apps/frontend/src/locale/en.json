@@ -107,10 +107,6 @@
 	"views": {
 		"categories": {
 			"dialogs": {
-				"delete": {
-					"description": "This actions can not be reversed.",
-					"title": "Delete a category"
-				},
 				"remove-category": {
 					"description": "It will move the child category to the parent category.",
 					"title": "Remove the category"
@@ -119,9 +115,7 @@
 					"description": "The item model would no longer be accessible from this category.",
 					"title": "Remove the item model"
 				}
-			}
-		},
-		"inventories": {
+			},
 			"one": {
 				"title": {
 					"_0": "Category",
@@ -131,6 +125,16 @@
 			"roots": {
 				"title": "Root categories"
 			}
+		},
+		"category-edit": {
+			"dialogs": {
+				"delete": {
+					"description": "This actions can not be reversed.",
+					"title": "Delete the category?"
+				}
+			},
+			"parent-category": "Parent category:",
+			"visualize": "Visualize the category"
 		},
 		"inventory": {
 			"dialogs": {

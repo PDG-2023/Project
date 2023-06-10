@@ -1,10 +1,19 @@
 <div class="flex flex-col gap-4">
-	<h1 *ngIf="!categoryState" translate>views.inventories.roots.title</h1>
+	<h1 *ngIf="!categoryState" translate>views.categories.roots.title</h1>
 	<h1 *ngIf="categoryState">
-		{{ "views.inventories.one.title._0" | translate }}
+		{{ "views.categories.one.title._0" | translate }}
 		<span class="font-italic">{{ categoryState.data?.name || "???" }}</span>
-		{{ "views.inventories.one.title._1" | translate }}
+		{{ "views.categories.one.title._1" | translate }}
 	</h1>
+
+	<p class="flex flex-row flex-wrap gap-x-2 mb-2 mx-2" id="path-category">
+		<span class="path-category root"><a [routerLink]="ROOT_PATH">root</a></span>
+		<span *ngFor="let parent of parents" class="children path-category">
+			<a class="font-italic" [routerLink]="getCategoryHrefShow(parent)">
+				{{ parent.name }}
+			</a>
+		</span>
+	</p>
 
 	<mat-card *ngIf="categoryState">
 		<mat-card-content class="flex flex-col gap-4">
@@ -31,7 +40,7 @@
 
 				<p *ngIf="category.description">{{ category.description }}</p>
 
-				<div class="flex flex-row gap-2 justify-c-end">
+				<div class="flex flex-row justify-c-end">
 					<a
 						color="accent"
 						mat-mini-fab
@@ -40,15 +49,6 @@
 					>
 						<mat-icon>edit</mat-icon>
 					</a>
-
-					<button
-						color="warn"
-						mat-mini-fab
-						type="button"
-						(click)="handleDelete(category)"
-					>
-						<mat-icon>delete</mat-icon>
-					</button>
 				</div>
 			</div>
 		</mat-card-content>
@@ -87,15 +87,15 @@
 
 		<mat-card-content *ngIf="categoryState">
 			<mat-tab-group>
-				<mat-tab [label]="'entities.category.__meta.names' | translate">
-					<ng-container *ngTemplateOutlet="tplBrowserCategories"></ng-container>
-				</mat-tab>
 				<mat-tab [label]="'entities.item-model.__meta.names' | translate">
 					<app-describable-browser
 						#browserItems
 						[loader]="loadItems.bind(this)"
 						(remove)="handleItemRemove($event)"
 					></app-describable-browser>
+				</mat-tab>
+				<mat-tab [label]="'entities.category.__meta.names' | translate">
+					<ng-container *ngTemplateOutlet="tplBrowserCategories"></ng-container>
 				</mat-tab>
 			</mat-tab-group>
 		</mat-card-content>

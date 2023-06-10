@@ -3,6 +3,8 @@ import { RouterTestingModule } from "@angular/router/testing";
 
 import { CategoryEditView } from "./category-edit.view";
 import { ApiModule } from "../../../../../api";
+import { MaterialsModule } from "../../../../materials/materials.module";
+import { TranslationModule } from "../../../../translation";
 
 describe("CategoryEditView", () => {
 	let component: CategoryEditView;
@@ -11,7 +13,7 @@ describe("CategoryEditView", () => {
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			declarations: [CategoryEditView],
-			imports: [ApiModule, RouterTestingModule]
+			imports: [ApiModule, MaterialsModule, RouterTestingModule, TranslationModule]
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(CategoryEditView);
