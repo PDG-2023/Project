@@ -72,7 +72,7 @@ export class LoginView extends SubscribableComponent implements OnInit {
 				nonNullable: true,
 				validators: [
 					control => Validators.required(control),
-					control => Validators.email(control)
+					control => (this.isRegistering ? Validators.email(control) : null)
 				]
 			}),
 			firstName: new FormControl("", {

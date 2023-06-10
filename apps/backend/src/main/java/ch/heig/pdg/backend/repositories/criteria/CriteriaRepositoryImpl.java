@@ -21,7 +21,19 @@ public class CriteriaRepositoryImpl<T, ID> implements CriteriaRepository<T, ID> 
         return this.findByFilter(filter, null);
     }
 
+    public Integer count(HugoSearchFilter<T> filter, Integer inventoryId) {
+        return this.findByFilter(filter, inventoryId, false).size();
+    }
+
+    public Integer count(HugoSearchFilter<T> filter) {
+        return this.findByFilter(filter, null, false).size();
+    }
+
     public List<T> findByFilter(HugoSearchFilter<T> filter, Integer inventoryId) {
+        return this.findByFilter(filter, null, true);
+    }
+
+    private List<T> findByFilter(HugoSearchFilter<T> filter, Integer inventoryId, boolean addLimitOffset) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(filter.klass());
         Root<T> root = criteriaQuery.from(filter.klass());
@@ -33,6 +45,8 @@ public class CriteriaRepositoryImpl<T, ID> implements CriteriaRepository<T, ID> 
         if (!filter.hasFilters()) {
             criteriaQuery.select(root);
         } else {
+            List<Predicate> conditions = new ArrayList<>();
+
             for (Map.Entry<String, String> filters : filter.filters().entrySet()) {
                 criteriaQuery.select(root);
                 String filterContent = filters.getKey();
@@ -59,10 +73,17 @@ public class CriteriaRepositoryImpl<T, ID> implements CriteriaRepository<T, ID> 
                     }
                     //@formatter:off
                     if (dateFilterValue == null) {
-                        criteriaQuery.where(
+                        // Only if the datatype is an integer
+                        // TODO: same for date?
+                        // TODO: for string?
+                        boolean isNull = nestedPath.getModel() != null
+                                && nestedPath.getModel().getBindableJavaType() == Integer.class
+                                && (filterValue.equals("null") || filterValue.equals(""));
+
+                        conditions.add(
                             switch (fieldComparison) {
-                                case "eq" -> criteriaBuilder.equal(nestedPath, filterValue);
-                                case "neq" -> criteriaBuilder.notEqual(nestedPath, filterValue);
+                                case "eq" -> isNull ? criteriaBuilder.isNull(nestedPath) : criteriaBuilder.equal(nestedPath, filterValue);
+                                case "neq" -> isNull ? criteriaBuilder.isNotNull(nestedPath) : criteriaBuilder.notEqual(nestedPath, filterValue);
                                 case "lte" -> criteriaBuilder.lessThanOrEqualTo(nestedPath.as(String.class), filterValue);
                                 case "gte" -> criteriaBuilder.greaterThanOrEqualTo(nestedPath.as(String.class), filterValue);
                                 case "lt" -> criteriaBuilder.lessThan(nestedPath.as(String.class), filterValue);
@@ -72,7 +93,7 @@ public class CriteriaRepositoryImpl<T, ID> implements CriteriaRepository<T, ID> 
                             }
                         );
                     } else {
-                        criteriaQuery.where(
+                        conditions.add(
                             switch (fieldComparison) {
                                 case "eq" -> criteriaBuilder.equal(nestedPath, dateFilterValue);
                                 case "neq" -> criteriaBuilder.notEqual(nestedPath, dateFilterValue);
@@ -102,18 +123,24 @@ public class CriteriaRepositoryImpl<T, ID> implements CriteriaRepository<T, ID> 
                     throw new BadRequestException("Invalid filter");
                 }
             }
+
+            if (!conditions.isEmpty()) {
+                criteriaQuery.where(conditions.toArray(new Predicate[conditions.size()]));
+            }
         }
+
         criteriaQuery.orderBy(ordering);
         TypedQuery<T> query = entityManager.createQuery(criteriaQuery);
 
-        if (maxResults != null) {
-            query.setMaxResults(maxResults);
-        }
+        if (addLimitOffset) {
+            if (maxResults != null) {
+                query.setMaxResults(maxResults);
+            }
 
-        if (firstResult != null) {
-            query.setFirstResult(firstResult);
+            if (firstResult != null) {
+                query.setFirstResult(firstResult);
+            }
         }
-
 
         return query.getResultList();
     }

@@ -31,4 +31,12 @@ public abstract class AbstractDataMapper {
 
         return ids.stream().map(e -> this.entityManager.getReference(obj, e)).collect(Collectors.toList());
     }
+
+    protected <T extends AbstractEntity> T getReference(Integer id, Class<T> obj) {
+        if (id == null) {
+            return null;
+        }
+
+        return this.entityManager.getReference(obj, id);
+    }
 }

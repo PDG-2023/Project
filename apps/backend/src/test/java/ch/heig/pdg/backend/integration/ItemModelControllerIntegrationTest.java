@@ -9,8 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @IntegrationTest
 public class ItemModelControllerIntegrationTest extends AbstractAuthenticatedIntegrationTest {
@@ -21,6 +20,8 @@ public class ItemModelControllerIntegrationTest extends AbstractAuthenticatedInt
                         .header("Authorization", "Bearer " + this.token)
                 )
                 .andExpect(status().isOk())
+                .andExpect(header().exists("X-Total"))
+                .andExpect(header().string("X-Total", "2"))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("name"));
     }
@@ -64,7 +65,7 @@ public class ItemModelControllerIntegrationTest extends AbstractAuthenticatedInt
                 )
                 .andExpect(status().isCreated())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(3))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(itemModelName))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.description").value(description));
     }

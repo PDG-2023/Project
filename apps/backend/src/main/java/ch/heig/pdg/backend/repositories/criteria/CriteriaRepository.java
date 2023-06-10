@@ -8,4 +8,8 @@ public interface CriteriaRepository<T, ID> {
     List<T> findByFilter(HugoSearchFilter<T> filter, Integer inventoryId);
 
     List<T> findByFilter(HugoSearchFilter<T> filter);
+
+    Integer count(HugoSearchFilter<T> filter);
+
+    Integer count(HugoSearchFilter<T> filter, Integer inventoryId);
 }

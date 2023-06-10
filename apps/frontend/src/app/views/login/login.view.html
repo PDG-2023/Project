@@ -20,7 +20,7 @@
 						>views.login.email-or-username</mat-label
 					>
 					<input matInput name="email" type="text" [formControl]="form.controls.email" />
-					<mat-error translate>views.login._errors.email</mat-error>
+					<mat-error>{{ form.controls.email.errors | translateControlError }}</mat-error>
 				</mat-form-field>
 
 				<mat-form-field *ngIf="isRegistering">
