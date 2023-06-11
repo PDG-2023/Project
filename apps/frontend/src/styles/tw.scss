@@ -14,6 +14,11 @@
 		display: none;
 	}
 
+	// visibility related
+	.#{$prefix}v-hidden#{$pseudo} {
+		visibility: hidden;
+	}
+
 	// position related
 	.#{$prefix}fixed#{$pseudo} {
 		position: fixed;

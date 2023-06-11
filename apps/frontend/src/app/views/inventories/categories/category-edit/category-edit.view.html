@@ -1,0 +1,64 @@
+<div class="flex flex-col gap-4">
+	<div class="flex flex-row gap-1 align-i-center">
+		<h1 class="flex-1">
+			{{ "views.categories.one.title._0" | translate }}
+			<span class="font-italic">{{ categoryState.data?.name || "???" }}</span>
+			{{ "views.categories.one.title._1" | translate }}
+		</h1>
+
+		<button
+			*ngIf="categoryState.data"
+			color="warn"
+			mat-mini-fab
+			type="button"
+			(click)="handleDelete(categoryState.data)"
+		>
+			<mat-icon>delete</mat-icon>
+		</button>
+	</div>
+
+	<div *ngIf="categoryState.data">
+		<p>
+			<a
+				translate
+				[routerLink]="CategoriesView.getPathForOne(inventory.id, categoryState.data.id)"
+				>views.category-edit.visualize</a
+			>
+		</p>
+
+		<p *ngIf="parent">
+			<span translate>views.category-edit.parent-category</span>
+			&nbsp;
+			<a [routerLink]="CategoriesView.getPathForOne(inventory.id, parent.id)">{{
+				parent.name
+			}}</a>
+		</p>
+	</div>
+
+	<mat-card>
+		<mat-card-content class="flex flex-col gap-4">
+			<div *ngIf="categoryState.error" class="flex flex-row align-i-center gap-2">
+				<mat-icon>warning</mat-icon>
+				<p translate>errors.occurred</p>
+			</div>
+
+			<form
+				*ngIf="categoryState.data"
+				class="flex flex-col"
+				(click)="handleUpdate(categoryState.data)"
+			>
+				<mat-form-field>
+					<mat-label translate>entities.category.name</mat-label>
+					<input matInput type="text" [formControl]="nameControl" />
+					<mat-error>{{ nameControl.errors | translateControlError }}</mat-error>
+				</mat-form-field>
+
+				<div class="flex justify-c-end">
+					<button color="primary" mat-raised-button type="submit">
+						{{ "actions.update" | translate }}
+					</button>
+				</div>
+			</form>
+		</mat-card-content>
+	</mat-card>
+</div>

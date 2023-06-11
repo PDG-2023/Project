@@ -19,11 +19,16 @@
 				<mat-menu #menu>
 					<a mat-menu-item [routerLink]="hrefEdit">
 						<mat-icon>edit</mat-icon>
-						<span>Edit</span>
+						<span translate>actions.edit</span>
 					</a>
-					<button mat-menu-item type="button" (click)="delete.emit(describable)">
-						<mat-icon color="warn">delete</mat-icon>
-						<span>Delete</span>
+					<button
+						*ngIf="canRemove"
+						mat-menu-item
+						type="button"
+						(click)="remove.emit(describable)"
+					>
+						<mat-icon color="warn">remove</mat-icon>
+						<span translate>actions.remove</span>
 					</button>
 				</mat-menu>
 

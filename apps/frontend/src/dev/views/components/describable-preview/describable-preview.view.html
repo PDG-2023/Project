@@ -16,8 +16,8 @@
 							[hasChildren]="data.hasChildren"
 							[hrefEdit]="'#' + describableData.title + '/' + i + '/edit'"
 							[hrefShow]="'#' + describableData.title + '/' + i + '/show'"
-							(delete)="addLogs(data, 'delete', $event)"
 							(expandedChange)="addLogs(data, 'expanded', $event)"
+							(remove)="addLogs(data, 'delete', $event)"
 						></app-describable-preview>
 					</div>
 

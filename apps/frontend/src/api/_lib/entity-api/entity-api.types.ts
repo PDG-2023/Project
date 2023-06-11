@@ -24,12 +24,13 @@ export interface EntityOrder<T> {
 }
 
 export interface EntityOperator<T> {
-	$eq?: T;
+	$eq?: T | null;
 	$ge?: T;
 	$gt?: T;
+	$like?: T;
 	$lt?: T;
 	$lte?: T;
-	$ne?: T;
+	$neq?: T | null;
 }
 
 export type EntityFilter<T> = {
