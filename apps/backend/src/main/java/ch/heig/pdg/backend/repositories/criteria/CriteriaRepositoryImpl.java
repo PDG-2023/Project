@@ -71,8 +71,20 @@ public class CriteriaRepositoryImpl<T, ID> implements CriteriaRepository<T, ID> 
                             nestedPath = nestedPath.get(nestedName);
                         }
                     }
+
                     //@formatter:off
                     if (dateFilterValue == null) {
+                        Comparable<?> value = filterValue;
+
+                        // Enum type will fail the query if set as a string
+                        if (nestedPath != null
+                            && nestedPath.getModel() != null
+                            && nestedPath.getModel().getBindableJavaType().isEnum()
+                        ) {
+                            // Dates can not be enum values
+                            value = Enum.valueOf((Class) nestedPath.getModel().getBindableJavaType(), filterValue);
+                        }
+
                         // Only if the datatype is an integer
                         // TODO: same for date?
                         // TODO: for string?
@@ -82,8 +94,8 @@ public class CriteriaRepositoryImpl<T, ID> implements CriteriaRepository<T, ID> 
 
                         conditions.add(
                             switch (fieldComparison) {
-                                case "eq" -> isNull ? criteriaBuilder.isNull(nestedPath) : criteriaBuilder.equal(nestedPath, filterValue);
-                                case "neq" -> isNull ? criteriaBuilder.isNotNull(nestedPath) : criteriaBuilder.notEqual(nestedPath, filterValue);
+                                case "eq" -> isNull ? criteriaBuilder.isNull(nestedPath) : criteriaBuilder.equal(nestedPath, value);
+                                case "neq" -> isNull ? criteriaBuilder.isNotNull(nestedPath) : criteriaBuilder.notEqual(nestedPath, value);
                                 case "lte" -> criteriaBuilder.lessThanOrEqualTo(nestedPath.as(String.class), filterValue);
                                 case "gte" -> criteriaBuilder.greaterThanOrEqualTo(nestedPath.as(String.class), filterValue);
                                 case "lt" -> criteriaBuilder.lessThan(nestedPath.as(String.class), filterValue);
