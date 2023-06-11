@@ -3,12 +3,15 @@ package ch.heig.pdg.backend.services;
 import ch.heig.pdg.backend.dto.InventoryDTO;
 import ch.heig.pdg.backend.dto.SearchResultDTO;
 import ch.heig.pdg.backend.dto.mapping.InventoryMapper;
+import ch.heig.pdg.backend.entities.AbstractEntity;
 import ch.heig.pdg.backend.entities.Inventory;
 import ch.heig.pdg.backend.repositories.InventoryRepository;
+import ch.heig.pdg.backend.security.utils.CurrentUser;
 import ch.heig.pdg.backend.utils.HugoSearchFilter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -19,18 +22,27 @@ public class InventoryService extends AbstractService {
     private final UserService userService;
     private final ItemModelService itemModelService;
 
-    protected InventoryService(InventoryRepository inventoryRepository, InventoryMapper inventoryMapper, LocationService locationService, UserService userService, ItemModelService itemModelService) {
+    private final CurrentUser currentUser;
+
+    protected InventoryService(InventoryRepository inventoryRepository, InventoryMapper inventoryMapper, LocationService locationService, UserService userService, ItemModelService itemModelService, CurrentUser currentUserData) {
         super(inventoryRepository);
         this.inventoryMapper = inventoryMapper;
         this.locationService = locationService;
         this.userService = userService;
         this.itemModelService = itemModelService;
+        this.currentUser = currentUserData;
     }
 
     public List<InventoryDTO> getInventories(HugoSearchFilter<Inventory> filter) {
         return this.inventoryRepository
                 .findByFilter(filter)
                 .stream()
+                .filter(inventory -> {
+                    if (Objects.equals(inventory.getOwner().getId(), this.currentUser.getCurrentUserData().userId)) {
+                        return true;
+                    }
+                    return inventory.getUsers().stream().map(AbstractEntity::getId).toList().contains(this.currentUser.getCurrentUserData().userId);
+                })
                 .map(inventory -> (InventoryDTO) this.inventoryMapper.getDTO(inventory))
                 .collect(Collectors.toList());
     }
