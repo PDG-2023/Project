@@ -7,14 +7,14 @@ import { SubscribableComponent } from "../../../../components/_lib/subscribable.
 import { ItemModelsView } from "../item-models.view";
 
 @Component({
-	styleUrls: ["./item-model.view.scss"],
-	templateUrl: "./item-model.view.html"
+	styleUrls: ["./item-model-edit.view.scss"],
+	templateUrl: "./item-model-edit.view.html"
 })
-export class ItemModelView extends SubscribableComponent implements OnInit {
+export class ItemModelEditView extends SubscribableComponent implements OnInit {
 	private static readonly PATH_PARAM = "item-model";
 
 	public static get ROUTE_PATH() {
-		return `:${ItemModelView.PATH_PARAM}/edit`;
+		return `:${ItemModelEditView.PATH_PARAM}/edit`;
 	}
 
 	/**
@@ -23,7 +23,7 @@ export class ItemModelView extends SubscribableComponent implements OnInit {
 	 * @returns the path for this view
 	 */
 	public static getPath(inventory: number, itemModel: number): string {
-		return `${ItemModelsView.getPath(inventory)}/${itemModel}`;
+		return `${ItemModelsView.getPath(inventory)}/${itemModel}/edit`;
 	}
 
 	protected data?: ItemModelDto;
@@ -39,7 +39,7 @@ export class ItemModelView extends SubscribableComponent implements OnInit {
 		this.addSubscriptions(
 			this.activatedRoute.params.subscribe(params => {
 				void this.itemModelApi
-					.findById(+params[ItemModelView.PATH_PARAM])
+					.findById(+params[ItemModelEditView.PATH_PARAM])
 					.then(value => (this.data = value));
 			})
 		);

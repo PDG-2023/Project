@@ -1,0 +1,13 @@
+#path-location {
+	.path-location {
+		a {
+			text-decoration: none;
+		}
+
+		&.children {
+			&::before {
+				content: "> ";
+			}
+		}
+	}
+}

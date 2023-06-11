@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 
-import { MovementCreateDto, MovementDto, MovementUpdateDto } from "./dtos";
-import { EntityApiService } from "../_lib/entity-api";
+import { MovementCreateDto, MovementDto, MovementRelationsDto, MovementUpdateDto } from "./dtos";
+import { EntityApiService, EntityFindQuery } from "../_lib/entity-api";
 
 export const MOVEMENT_API_ENDPOINT = "/movements";
 
@@ -11,7 +11,8 @@ export const MOVEMENT_API_ENDPOINT = "/movements";
 export class MovementApiService extends EntityApiService<
 	MovementDto,
 	MovementCreateDto,
-	MovementUpdateDto
+	MovementUpdateDto,
+	EntityFindQuery<MovementRelationsDto>
 > {
 	public override getEntrypoint(): string {
 		return MOVEMENT_API_ENDPOINT;

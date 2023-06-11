@@ -44,7 +44,7 @@
 					<app-search-result-preview
 						*ngFor="let result of searchResults[tab.type]"
 						[class.cursor-pointer]="!!tab.href"
-						[routerLink]="tab.href || null"
+						[routerLink]="tab.href ? tab.href(result) : null"
 						[searchResult]="result"
 					></app-search-result-preview>
 				</div>

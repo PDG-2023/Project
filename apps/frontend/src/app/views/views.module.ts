@@ -13,9 +13,9 @@ import { CategoryEditView } from "./inventories/categories/category-edit/categor
 import { InventoriesView } from "./inventories/inventories.view";
 import { InventoryView } from "./inventories/inventory/inventory.view";
 import { InventoryErrorView } from "./inventories/inventory-error/inventory-error.view";
-import { ItemModelView } from "./inventories/item-models/item-model/item-model.view";
+import { ItemModelEditView } from "./inventories/item-models/item-model-edit/item-model-edit.view";
 import { ItemModelsView } from "./inventories/item-models/item-models.view";
-import { LocationView } from "./inventories/locations/location/location.view";
+import { LocationEditView } from "./inventories/locations/location-edit/location-edit.view";
 import { LocationsView } from "./inventories/locations/locations.view";
 import { SearchView } from "./inventories/search/search.view";
 import { LoginView } from "./login/login.view";
@@ -37,10 +37,10 @@ import { AppRouterModule } from "../router";
 		InventoriesView,
 		InventoryErrorView,
 		InventoryView,
+		ItemModelEditView,
 		ItemModelsView,
-		ItemModelView,
+		LocationEditView,
 		LocationsView,
-		LocationView,
 		LoginView,
 		NotFoundView,
 		ProfileView,

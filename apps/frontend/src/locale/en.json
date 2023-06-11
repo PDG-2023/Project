@@ -72,7 +72,9 @@
 		"location": {
 			"__meta": {
 				"names": "Locations"
-			}
+			},
+			"description": null,
+			"name": null
 		},
 		"user": {
 			"__meta": {
@@ -129,7 +131,7 @@
 		"category-edit": {
 			"dialogs": {
 				"delete": {
-					"description": "This actions can not be reversed.",
+					"description": "This action can not be reversed.",
 					"title": "Delete the category?"
 				}
 			},
@@ -154,6 +156,30 @@
 				"_1": "Therefore you cannot modify it."
 			},
 			"user-not-found": "The user '{{ email }}' was not found."
+		},
+		"location-edit": {
+			"dialogs": {
+				"delete": {
+					"description": "This action can not be reversed.",
+					"title": "Delete the location?"
+				}
+			},
+			"parent-location": "Parent location:",
+			"visualize": "Visualize the location"
+		},
+		"locations": {
+			"dialogs": {
+				"remove-location": {
+					"description": "It will move the child location to the parent location.",
+					"title": "Remove the location"
+				}
+			},
+			"one": {
+				"title": {
+					"_0": "Location",
+					"_1": ""
+				}
+			}
 		},
 		"login": {
 			"_actions": {
