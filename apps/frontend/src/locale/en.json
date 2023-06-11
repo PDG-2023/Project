@@ -182,6 +182,9 @@
 			},
 			"visualize": "Visualize the item model"
 		},
+		"item-models": {
+			"title": "All item models"
+		},
 		"location-edit": {
 			"dialogs": {
 				"delete": {
