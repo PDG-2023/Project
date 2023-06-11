@@ -142,7 +142,7 @@ public class CriteriaRepositoryImpl<T, ID> implements CriteriaRepository<T, ID> 
         }
 
         criteriaQuery.orderBy(ordering);
-        TypedQuery<T> query = entityManager.createQuery(criteriaQuery);
+        TypedQuery<T> query = entityManager.createQuery(criteriaQuery.distinct(true));
 
         if (addLimitOffset) {
             if (maxResults != null) {
