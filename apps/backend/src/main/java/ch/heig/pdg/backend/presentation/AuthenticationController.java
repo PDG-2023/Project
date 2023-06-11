@@ -59,7 +59,7 @@ public class AuthenticationController implements JwtApi {
             return new ResponseEntity<>(HttpStatusCode.valueOf(204));
 
         } catch (InvalidJWTException e) {
-            return new ResponseEntity<>(HttpStatusCode.valueOf(500));
+            return new ResponseEntity<>(HttpStatusCode.valueOf(401));
         }
     }
 }
