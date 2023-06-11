@@ -17,6 +17,7 @@ public class MovementMapper extends AbstractDataMapper implements IDataTransferO
         dto.setId(movement.getId());
         dto.setCreated(DateFormatUtil.dateToString(movement.getCreatedAt()));
         dto.setLocationId(movement.getLocation().getId());
+        dto.setItemId(movement.getItem().getId());
         dto.setMovementType(movement.getType().name());
         return dto;
     }
