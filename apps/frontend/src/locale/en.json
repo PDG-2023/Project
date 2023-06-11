@@ -160,6 +160,12 @@
 			"user-not-found": "The user '{{ email }}' was not found."
 		},
 		"item-model": {
+			"dialogs": {
+				"remove-category": {
+					"description": "This item model will no longer be show on the category.",
+					"title": "Remove the category"
+				}
+			},
 			"one": {
 				"title": {
 					"_0": "Item model",

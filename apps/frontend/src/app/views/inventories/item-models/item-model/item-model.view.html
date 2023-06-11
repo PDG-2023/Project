@@ -1,0 +1,110 @@
+<div class="flex flex-col gap-4">
+	<h1>
+		{{ "views.item-model.one.title._0" | translate }}
+		<span class="font-italic">{{ itemModelState.data?.name || "???" }}</span>
+		{{ "views.item-model.one.title._1" | translate }}
+	</h1>
+
+	<mat-card *ngIf="itemModelState">
+		<mat-card-content class="flex flex-col gap-4">
+			<div *ngIf="itemModelState.error" class="flex flex-row gap-2 align-i-center">
+				<mat-icon color="warn">warning</mat-icon>
+				<span translate>errors.occurred</span>
+			</div>
+
+			<div *ngIf="itemModelState.data as itemModel" class="flex flex-col gap-2">
+				<div class="mx-4">
+					<div class="flex flex-row flex-wrap gap-x-4">
+						<span translate>entities.entity.created</span>
+						<span class="flex flex-1 justify-c-end">
+							{{ itemModel.created | date : ("formats.datetime" | translate) }}
+						</span>
+					</div>
+					<div class="flex flex-row flex-wrap gap-x-4">
+						<span translate>entities.entity.updated</span>
+						<span class="flex flex-1 justify-c-end">
+							{{ itemModel.updated | date : ("formats.datetime" | translate) }}
+						</span>
+					</div>
+				</div>
+
+				<p *ngIf="itemModel.description">{{ itemModel.description }}</p>
+
+				<div class="flex flex-row justify-c-end">
+					<a
+						color="accent"
+						mat-mini-fab
+						type="button"
+						[routerLink]="ItemModelEditView.getPath(inventory.id, itemModel.id)"
+					>
+						<mat-icon>edit</mat-icon>
+					</a>
+				</div>
+			</div>
+		</mat-card-content>
+	</mat-card>
+
+	<mat-card>
+		<mat-card-content>
+			<mat-tab-group>
+				<mat-tab [label]="'entities.location.__meta.names' | translate">
+					<app-describable-browser
+						#browserLocations
+						[loader]="loadLocations.bind(this)"
+					></app-describable-browser>
+				</mat-tab>
+
+				<mat-tab [label]="'entities.category.__meta.names' | translate">
+					<div class="flex flex-col gap-4">
+						<app-describable-browser
+							#browserCategories
+							[loader]="loadCategories.bind(this)"
+							(remove)="handleCategoryRemove($event)"
+						></app-describable-browser>
+
+						<form class="flex flex-1" (ngSubmit)="addToCategory()">
+							<mat-form-field class="flex flex-1">
+								<mat-label translate>actions.search</mat-label>
+								<input
+									matInput
+									[formControl]="searchCategoryControl"
+									[matAutocomplete]="categoryAutocomplete"
+								/>
+
+								<button
+									*ngIf="!searchCategoryState.loading"
+									mat-icon-button
+									matSuffix
+									type="submit"
+									[disabled]="!searchCategorySelected"
+								>
+									<mat-icon>add</mat-icon>
+								</button>
+
+								<mat-spinner
+									*ngIf="searchCategoryState.loading"
+									diameter="18"
+									matTextSuffix
+									mode="indeterminate"
+								></mat-spinner>
+
+								<mat-autocomplete
+									#categoryAutocomplete
+									[displayWith]="displayCategory"
+								>
+									<mat-option
+										*ngFor="let category of searchCategoryState.data"
+										[value]="category"
+										(click)="searchCategorySelected = category"
+									>
+										{{ category.name }}
+									</mat-option>
+								</mat-autocomplete>
+							</mat-form-field>
+						</form>
+					</div>
+				</mat-tab>
+			</mat-tab-group>
+		</mat-card-content>
+	</mat-card>
+</div>

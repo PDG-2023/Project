@@ -13,6 +13,7 @@ import { CategoryEditView } from "./inventories/categories/category-edit/categor
 import { InventoriesView } from "./inventories/inventories.view";
 import { InventoryView } from "./inventories/inventory/inventory.view";
 import { InventoryErrorView } from "./inventories/inventory-error/inventory-error.view";
+import { ItemModelView } from "./inventories/item-models/item-model/item-model.view";
 import { ItemModelEditView } from "./inventories/item-models/item-model-edit/item-model-edit.view";
 import { ItemModelsView } from "./inventories/item-models/item-models.view";
 import { LocationEditView } from "./inventories/locations/location-edit/location-edit.view";
@@ -39,6 +40,7 @@ import { AppRouterModule } from "../router";
 		InventoryView,
 		ItemModelEditView,
 		ItemModelsView,
+		ItemModelView,
 		LocationEditView,
 		LocationsView,
 		LoginView,

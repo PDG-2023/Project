@@ -26,6 +26,8 @@ import {
 } from "../../../components/dialogs/confirm/confirm.dialog";
 import { InventoryService } from "../../../inventory/inventory.service";
 import { InventoryView } from "../inventory/inventory.view";
+import { ItemModelView } from "../item-models/item-model/item-model.view";
+import { ItemModelEditView } from "../item-models/item-model-edit/item-model-edit.view";
 
 @Component({
 	styleUrls: ["./categories.view.scss"],
@@ -271,9 +273,8 @@ export class CategoriesView extends SubscribableComponent implements OnInit {
 				data: data.data.map(item => ({
 					canRemove: true,
 					data: item,
-					// TODO
-					hrefEdit: "",
-					hrefShow: ""
+					hrefEdit: ItemModelEditView.getPath(this.inventory.id, item.id),
+					hrefShow: ItemModelView.getPath(this.inventory.id, item.id)
 				})),
 				total: data.total
 			}));

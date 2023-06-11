@@ -15,6 +15,7 @@ import {
 import { SubscribableComponent } from "../../../components/_lib/subscribable.component";
 import { InventoryService } from "../../../inventory/inventory.service";
 import { InventoryView } from "../inventory/inventory.view";
+import { ItemModelView } from "../item-models/item-model/item-model.view";
 import { LocationsView } from "../locations/locations.view";
 
 export interface SearchViewQuery {
@@ -70,7 +71,7 @@ export class SearchView extends SubscribableComponent implements OnInit {
 			},
 			{
 				// TODO
-				href: false,
+				href: result => ItemModelView.getPath(this.inventory.id, result.id),
 				label: translateService.stream(
 					"entities.item-model.__meta.names"
 				) as Observable<string>,
