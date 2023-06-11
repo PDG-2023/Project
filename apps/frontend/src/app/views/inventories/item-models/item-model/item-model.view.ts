@@ -15,6 +15,7 @@ import { ItemModelApiService } from "../../../../../api/item-model-api";
 import { ItemModelDto } from "../../../../../api/item-model-api/dtos";
 import { LocationApiService } from "../../../../../api/location-api";
 import { LocationDto } from "../../../../../api/location-api/dtos";
+import { MovementApiService } from "../../../../../api/movement-api";
 import { SubscribableComponent } from "../../../../components/_lib/subscribable.component";
 import {
 	DescribableBrowserComponent,
@@ -77,6 +78,7 @@ export class ItemModelView extends SubscribableComponent implements OnInit {
 		private readonly categoryApi: CategoryApiService,
 		private readonly itemModelApi: ItemModelApiService,
 		private readonly locationApi: LocationApiService,
+		private readonly movementApi: MovementApiService,
 		private readonly matDialog: MatDialog,
 		private readonly translateService: TranslateService
 	) {
@@ -245,6 +247,8 @@ export class ItemModelView extends SubscribableComponent implements OnInit {
 			.then(() => {
 				this.searchCategorySelected = null;
 				this.searchCategoryControl.setValue("");
+				this.searchCategoryControl.markAsUntouched();
+
 				return this.browserCategories?.refresh();
 			});
 	}

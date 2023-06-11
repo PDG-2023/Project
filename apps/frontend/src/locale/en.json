@@ -78,6 +78,11 @@
 			"description": "Description",
 			"name": "Name"
 		},
+		"movement": {
+			"__meta": {
+				"names": "Movements"
+			}
+		},
 		"user": {
 			"__meta": {
 				"names": "Users"
@@ -107,6 +112,11 @@
 		"date": "YYYY MM dd",
 		"datetime": "YYYY MM dd HH:mm:ss",
 		"time": "HH:mm:ss"
+	},
+	"view": {
+		"item-model-movements": {
+			"removed": "Removed"
+		}
 	},
 	"views": {
 		"categories": {

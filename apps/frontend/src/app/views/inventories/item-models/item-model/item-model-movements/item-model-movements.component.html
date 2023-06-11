@@ -1,0 +1,98 @@
+<div class="flex flex-col gap-2">
+	<div *ngIf="movementsState.error" class="flex flex-row gap-2 align-i-center">
+		<mat-icon color="warn">warning</mat-icon>
+		<span translate>errors.occurred</span>
+	</div>
+
+	<form class="flex flex-1" (ngSubmit)="addMovement()">
+		<mat-form-field class="flex flex-1">
+			<mat-label translate>actions.search</mat-label>
+			<input
+				matInput
+				[formControl]="searchLocationControl"
+				[matAutocomplete]="categoryAutocomplete"
+			/>
+
+			<button
+				*ngIf="!searchLocationState.loading"
+				mat-icon-button
+				matSuffix
+				type="submit"
+				[disabled]="!searchLocationSelected"
+			>
+				<mat-icon>add</mat-icon>
+			</button>
+
+			<mat-spinner
+				*ngIf="searchLocationState.loading"
+				diameter="18"
+				matTextSuffix
+				mode="indeterminate"
+			></mat-spinner>
+
+			<mat-autocomplete #categoryAutocomplete [displayWith]="displayLocation">
+				<mat-option
+					*ngFor="let category of searchLocationState.data"
+					[value]="category"
+					(click)="searchLocationSelected = category"
+				>
+					{{ category.name }}
+				</mat-option>
+			</mat-autocomplete>
+		</mat-form-field>
+	</form>
+
+	<div *ngIf="movementsState.data?.data as movements" class="flex flex-col gap-4">
+		<ng-template #noLocation><span class="font-bold">???</span></ng-template>
+
+		<mat-card *ngFor="let movement of movements">
+			<mat-card-content
+				class="align-i-center flex flex-col md:flex-row gap-2 justify-c-between"
+			>
+				<span>{{ movement.created | date : ("formats.datetime" | translate) }}</span>
+
+				<div
+					class="align-i-center flex gap-2"
+					[class.flex-row]="movement.movementType === 'IN'"
+					[class.flex-row-reverse]="movement.movementType !== 'IN'"
+				>
+					<span class="font-italic">{{ itemModel.name }}</span>
+
+					<mat-icon>arrow_forward</mat-icon>
+
+					<a
+						*ngIf="locationsMap.get(movement.locationId) as location; else noLocation"
+						[routerLink]="LocationsView.getPathForOne(inventory.id, location.id)"
+					>
+						{{ location.name }}
+					</a>
+				</div>
+
+				<div class="align-s-end flex justify-c-end">
+					<button
+						color="warn"
+						mat-raised-button
+						type="button"
+						[disabled]="movement.movementType !== 'IN'"
+						(click)="toggleMovement(movement)"
+					>
+						{{
+							(movement.movementType === "IN"
+								? "actions.remove"
+								: "view.item-model-movements.removed"
+							) | translate
+						}}
+					</button>
+				</div>
+			</mat-card-content>
+		</mat-card>
+	</div>
+
+	<mat-paginator
+		showFirstLastButtons
+		[length]="movementsState.data?.total ?? 0"
+		[pageSize]="initialPageSize"
+		[pageSizeOptions]="pageOptions"
+		(page)="loadMovements($event)"
+	></mat-paginator>
+</div>

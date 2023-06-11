@@ -1,3 +1,4 @@
+import { EntityDto } from "./dtos";
 import { EntityFindQuery, EntityOrderableKeys, EntityOrderValues } from "./entity-api.types";
 
 interface EntityFindQueryReal<T, Q extends T = T> extends Omit<EntityFindQuery<T, Q>, "order"> {
@@ -20,6 +21,13 @@ export function entityFindQueryConvert<T = never, Q extends T = T>(
 			...rest,
 			// The `order` must be converted; the order of the properties matters
 			order: order.reduce((realOrder, { direction, property }) => {
+				const annoyingProperties = ["created", "updated"] satisfies Array<keyof EntityDto>;
+				if (annoyingProperties.includes(property as never)) {
+					// @ts-expect-error - TS2322: no longer a symbol
+					// eslint-disable-next-line @typescript-eslint/restrict-template-expressions -- above
+					property = `${property}At`;
+				}
+
 				if (property in realOrder) {
 					return realOrder;
 				}

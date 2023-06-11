@@ -166,6 +166,8 @@ export class CategoriesView extends SubscribableComponent implements OnInit {
 			})
 			.then(() => {
 				this.addCategoryNameControl.setValue("");
+				this.addCategoryNameControl.markAsPristine();
+				this.addCategoryNameControl.markAsUntouched();
 				return this.browserCategories?.refresh();
 			});
 	}
