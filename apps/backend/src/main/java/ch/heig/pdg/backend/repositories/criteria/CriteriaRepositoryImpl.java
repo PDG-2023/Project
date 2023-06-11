@@ -42,10 +42,13 @@ public class CriteriaRepositoryImpl<T, ID> implements CriteriaRepository<T, ID> 
         Integer firstResult = null;
         List<Order> ordering = new ArrayList<>();
 
+        List<Predicate> conditions = new ArrayList<>();
+        if (inventoryId != null) {
+            conditions.add(criteriaBuilder.equal(root.get("inventory").get("id"), inventoryId));
+        }
         if (!filter.hasFilters()) {
             criteriaQuery.select(root);
         } else {
-            List<Predicate> conditions = new ArrayList<>();
 
             for (Map.Entry<String, String> filters : filter.filters().entrySet()) {
                 criteriaQuery.select(root);
@@ -136,9 +139,11 @@ public class CriteriaRepositoryImpl<T, ID> implements CriteriaRepository<T, ID> 
                 }
             }
 
-            if (!conditions.isEmpty()) {
-                criteriaQuery.where(conditions.toArray(new Predicate[conditions.size()]));
-            }
+
+        }
+
+        if (!conditions.isEmpty()) {
+            criteriaQuery.where(conditions.toArray(new Predicate[conditions.size()]));
         }
 
         criteriaQuery.orderBy(ordering);
