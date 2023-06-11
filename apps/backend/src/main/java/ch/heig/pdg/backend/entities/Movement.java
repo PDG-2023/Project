@@ -17,7 +17,7 @@ public class Movement extends AbstractEntity {
     @JoinColumn(nullable = false)
     private Item item;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = false)
     private Location location;
 

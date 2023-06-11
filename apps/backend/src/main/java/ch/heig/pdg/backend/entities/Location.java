@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -21,4 +23,7 @@ public class Location extends AbstractEntity {
     @ManyToOne
     @JoinColumn(nullable = false)
     private Inventory inventory;
+
+    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
+    private List<Movement> movements;
 }
