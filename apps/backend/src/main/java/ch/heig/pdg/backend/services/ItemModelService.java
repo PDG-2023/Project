@@ -58,7 +58,7 @@ public class ItemModelService extends AbstractService {
         this.checkInventory(inventoryId);
 
         return this.itemModelRepository
-                .findByFilter(filter)
+                .findByFilter(filter, inventoryId)
                 .stream()
                 .map(i -> (ItemModelDTO) this.itemModelMapper.getDTO(i))
                 .collect(Collectors.toList());
