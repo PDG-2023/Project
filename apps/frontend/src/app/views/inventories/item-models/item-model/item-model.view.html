@@ -46,7 +46,14 @@
 
 	<mat-card>
 		<mat-card-content>
-			<mat-tab-group>
+			<mat-tab-group *ngIf="itemModelState.data">
+				<mat-tab [label]="'entities.movement.__meta.names' | translate">
+					<app-item-model-movements
+						[inventory]="inventory"
+						[itemModel]="itemModelState.data"
+					></app-item-model-movements>
+				</mat-tab>
+
 				<mat-tab [label]="'entities.location.__meta.names' | translate">
 					<app-describable-browser
 						#browserLocations

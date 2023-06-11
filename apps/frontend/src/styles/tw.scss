@@ -58,6 +58,14 @@
 		flex-direction: row;
 	}
 
+	.#{$prefix}flex-col-reverse#{$pseudo} {
+		flex-direction: column-reverse;
+	}
+
+	.#{$prefix}flex-row-reverse#{$pseudo} {
+		flex-direction: row-reverse;
+	}
+
 	.#{$prefix}flex-wrap#{$pseudo} {
 		flex-wrap: wrap;
 	}
@@ -72,6 +80,18 @@
 
 	.#{$prefix}align-i-end#{$pseudo} {
 		align-items: flex-end;
+	}
+
+	.#{$prefix}align-s-start#{$pseudo} {
+		align-self: flex-start;
+	}
+
+	.#{$prefix}align-s-center#{$pseudo} {
+		align-self: center;
+	}
+
+	.#{$prefix}align-s-end#{$pseudo} {
+		align-self: flex-end;
 	}
 
 	.#{$prefix}justify-c-start#{$pseudo} {

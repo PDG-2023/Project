@@ -16,7 +16,6 @@ import {
 	ConfirmDialogData
 } from "../../../../components/dialogs/confirm/confirm.dialog";
 import { InventoryService } from "../../../../inventory/inventory.service";
-import { LocationsView } from "../../locations/locations.view";
 import { ItemModelView } from "../item-model/item-model.view";
 import { ItemModelsView } from "../item-models.view";
 
@@ -33,7 +32,7 @@ export class ItemModelEditView extends SubscribableComponent implements OnInit {
 
 	/**
 	 * @param inventory The current inventory
-	 * @param itemModel The location to see
+	 * @param itemModel The itemModel to see
 	 * @returns the path for this view
 	 */
 	public static getPath(inventory: number, itemModel: number): string {
@@ -106,7 +105,7 @@ export class ItemModelEditView extends SubscribableComponent implements OnInit {
 			}
 			void this.itemModelApi
 				.delete(item.id)
-				.then(() => this.router.navigate([LocationsView.getPath(this.inventory.id)]));
+				.then(() => this.router.navigate([ItemModelsView.getPath(this.inventory.id)]));
 		});
 	}
 
