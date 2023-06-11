@@ -25,10 +25,7 @@ import {
 	ConfirmDialogData
 } from "../../../components/dialogs/confirm/confirm.dialog";
 import { InventoryService } from "../../../inventory/inventory.service";
-import { RouteParam } from "../../_lib/utils";
 import { InventoryView } from "../inventory/inventory.view";
-
-type PathParam = "category";
 
 @Component({
 	styleUrls: ["./categories.view.scss"],
@@ -40,9 +37,9 @@ export class CategoriesView extends SubscribableComponent implements OnInit {
 	 */
 	public static readonly ROUTE_PATH = "categories";
 
-	private static readonly PATH_FOR_ONE_PARAM: PathParam = "category";
+	private static readonly PATH_FOR_ONE_PARAM = "category";
 
-	public static get ROUTE_PATH_FOR_ONE_PARAM(): RouteParam<PathParam> {
+	public static get ROUTE_PATH_FOR_ONE_PARAM() {
 		return `:${this.PATH_FOR_ONE_PARAM}`;
 	}
 
@@ -80,6 +77,9 @@ export class CategoriesView extends SubscribableComponent implements OnInit {
 	@ViewChild("browserItems")
 	private browserItems?: DescribableBrowserComponent;
 
+	/**
+	 * @returns the direct parent
+	 */
 	protected get parent(): CategoryDto | null {
 		return this.parents.length ? this.parents[this.parents.length - 1] : null;
 	}

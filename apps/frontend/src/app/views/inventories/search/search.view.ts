@@ -7,17 +7,22 @@ import { debounceTime, distinctUntilChanged, Observable, tap } from "rxjs";
 
 import { LoadState } from "../../../../_lib/load-state";
 import { InventorySearchResults } from "../../../../api/inventory-api";
-import { InventoryDto, InventorySearchEntityType } from "../../../../api/inventory-api/dtos";
+import {
+	InventoryDto,
+	InventorySearchEntityType,
+	InventorySearchResultDto
+} from "../../../../api/inventory-api/dtos";
 import { SubscribableComponent } from "../../../components/_lib/subscribable.component";
 import { InventoryService } from "../../../inventory/inventory.service";
 import { InventoryView } from "../inventory/inventory.view";
+import { LocationsView } from "../locations/locations.view";
 
 export interface SearchViewQuery {
 	text?: string;
 }
 
 interface ResultTab {
-	href: string | false;
+	href: false | ((result: InventorySearchResultDto) => string);
 	label: Observable<string>;
 	type: InventorySearchEntityType;
 }
@@ -57,15 +62,15 @@ export class SearchView extends SubscribableComponent implements OnInit {
 
 		this.resultTabs = [
 			{
-				// TODO
-				href: "",
+				href: result => LocationsView.getPathForOne(this.inventory.id, result.id),
 				label: translateService.stream(
 					"entities.location.__meta.names"
 				) as Observable<string>,
 				type: "location"
 			},
 			{
-				href: "",
+				// TODO
+				href: false,
 				label: translateService.stream(
 					"entities.item-model.__meta.names"
 				) as Observable<string>,

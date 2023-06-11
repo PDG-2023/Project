@@ -134,10 +134,9 @@ export const DbBaseSample: DbSample = {
 			created: date1,
 			updated: date1,
 
-			description: "",
+			description: "Elise best place",
 			name: "Living room",
-			parentLocationId: null,
-			subtitle: "Elise best place"
+			parentLocationId: null
 		},
 		{
 			id: 2,
@@ -147,8 +146,7 @@ export const DbBaseSample: DbSample = {
 
 			description: "",
 			name: "Elise's room",
-			parentLocationId: null,
-			subtitle: ""
+			parentLocationId: null
 		},
 		{
 			id: 3,
@@ -159,8 +157,7 @@ export const DbBaseSample: DbSample = {
 			description:
 				"My dresser where I put all my little clothes, such as T-shirts, sockets, and so on.",
 			name: "Dresser",
-			parentLocationId: 2,
-			subtitle: ""
+			parentLocationId: 2
 		}
 	],
 	movements: [],

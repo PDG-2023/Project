@@ -18,14 +18,12 @@ import {
 import { InventoryService } from "../../../../inventory/inventory.service";
 import { CategoriesView } from "../categories.view";
 
-type PathParam = "category";
-
 @Component({
 	styleUrls: ["./category-edit.view.scss"],
 	templateUrl: "./category-edit.view.html"
 })
 export class CategoryEditView extends SubscribableComponent implements OnInit {
-	private static readonly PATH_PARAM: PathParam = "category";
+	private static readonly PATH_PARAM = "category";
 
 	public static get ROUTE_PATH() {
 		return `:${CategoryEditView.PATH_PARAM}/edit`;
@@ -39,6 +37,7 @@ export class CategoryEditView extends SubscribableComponent implements OnInit {
 	public static getPath(inventory: number, category: number): string {
 		return `${CategoriesView.getPathForOne(inventory, category)}/edit`;
 	}
+
 	protected readonly CategoriesView = CategoriesView;
 
 	protected inventory!: InventoryDto;

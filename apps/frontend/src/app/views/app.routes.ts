@@ -12,8 +12,9 @@ import {
 	InventoryErrorViewData
 } from "./inventories/inventory-error/inventory-error.view";
 import { ItemModelView } from "./inventories/item-models/item-model/item-model.view";
+import { ItemModelEditView } from "./inventories/item-models/item-model-edit/item-model-edit.view";
 import { ItemModelsView } from "./inventories/item-models/item-models.view";
-import { LocationView } from "./inventories/locations/location/location.view";
+import { LocationEditView } from "./inventories/locations/location-edit/location-edit.view";
 import { LocationsView } from "./inventories/locations/locations.view";
 import { SearchView } from "./inventories/search/search.view";
 import { LoginView, LoginViewData } from "./login/login.view";
@@ -42,14 +43,16 @@ export const appRoutes: Route[] = [
 			},
 			{
 				children: [
-					{ component: ItemModelView, path: ItemModelView.ROUTE_PATH_PARAM },
+					{ component: ItemModelEditView, path: ItemModelEditView.ROUTE_PATH },
+					{ component: ItemModelView, path: ItemModelView.ROUTE_PATH },
 					{ component: ItemModelsView, path: "" }
 				],
 				path: ItemModelsView.ROUTE_PATH
 			},
 			{
 				children: [
-					{ component: LocationView, path: LocationView.ROUTE_PATH_PARAM },
+					{ component: LocationEditView, path: LocationEditView.ROUTE_PATH },
+					{ component: LocationsView, path: LocationsView.ROUTE_PATH_FOR_ONE },
 					{ component: LocationsView, path: "" }
 				],
 				path: LocationsView.ROUTE_PATH
