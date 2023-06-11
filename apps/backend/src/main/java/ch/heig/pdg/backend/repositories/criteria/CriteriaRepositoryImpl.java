@@ -30,7 +30,7 @@ public class CriteriaRepositoryImpl<T, ID> implements CriteriaRepository<T, ID> 
     }
 
     public List<T> findByFilter(HugoSearchFilter<T> filter, Integer inventoryId) {
-        return this.findByFilter(filter, null, true);
+        return this.findByFilter(filter, inventoryId, true);
     }
 
     private List<T> findByFilter(HugoSearchFilter<T> filter, Integer inventoryId, boolean addLimitOffset) {
