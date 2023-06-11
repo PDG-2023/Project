@@ -1,0 +1,17 @@
+<mat-card>
+	<mat-card-content class="flex flex-row gap-2">
+		<div class="flex flex-1 flex-col gap-1/2 justify-c-center">
+			<h3>{{ searchResult.name }}</h3>
+			<span>{{ searchResult.description }}</span>
+		</div>
+
+		<div class="align-i-center flex justify-c-center p-1" id="image">
+			<img
+				height="696"
+				ngSrc="assets/dummy-image.jpg"
+				width="1140"
+				[alt]="searchResult.name"
+			/>
+		</div>
+	</mat-card-content>
+</mat-card>

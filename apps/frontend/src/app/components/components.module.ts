@@ -6,6 +6,7 @@ import { RouterModule } from "@angular/router";
 import { DescribableBrowserComponent } from "./describables/describable-browser/describable-browser.component";
 import { DescribablePreviewComponent } from "./describables/describable-preview/describable-preview.component";
 import { InventoryPreviewComponent } from "./inventories/inventory-preview/inventory-preview.component";
+import { SearchResultPreviewComponent } from "./search-result-preview/search-result-preview.component";
 import { MaterialsModule } from "../materials/materials.module";
 import { TranslationModule } from "../translation";
 
@@ -17,6 +18,7 @@ import { TranslationModule } from "../translation";
 		InventoryPreviewComponent,
 		MaterialsModule,
 		ReactiveFormsModule,
+		SearchResultPreviewComponent,
 		TranslationModule
 	],
 	imports: [
@@ -27,6 +29,7 @@ import { TranslationModule } from "../translation";
 		MaterialsModule,
 		ReactiveFormsModule,
 		RouterModule,
+		SearchResultPreviewComponent,
 		TranslationModule
 	]
 })
