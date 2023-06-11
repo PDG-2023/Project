@@ -67,14 +67,16 @@
 		"item-model": {
 			"__meta": {
 				"names": "Item models"
-			}
+			},
+			"description": "Description",
+			"name": "Name"
 		},
 		"location": {
 			"__meta": {
 				"names": "Locations"
 			},
-			"description": null,
-			"name": null
+			"description": "Description",
+			"name": "Name"
 		},
 		"user": {
 			"__meta": {
@@ -156,6 +158,32 @@
 				"_1": "Therefore you cannot modify it."
 			},
 			"user-not-found": "The user '{{ email }}' was not found."
+		},
+		"item-model": {
+			"dialogs": {
+				"remove-category": {
+					"description": "This item model will no longer be show on the category.",
+					"title": "Remove the category"
+				}
+			},
+			"one": {
+				"title": {
+					"_0": "Item model",
+					"_1": ""
+				}
+			}
+		},
+		"item-model-edit": {
+			"dialogs": {
+				"delete": {
+					"description": "This action can not be reversed.",
+					"title": "Delete the item model?"
+				}
+			},
+			"visualize": "Visualize the item model"
+		},
+		"item-models": {
+			"title": "All item models"
 		},
 		"location-edit": {
 			"dialogs": {

@@ -33,4 +33,11 @@ export class ItemModelApiService extends EntityApiService<
 			query
 		);
 	}
+
+	public createForInventory(inventory: number, body: ItemModelCreateDto) {
+		return this.client.post<ItemModelDto>(
+			`${inventorySingleEntrypoint(inventory)}${ITEM_MODEL_API_ENDPOINT}`,
+			body
+		);
+	}
 }

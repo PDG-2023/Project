@@ -1,18 +1,32 @@
-<h1>
-	Item-models view for <span class="font-italic">{{ (inventoryCurrent$ | async)?.name }}</span>
-</h1>
+<div class="flex flex-col gap-4">
+	<h1 translate>views.item-models.title</h1>
 
-<div>
-	<ng-template #loading>Loading</ng-template>
+	<mat-card>
+		<mat-card-content>
+			<form class="flex flex-1" (ngSubmit)="addNewItemModel()">
+				<mat-form-field class="flex flex-1">
+					<mat-label translate>entities.category.name</mat-label>
+					<input matInput [formControl]="addItemNameControl" />
 
-	<div *ngIf="itemModels$ | async as categoryInfo; else loading" class="flex flex-col gap-4">
-		<h4>Tot : {{ categoryInfo.total }}</h4>
+					<button
+						mat-icon-button
+						matSuffix
+						type="submit"
+						[disabled]="addItemNameControl.dirty && addItemNameControl.invalid"
+					>
+						<mat-icon>add</mat-icon>
+					</button>
+				</mat-form-field>
+			</form>
+		</mat-card-content>
+	</mat-card>
 
-		<div class="flex flex-col gap-8">
-			<app-describable-preview
-				*ngFor="let location of categoryInfo.data"
-				[describable]="location"
-			></app-describable-preview>
-		</div>
-	</div>
+	<mat-card>
+		<mat-card-content class="flex flex-col gap-2">
+			<app-describable-browser
+				[initialSize]="50"
+				[loader]="loadItems.bind(this)"
+			></app-describable-browser>
+		</mat-card-content>
+	</mat-card>
 </div>

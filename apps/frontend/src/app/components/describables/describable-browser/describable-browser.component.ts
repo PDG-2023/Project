@@ -109,6 +109,13 @@ export class DescribableBrowserComponent<T extends DescribableDto = DescribableD
 	@ViewChild(MatPaginator)
 	private readonly paginator!: MatPaginator;
 
+	/**
+	 * @returns the data at the moment
+	 */
+	public get data() {
+		return this.dataState.data?.data;
+	}
+
 	public async ngOnInit() {
 		this.searchControl.setValue(this.initialSearch);
 
