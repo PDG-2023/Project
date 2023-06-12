@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { NotFoundView } from "./not-found.view";
+import { TranslationModule } from "../../translation";
 
 describe("NotFoundView", () => {
 	let component: NotFoundView;
@@ -8,7 +9,8 @@ describe("NotFoundView", () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [NotFoundView]
+			declarations: [NotFoundView],
+			imports: [TranslationModule]
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(NotFoundView);

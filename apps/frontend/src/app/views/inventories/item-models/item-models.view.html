@@ -1,0 +1,32 @@
+<div class="flex flex-col gap-4">
+	<h1 translate>views.item-models.title</h1>
+
+	<mat-card>
+		<mat-card-content>
+			<form class="flex flex-1" (ngSubmit)="addNewItemModel()">
+				<mat-form-field class="flex flex-1">
+					<mat-label translate>entities.category.name</mat-label>
+					<input matInput [formControl]="addItemNameControl" />
+
+					<button
+						mat-icon-button
+						matSuffix
+						type="submit"
+						[disabled]="addItemNameControl.dirty && addItemNameControl.invalid"
+					>
+						<mat-icon>add</mat-icon>
+					</button>
+				</mat-form-field>
+			</form>
+		</mat-card-content>
+	</mat-card>
+
+	<mat-card>
+		<mat-card-content class="flex flex-col gap-2">
+			<app-describable-browser
+				[initialSize]="50"
+				[loader]="loadItems.bind(this)"
+			></app-describable-browser>
+		</mat-card-content>
+	</mat-card>
+</div>

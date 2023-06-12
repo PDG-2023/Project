@@ -1,25 +1,48 @@
 import { APP_INITIALIZER, NgModule, Provider } from "@angular/core";
+import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { RouterModule } from "@angular/router";
 
-import { StyleguideButtonsComponent } from "./components/styleguide/styleguide-buttons/styleguide-buttons.component";
+import { DevNotifierSnackBar } from "./components/_lib/dev-notifier.snack-bar";
 import { DevView } from "./dev.view";
+import { DescribablePreviewView } from "./views/components/describable-preview/describable-preview.view";
 import { devRoutes } from "./views/dev.routes";
 import { IndexView } from "./views/index/index.view";
+import { StyleguideButtonsComponent } from "./views/styleguide/_lib/styleguide-buttons/styleguide-buttons.component";
 import { StyleguideView } from "./views/styleguide/styleguide.view";
 import { ComponentsModule } from "../app/components/components.module";
 
 export const DevInitializerProvider: Provider = {
+	deps: [MatSnackBar],
 	multi: true,
 	provide: APP_INITIALIZER,
-	useFactory: () => () => {
-		// TODO: use a snack/dialog/popup/... to notify that this page exists
-		// eslint-disable-next-line no-console -- TODO
-		console.log("!! `_dev` view available !!");
+	useFactory: (snackBar: MatSnackBar) => () => {
+		const value = window.sessionStorage.getItem(DevNotifierSnackBar.SESSION_KEY);
+		if (value === DevNotifierSnackBar.SESSION_NO_MORE) {
+			return;
+		}
+		if (window.location.pathname.startsWith("/_dev")) {
+			// Already in the dev page
+			return;
+		}
+
+		snackBar.openFromComponent(DevNotifierSnackBar, {
+			duration: 10000,
+			horizontalPosition: "center",
+			verticalPosition: "top"
+		});
 	}
 };
 
 @NgModule({
-	declarations: [DevView, IndexView, StyleguideButtonsComponent, StyleguideView],
+	declarations: [
+		DescribablePreviewView,
+		DevNotifierSnackBar,
+		DevView,
+		IndexView,
+		StyleguideButtonsComponent,
+		StyleguideView
+	],
+	exports: [MatSnackBarModule],
 	imports: [
 		ComponentsModule,
 		RouterModule.forChild([

@@ -1,5 +1,3 @@
-FROM node:18-alpine
-
 FROM nginx
 
 WORKDIR /srv

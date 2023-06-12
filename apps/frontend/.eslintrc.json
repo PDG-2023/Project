@@ -57,6 +57,44 @@
 			}
 		},
 		{
+			"files": [".eslintrc.json", ".prettierrc.json"],
+			"rules": {
+				/* OK for `rc` files */
+				"jsonc/no-comments": "off"
+			}
+		},
+		{
+			"extends": ["plugin:jsdoc/recommended"],
+			"files": ["*.ts", "*.js"],
+			"plugins": ["jsdoc"],
+			"rules": {
+				/* Hyphen is considerd as a bullet point in compodoc */
+				"jsdoc/require-hyphen-before-param-description": ["error", "never"],
+				"jsdoc/require-throws": "warn"
+			}
+		},
+		{
+			"excludedFiles": ["*.spec.js", "*.spec.ts", "src/dev/**"],
+			"files": ["*.ts", "*.js"],
+			"rules": {
+				"no-restricted-imports": [
+					"error",
+					{
+						"patterns": [
+							{
+								"group": ["*.spec"],
+								"message": "Test files must not be imported in other files (at least not app code)."
+							},
+							{
+								"group": ["**/../test"],
+								"message": "Test helpers code should not be imported in app code."
+							}
+						]
+					}
+				]
+			}
+		},
+		{
 			"extends": [
 				"plugin:@typescript-eslint/recommended",
 				"plugin:@typescript-eslint/recommended-requiring-type-checking",
@@ -74,7 +112,7 @@
 				"@angular-eslint/component-class-suffix": [
 					"error",
 					{
-						"suffixes": ["Component", "View"]
+						"suffixes": ["Component", "Dialog", "SnackBar", "View"]
 					}
 				],
 				"@angular-eslint/component-selector": [
@@ -139,7 +177,9 @@
 						"default": {
 							"memberTypes": [
 								"signature",
-								"static-field",
+								"public-static-field",
+								"protected-static-field",
+								"private-static-field",
 								"public-static-get",
 								"protected-static-get",
 								"private-static-get",
@@ -159,8 +199,8 @@
 								["private-instance-get", "private-instance-set"],
 								"constructor",
 								"public-abstract-method",
-								"protected-abstract-method",
 								"public-instance-method",
+								"protected-abstract-method",
 								"protected-instance-method",
 								"private-instance-method"
 							]
@@ -200,7 +240,9 @@
 				"@typescript-eslint/prefer-return-this-type": "error",
 				"@typescript-eslint/prefer-ts-expect-error": "error",
 				"@typescript-eslint/sort-type-constituents": "error",
-				"@typescript-eslint/type-annotation-spacing": "error"
+				"@typescript-eslint/type-annotation-spacing": "error",
+				"jsdoc/require-param-type": "off",
+				"jsdoc/require-returns-type": "off"
 			}
 		},
 		{
@@ -230,7 +272,7 @@
 			}
 		},
 		{
-			"files": ["*.view.ts"],
+			"files": ["*.dialog.ts", "*.snack-bar.ts", "*.view.ts"],
 			"rules": {
 				"@angular-eslint/use-component-selector": "off"
 			}
@@ -262,14 +304,43 @@
 				],
 				"spaced-comment": "off"
 			}
+		},
+		{
+			"extends": ["plugin:markdownlint/recommended"],
+			"files": ["*.md"],
+			"parser": "eslint-plugin-markdownlint/parser",
+			"rules": {
+				"markdownlint/md013": [
+					"error",
+					{
+						"line_length": 100
+					}
+				],
+				"markdownlint/md024": "off",
+				"markdownlint/md033": [
+					"error",
+					{
+						"allowed_elements": ["a", "img"]
+					}
+				],
+				"no-trailing-spaces": "off",
+				"prettier/prettier": "off"
+			}
+		},
+		{
+			"files": ["ANGULAR.md", "README.md"],
+			"rules": {
+				"unicorn/filename-case": "off"
+			}
 		}
 	],
 	"plugins": [
 		"eslint-plugin-import",
 		"sort-destructure-keys",
 		"typescript-sort-keys",
+		"prettier",
 		"unicorn",
-		"prettier"
+		"unused-imports"
 	],
 	"root": true,
 	"rules": {
@@ -415,6 +486,14 @@
 		"unicorn/prefer-includes": "error",
 		"unicorn/prefer-object-from-entries": "error",
 		"unicorn/prefer-optional-catch-binding": "error",
-		"unicorn/throw-new-error": "error"
+		"unicorn/throw-new-error": "error",
+		"unused-imports/no-unused-imports": "error",
+		"unused-imports/no-unused-vars": [
+			"warn",
+			{
+				"args": "after-used",
+				"argsIgnorePattern": "^_"
+			}
+		]
 	}
 }

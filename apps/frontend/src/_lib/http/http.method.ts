@@ -17,7 +17,6 @@ const allMethods: readonly HttpMethod[] = (
 
 /**
  * Verify that a given string is a valid HttpMethod
- *
  * @param method Method string to test
  * @returns If the given `method` is a valid [HttpMethod]{@link HttpMethod}
  */

@@ -1,0 +1,152 @@
+<div class="flex flex-col gap-8">
+	<div>
+		<h1>
+			{{ "entities.inventory.__meta.name" | translate }} -
+			<span class="font-italic">{{ inventory.name }}</span>
+		</h1>
+
+		<div *ngIf="!isOwner" class="flex flex-row align-i-center gap-4">
+			<mat-icon color="warn">warning</mat-icon>
+
+			<div>
+				<p translate>views.inventory.not-owner._0</p>
+				<p translate>views.inventory.not-owner._1</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="align-i-start flex flex-row flex-wrap gap-4 lg:gap-8">
+		<mat-card class="flex-1">
+			<mat-card-content class="flex flex-col gap-8">
+				<div class="mx-4">
+					<div class="flex flex-row flex-wrap gap-x-4">
+						<span translate>entities.entity.created</span>
+						<span class="flex flex-1 justify-c-end">{{
+							inventory.created | date : (dateFormat(inventory.created) | translate)
+						}}</span>
+					</div>
+					<div class="flex flex-row flex-wrap gap-x-4">
+						<span translate>entities.entity.updated</span>
+						<span class="flex flex-1 justify-c-end">{{
+							inventory.updated | date : (dateFormat(inventory.updated) | translate)
+						}}</span>
+					</div>
+				</div>
+
+				<form class="flex flex-col" (ngSubmit)="handleUpdate()">
+					<mat-form-field>
+						<mat-label translate>entities.inventory.name</mat-label>
+						<input
+							matInput
+							type="text"
+							[formControl]="nameControl"
+							[readonly]="!isOwner"
+						/>
+						<mat-error>{{ nameControl.errors | translateControlError }}</mat-error>
+					</mat-form-field>
+
+					<div class="flex justify-c-end">
+						<button
+							color="primary"
+							mat-raised-button
+							type="submit"
+							[disabled]="!isOwner"
+						>
+							{{ "actions.update" | translate }}
+						</button>
+					</div>
+				</form>
+			</mat-card-content>
+		</mat-card>
+
+		<mat-card class="flex-1 overflow-auto">
+			<mat-card-header>
+				<h2 mat-card-title translate>entities.user.__meta.names</h2>
+			</mat-card-header>
+
+			<mat-card-content class="flex flex-col gap-4">
+				<mat-progress-bar
+					*ngIf="usersState.loading"
+					mode="indeterminate"
+				></mat-progress-bar>
+
+				<section class="overflow-auto">
+					<table *ngIf="usersState.data" mat-table [dataSource]="usersState.data">
+						<tr *matHeaderRowDef="tblUser.columns()" mat-header-row></tr>
+						<tr *matRowDef="let row; columns: tblUser.columns()" mat-row></tr>
+
+						<ng-container matColumnDef="id">
+							<th *matHeaderCellDef mat-header-cell translate>entities.entity.id</th>
+							<td *matCellDef="let user" mat-cell>{{ tblUser.asUser(user).id }}</td>
+						</ng-container>
+
+						<ng-container matColumnDef="email" sticky>
+							<th *matHeaderCellDef mat-header-cell translate>entities.user.email</th>
+							<td *matCellDef="let user" mat-cell>
+								{{ tblUser.asUser(user).email }}
+							</td>
+						</ng-container>
+
+						<ng-container matColumnDef="firstName">
+							<th *matHeaderCellDef mat-header-cell translate>
+								entities.user.firstname
+							</th>
+							<td *matCellDef="let user" mat-cell>
+								{{ tblUser.asUser(user).firstName }}
+							</td>
+						</ng-container>
+
+						<ng-container matColumnDef="lastName">
+							<th *matHeaderCellDef mat-header-cell translate>
+								entities.user.lastname
+							</th>
+							<td *matCellDef="let user" mat-cell>
+								{{ tblUser.asUser(user).lastName }}
+							</td>
+						</ng-container>
+
+						<ng-container matColumnDef="actions">
+							<th *matHeaderCellDef mat-header-cell></th>
+							<td *matCellDef="let user" mat-cell>
+								<button
+									color="warn"
+									mat-icon-button
+									type="button"
+									(click)="removeUser(user)"
+								>
+									<mat-icon>delete</mat-icon>
+								</button>
+							</td>
+						</ng-container>
+					</table>
+				</section>
+
+				<div *ngIf="usersState.error" class="flex flex-row align-i-center gap-4">
+					<mat-icon>warning</mat-icon>
+					<span translate>views.inventory.error-users</span>
+				</div>
+			</mat-card-content>
+
+			<mat-card-actions *ngIf="isOwner" class="mt-4">
+				<form class="flex flex-1" (ngSubmit)="addUser()">
+					<mat-form-field class="flex flex-1">
+						<mat-label translate>entities.user.email</mat-label>
+						<input matInput [formControl]="userControl" />
+						<mat-error *ngIf="userControl.dirty && userControl.value">{{
+							displayUserError() | async
+						}}</mat-error>
+
+						<button
+							mat-icon-button
+							matSuffix
+							type="submit"
+							[disabled]="userControl.dirty && userControl.invalid"
+						>
+							<mat-icon>add</mat-icon>
+						</button>
+					</mat-form-field>
+				</form>
+			</mat-card-actions>
+		</mat-card>
+	</div>
+</div>

@@ -1,0 +1,121 @@
+<h1 translate xmlns="http://www.w3.org/1999/html">views.profile.your-profile</h1>
+
+<div class="flex flex-col justify-c-center gap-4">
+	<mat-card>
+		<mat-card-header class="mb-4 flex flex-row">
+			<h3 class="flex-1" translate>views.profile.your-informations</h3>
+
+			<button color="accent" mat-button type="button" (click)="handleLogout()">
+				<span translate>actions.logout</span>
+				<mat-icon iconPositionEnd>logout</mat-icon>
+			</button>
+		</mat-card-header>
+
+		<mat-card-content>
+			<div class="mb-4">
+				<div class="flex flex-row flex-wrap gap-x-4">
+					<span translate>views.profile.registration</span>
+					<span class="flex flex-1 justify-c-end">{{
+						user.created | date : ("formats.date" | translate)
+					}}</span>
+				</div>
+
+				<div class="flex flex-row flex-wrap gap-x-4">
+					<span translate>views.profile.last-update</span>
+					<span class="flex flex-1 justify-c-end">{{
+						user.updated | date : ("formats.datetime" | translate)
+					}}</span>
+				</div>
+			</div>
+
+			<form id="form-user" (ngSubmit)="handleUserSubmit()">
+				<div class="flex flex-1 flex-row flex-wrap gap-x-2">
+					<mat-form-field class="flex-1">
+						<mat-label translate>entities.user.email</mat-label>
+						<input matInput readonly type="email" [value]="user.email" />
+					</mat-form-field>
+
+					<mat-form-field class="flex-1">
+						<mat-label translate>entities.user.username</mat-label>
+						<input matInput readonly type="text" [value]="user.username" />
+					</mat-form-field>
+				</div>
+
+				<div class="flex flex-1 flex-row flex-wrap gap-x-2">
+					<mat-form-field class="flex-1">
+						<mat-label translate>entities.user.firstname</mat-label>
+						<input matInput type="text" [formControl]="userForm.controls.firstName" />
+					</mat-form-field>
+
+					<mat-form-field class="flex-1">
+						<mat-label translate>entities.user.lastname</mat-label>
+						<input matInput type="text" [formControl]="userForm.controls.lastName" />
+					</mat-form-field>
+				</div>
+
+				<div class="flex justify-c-end">
+					<button
+						color="primary"
+						mat-raised-button
+						type="submit"
+						[disabled]="userForm.invalid"
+					>
+						{{ "actions.update" | translate }}
+					</button>
+				</div>
+			</form>
+		</mat-card-content>
+	</mat-card>
+
+	<mat-card>
+		<mat-card-header class="align-i-center flex flex-row gap-2 mb-4">
+			<button
+				mat-mini-fab
+				type="button"
+				[color]="passwordLock ? 'accent' : 'primary'"
+				(click)="passwordLock = !passwordLock"
+			>
+				<mat-icon *ngIf="passwordLock">lock</mat-icon>
+				<mat-icon *ngIf="!passwordLock">lock_open</mat-icon>
+			</button>
+
+			<h3 translate>views.profile.update-password</h3>
+		</mat-card-header>
+
+		<mat-card-content>
+			<form class="flex flex-col" (ngSubmit)="handlePasswordSubmit()">
+				<mat-form-field class="flex-1">
+					<mat-label translate>entities.user.password</mat-label>
+					<input
+						matInput
+						[formControl]="passwordForm"
+						[readonly]="passwordLock"
+						[type]="passwordShow ? 'text' : 'password'"
+					/>
+
+					<button
+						mat-icon-button
+						matSuffix
+						type="button"
+						[disabled]="passwordLock"
+						(click)="passwordShow = !passwordShow"
+					>
+						<mat-icon *ngIf="!passwordShow">visibility</mat-icon>
+						<mat-icon *ngIf="passwordShow">visibility_off</mat-icon>
+					</button>
+				</mat-form-field>
+
+				<div class="flex justify-c-end">
+					<button
+						color="primary"
+						mat-raised-button
+						type="submit"
+						[disabled]="userForm.invalid || passwordLock"
+					>
+						{{ "actions.update" | translate }}
+					</button>
+				</div>
+			</form>
+		</mat-card-content>
+	</mat-card>
+</div>

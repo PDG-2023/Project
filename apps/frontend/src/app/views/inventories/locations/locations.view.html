@@ -1,0 +1,102 @@
+<div class="flex flex-col gap-4">
+	<h1 *ngIf="!locationState">{{ "entities.location.__meta.names" | translate }}</h1>
+	<h1 *ngIf="locationState">
+		{{ "views.locations.one.title._0" | translate }}
+		<span class="font-italic">{{ locationState.data?.name || "???" }}</span>
+		{{ "views.locations.one.title._1" | translate }}
+	</h1>
+
+	<p class="flex flex-row flex-wrap gap-x-2 mb-2 mx-2" id="path-location">
+		<span class="path-location root"><a [routerLink]="ROOT_PATH">root</a></span>
+		<span *ngFor="let parent of parents" class="children path-location">
+			<a class="font-italic" [routerLink]="getLocationHrefShow(parent)">
+				{{ parent.name }}
+			</a>
+		</span>
+	</p>
+
+	<mat-card *ngIf="locationState">
+		<mat-card-content class="flex flex-col gap-4">
+			<div *ngIf="locationState.error" class="flex flex-row gap-2 align-i-center">
+				<mat-icon color="warn">warning</mat-icon>
+				<span translate>errors.occurred</span>
+			</div>
+
+			<div *ngIf="locationState.data as location" class="flex flex-col gap-2">
+				<div class="mx-4">
+					<div class="flex flex-row flex-wrap gap-x-4">
+						<span translate>entities.entity.created</span>
+						<span class="flex flex-1 justify-c-end">
+							{{ location.created | date : ("formats.datetime" | translate) }}
+						</span>
+					</div>
+					<div class="flex flex-row flex-wrap gap-x-4">
+						<span translate>entities.entity.updated</span>
+						<span class="flex flex-1 justify-c-end">
+							{{ location.updated | date : ("formats.datetime" | translate) }}
+						</span>
+					</div>
+				</div>
+
+				<p *ngIf="location.description">{{ location.description }}</p>
+
+				<div class="flex flex-row justify-c-end">
+					<a
+						color="accent"
+						mat-mini-fab
+						type="button"
+						[routerLink]="getLocationHrefEdit(location)"
+					>
+						<mat-icon>edit</mat-icon>
+					</a>
+				</div>
+			</div>
+		</mat-card-content>
+	</mat-card>
+
+	<ng-template #tplBrowserLocation>
+		<div class="flex flex-col gap-2">
+			<app-describable-browser
+				#browserLocations
+				[loader]="loadLocations.bind(this)"
+				(remove)="handleLocationRemove($event)"
+			></app-describable-browser>
+
+			<form class="flex flex-1" (ngSubmit)="addNewLocation()">
+				<mat-form-field class="flex flex-1">
+					<mat-label translate>entities.location.name</mat-label>
+					<input matInput [formControl]="addLocationNameControl" />
+
+					<button
+						mat-icon-button
+						matSuffix
+						type="submit"
+						[disabled]="addLocationNameControl.dirty && addLocationNameControl.invalid"
+					>
+						<mat-icon>add</mat-icon>
+					</button>
+				</mat-form-field>
+			</form>
+		</div>
+	</ng-template>
+
+	<mat-card>
+		<mat-card-content *ngIf="!locationState">
+			<ng-container *ngTemplateOutlet="tplBrowserLocation"></ng-container>
+		</mat-card-content>
+
+		<mat-card-content *ngIf="locationState">
+			<mat-tab-group>
+				<mat-tab [label]="'entities.item-model.__meta.names' | translate">
+					<app-describable-browser
+						#browserItems
+						[loader]="loadItems.bind(this)"
+					></app-describable-browser>
+				</mat-tab>
+				<mat-tab [label]="'entities.location.__meta.names' | translate">
+					<ng-container *ngTemplateOutlet="tplBrowserLocation"></ng-container>
+				</mat-tab>
+			</mat-tab-group>
+		</mat-card-content>
+	</mat-card>
+</div>

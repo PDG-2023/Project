@@ -1,0 +1,103 @@
+<div class="flex flex-col gap-4">
+	<h1 *ngIf="!categoryState" translate>views.categories.roots.title</h1>
+	<h1 *ngIf="categoryState">
+		{{ "views.categories.one.title._0" | translate }}
+		<span class="font-italic">{{ categoryState.data?.name || "???" }}</span>
+		{{ "views.categories.one.title._1" | translate }}
+	</h1>
+
+	<p class="flex flex-row flex-wrap gap-x-2 mb-2 mx-2" id="path-category">
+		<span class="path-category root"><a [routerLink]="ROOT_PATH">root</a></span>
+		<span *ngFor="let parent of parents" class="children path-category">
+			<a class="font-italic" [routerLink]="getCategoryHrefShow(parent)">
+				{{ parent.name }}
+			</a>
+		</span>
+	</p>
+
+	<mat-card *ngIf="categoryState">
+		<mat-card-content class="flex flex-col gap-4">
+			<div *ngIf="categoryState.error" class="flex flex-row gap-2 align-i-center">
+				<mat-icon color="warn">warning</mat-icon>
+				<span translate>errors.occurred</span>
+			</div>
+
+			<div *ngIf="categoryState.data as category" class="flex flex-col gap-2">
+				<div class="mx-4">
+					<div class="flex flex-row flex-wrap gap-x-4">
+						<span translate>entities.entity.created</span>
+						<span class="flex flex-1 justify-c-end">
+							{{ category.created | date : ("formats.datetime" | translate) }}</span
+						>
+					</div>
+					<div class="flex flex-row flex-wrap gap-x-4">
+						<span translate>entities.entity.updated</span>
+						<span class="flex flex-1 justify-c-end">
+							{{ category.updated | date : ("formats.datetime" | translate) }}</span
+						>
+					</div>
+				</div>
+
+				<p *ngIf="category.description">{{ category.description }}</p>
+
+				<div class="flex flex-row justify-c-end">
+					<a
+						color="accent"
+						mat-mini-fab
+						type="button"
+						[routerLink]="getCategoryHrefEdit(category)"
+					>
+						<mat-icon>edit</mat-icon>
+					</a>
+				</div>
+			</div>
+		</mat-card-content>
+	</mat-card>
+
+	<ng-template #tplBrowserCategories>
+		<div class="flex flex-col gap-2">
+			<app-describable-browser
+				#browserCategories
+				[loader]="loadCategories.bind(this)"
+				(remove)="handleCategoryRemove($event)"
+			></app-describable-browser>
+
+			<form class="flex flex-1" (ngSubmit)="addNewCategory()">
+				<mat-form-field class="flex flex-1">
+					<mat-label translate>entities.category.name</mat-label>
+					<input matInput [formControl]="addCategoryNameControl" />
+
+					<button
+						mat-icon-button
+						matSuffix
+						type="submit"
+						[disabled]="addCategoryNameControl.dirty && addCategoryNameControl.invalid"
+					>
+						<mat-icon>add</mat-icon>
+					</button>
+				</mat-form-field>
+			</form>
+		</div>
+	</ng-template>
+
+	<mat-card>
+		<mat-card-content *ngIf="!categoryState">
+			<ng-container *ngTemplateOutlet="tplBrowserCategories"></ng-container>
+		</mat-card-content>
+
+		<mat-card-content *ngIf="categoryState">
+			<mat-tab-group>
+				<mat-tab [label]="'entities.item-model.__meta.names' | translate">
+					<app-describable-browser
+						#browserItems
+						[loader]="loadItems.bind(this)"
+						(remove)="handleItemRemove($event)"
+					></app-describable-browser>
+				</mat-tab>
+				<mat-tab [label]="'entities.category.__meta.names' | translate">
+					<ng-container *ngTemplateOutlet="tplBrowserCategories"></ng-container>
+				</mat-tab>
+			</mat-tab-group>
+		</mat-card-content>
+	</mat-card>
+</div>

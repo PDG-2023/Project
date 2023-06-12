@@ -19,7 +19,7 @@
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitOverride": true,
 		"noImplicitReturns": true,
-		"noPropertyAccessFromIndexSignature": true,
+		"noPropertyAccessFromIndexSignature": false,
 		"outDir": "./dist/out-tsc",
 		"removeComments": true,
 		"resolveJsonModule": true,

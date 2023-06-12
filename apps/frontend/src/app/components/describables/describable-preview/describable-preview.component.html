@@ -1,0 +1,68 @@
+<mat-expansion-panel
+	#panel
+	hideToggle
+	[expanded]="expanded"
+	[class.with-children]="hasChildren"
+	(expandedChange)="expandedChange.emit($event)"
+>
+	<mat-expansion-panel-header>
+		<mat-panel-title>{{ describable.name }}</mat-panel-title>
+
+		<mat-panel-description class="flex-0 mr-0">
+			<img
+				src="assets/dummy-image.jpg"
+				[alt]="describable.name"
+				[class.fade-out]="panel.expanded"
+			/>
+
+			<ng-container>
+				<mat-menu #menu>
+					<a mat-menu-item [routerLink]="hrefEdit">
+						<mat-icon>edit</mat-icon>
+						<span translate>actions.edit</span>
+					</a>
+					<button
+						*ngIf="canRemove"
+						mat-menu-item
+						type="button"
+						(click)="remove.emit(describable)"
+					>
+						<mat-icon color="warn">remove</mat-icon>
+						<span translate>actions.remove</span>
+					</button>
+				</mat-menu>
+
+				<button
+					mat-icon-button
+					type="button"
+					[class.fade-out]="!panel.expanded"
+					[matMenuTriggerFor]="menu"
+					(click)="$event.stopPropagation()"
+				>
+					<mat-icon>more_vert</mat-icon>
+				</button>
+			</ng-container>
+		</mat-panel-description>
+	</mat-expansion-panel-header>
+
+	<div class="flex flex-col md:flex-row" id="content">
+		<div id="image">
+			<img src="assets/dummy-image.jpg" [alt]="describable.name" />
+		</div>
+
+		<div class="flex flex-1 flex-col gap-8 p-4" id="describable-description">
+			<p *ngIf="describable.description" class="flex-1">
+				{{ describable.description }}
+			</p>
+			<p *ngIf="!describable.description" class="flex-1 font-italic" translate>
+				components.describable-preview.description-none
+			</p>
+
+			<div class="flex justify-c-end">
+				<a color="primary" extended mat-fab [routerLink]="hrefShow">
+					{{ "actions.show" | translate }}</a
+				>
+			</div>
+		</div>
+	</div>
+</mat-expansion-panel>

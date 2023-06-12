@@ -1,0 +1,7 @@
+<h1 translate>views.inventory.error-view.title</h1>
+
+<ng-template #anyError>
+	<p translate>views.inventory.error-view.error-any</p>
+</ng-template>
+
+<p *ngIf="error.status === 404; else anyError" translate>views.inventory.error-view.not-found</p>

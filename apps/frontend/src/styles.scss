@@ -1,12 +1,60 @@
+@use "./styles/tw";
+@use "./styles/utils";
 @import "./styles/material";
-@import "./styles/tw";
 
 html,
 body {
 	height: 100%;
+
+	// In case an element is no longer visible
+	background-color: #fafafa;
 }
+
+h3,
+h4,
+h5,
+h6,
+p {
+	margin: 0;
+}
+
+@include utils.css-vars;
 
 body {
 	font-family: Roboto, "Helvetica Neue", sans-serif;
 	margin: 0;
+
+	// inside `body` to take priority over material classes
+	@include tw.base;
+	@include tw.base("hover", "hover");
+
+	@each $breakpoint, $_ in utils.$breakpoints {
+		@include utils.screen-breakpoint($breakpoint) {
+			@include tw.base($breakpoint);
+			@include tw.base("#{$breakpoint}\\/hover", "hover");
+		}
+
+		@include utils.screen-breakpoint($breakpoint, true) {
+			@include tw.base("#{$breakpoint}-max");
+		}
+	}
+}
+
+// By default, all routed component take all the remaining place
+router-outlet + * {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+}
+
+img {
+	height: 100%;
+	width: 100%;
+
+	object-fit: contain;
+}
+
+// ~= Link button
+a.mdc-button {
+	text-decoration: none;
 }

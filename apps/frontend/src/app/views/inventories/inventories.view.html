@@ -1,0 +1,13 @@
+<h1 translate>components.sidebar.your-inventories</h1>
+
+<div class="flex flex-col gap-4">
+	<app-inventory-preview
+		*ngFor="let inventory of inventories"
+		class="cursor-pointer"
+		[inventory]="inventory.inventory"
+		[isOwner]="inventory.isOwner"
+		[routerLink]="InventoryView.getPath(inventory.inventory.id)"
+		[selected]="inventory.inventory.id === current?.id"
+		(setCurrentClick)="setCurrent($event)"
+	></app-inventory-preview>
+</div>

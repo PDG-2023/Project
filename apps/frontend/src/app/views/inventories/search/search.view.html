@@ -1,0 +1,54 @@
+<h1>Inventory search</h1>
+
+<mat-card>
+	<mat-card-content>
+		<form class="flex flex-1" (ngSubmit)="handleSearch()">
+			<mat-form-field class="flex-1">
+				<mat-label translate>actions.search</mat-label>
+				<input matInput [formControl]="searchControl" />
+
+				<mat-spinner
+					*ngIf="searchState.loading"
+					diameter="18"
+					matTextSuffix
+					mode="indeterminate"
+				></mat-spinner>
+
+				<button
+					*ngIf="!searchState.loading && searchControl.value"
+					mat-icon-button
+					matSuffix
+					type="button"
+					(click)="clearSearch()"
+				>
+					<mat-icon>close</mat-icon>
+				</button>
+
+				<mat-icon *ngIf="!searchState.loading && !searchControl.value" matSuffix
+					>search</mat-icon
+				>
+			</mat-form-field>
+		</form>
+
+		<mat-tab-group *ngIf="searchState.data as searchResults">
+			<mat-tab *ngFor="let tab of resultTabs" [label]="(tab.label | async) ?? ''">
+				<div class="flex flex-col gap-4 my-2">
+					<div
+						*ngIf="searchResults[tab.type].length === 0"
+						class="flex align-i-center justify-c-center p-4"
+						translate
+					>
+						views.search.no-results
+					</div>
+
+					<app-search-result-preview
+						*ngFor="let result of searchResults[tab.type]"
+						[class.cursor-pointer]="!!tab.href"
+						[routerLink]="tab.href ? tab.href(result) : null"
+						[searchResult]="result"
+					></app-search-result-preview>
+				</div>
+			</mat-tab>
+		</mat-tab-group>
+	</mat-card-content>
+</mat-card>
